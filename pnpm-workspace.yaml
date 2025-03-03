@@ -34,7 +34,6 @@ catalog:
   # Waiting for this to be merged: https://github.com/Menci/vite-plugin-top-level-await/pull/63
   vite: 6.0.6
   vitest: 3.0.4
-  "rrule-rust": 2.1.0-alpha.6
   clsx: ^2.1.1
 
   pino: 9.6.0

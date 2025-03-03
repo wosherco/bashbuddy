@@ -60,7 +60,6 @@
   },
   "prettier": "@bashbuddy/prettier-config",
   "dependencies": {
-    "rrule-rust": "catalog:",
     "@sentry/sveltekit": "^8.50.0",
     "@bashbuddy/logger": "workspace:*",
     "@bashbuddy/consts": "workspace:*",
