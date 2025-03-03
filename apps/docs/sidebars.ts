@@ -19,17 +19,7 @@ const sidebars: SidebarsConfig = {
     {
       type: "category",
       label: "Installation",
-      items: [
-        "installation",
-        "installation/macos-installation",
-        "installation/linux-installation",
-        "installation/windows-installation",
-        "installation/npm-installation",
-        "installation/yarn-installation",
-        "installation/source-installation",
-        "installation/shell-integration",
-        "installation/troubleshooting",
-      ],
+      items: ["installation"],
     },
   ],
 

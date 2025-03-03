@@ -29,7 +29,3 @@ sidebar_position: 1
 ## Next Steps
 
 Now that you understand what BashBuddy is, you can:
-
-- [Install BashBuddy](/installation) on your system
-- [Learn basic commands](/basic-commands) to get started
-- [Explore advanced features](/advanced-features) for power users
