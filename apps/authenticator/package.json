@@ -62,7 +62,6 @@
     "@sentry/sveltekit": "^8.50.0",
     "@bashbuddy/consts": "workspace:*",
     "arctic": "^2.2.2",
-    "fsevents": "^2.3.3",
     "googleapis": "^144.0.0",
     "js-cookie": "^3.0.5",
     "socketless.ws": "^1.5.2"

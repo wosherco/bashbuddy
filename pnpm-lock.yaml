@@ -310,9 +310,6 @@ importers:
       arctic:
         specifier: ^2.2.2
         version: 2.3.4
-      fsevents:
-        specifier: ^2.3.3
-        version: 2.3.3
       googleapis:
         specifier: ^144.0.0
         version: 144.0.0
@@ -442,7 +439,7 @@ importers:
         version: 0.10.0
       '@sentry/bun':
         specifier: ^8.50.0
-        version: 8.54.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.28.0)
+        version: 8.54.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.28.0)
       '@streamparser/json-node':
         specifier: ^0.0.22
         version: 0.0.22
@@ -571,9 +568,6 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.15
         version: 0.5.16(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.10.14(@swc/helpers@0.5.15))(@types/node@22.13.1)(typescript@5.7.3)))
-      fsevents:
-        specifier: ^2.3.3
-        version: 2.3.3
       lucide-svelte:
         specifier: 'catalog:'
         version: 0.473.0(svelte@5.19.7)
@@ -706,7 +700,7 @@ importers:
         version: 1.4.1
       '@sentry/bun':
         specifier: ^8.50.0
-        version: 8.54.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.28.0)
+        version: 8.54.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.28.0)
       '@t3-oss/env-core':
         specifier: 'catalog:'
         version: 0.11.1(typescript@5.7.3)(zod@3.24.1)
@@ -20955,7 +20949,8 @@ snapshots:
   fsevents@2.3.2:
     optional: true
 
-  fsevents@2.3.3: {}
+  fsevents@2.3.3:
+    optional: true
 
   function-bind@1.1.2: {}
 
