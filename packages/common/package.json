@@ -1,0 +1,37 @@
+{
+  "name": "@bashbuddy/common",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./poldash": {
+      "types": "./dist/poldash/index.d.ts",
+      "default": "./src/poldash/index.ts"
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "bun tsc",
+    "dev": "bun tsc --watch",
+    "clean": "rm -rf .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "bun tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@bashbuddy/validators": "workspace:*"
+  },
+  "devDependencies": {
+    "@bashbuddy/eslint-config": "workspace:*",
+    "@bashbuddy/prettier-config": "workspace:*",
+    "@bashbuddy/tsconfig": "workspace:*",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
+  },
+  "prettier": "@bashbuddy/prettier-config"
+}

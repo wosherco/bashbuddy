@@ -1,0 +1,44 @@
+services:
+  landing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: landing
+    image: bashbuddy/landing
+    env_file:
+      - .env
+    ports:
+      - 3002:3002
+
+  account:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: account
+    image: bashbuddy/account
+    env_file:
+      - .env
+    ports:
+      - 5174:5174
+
+  authenticator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: authenticator
+    image: bashbuddy/authenticator
+    env_file:
+      - .env
+    ports:
+      - 5173:5173
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: server
+    image: bashbuddy/server
+    env_file:
+      - .env
+    ports:
+      - 3001:3001

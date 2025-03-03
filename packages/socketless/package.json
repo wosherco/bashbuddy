@@ -1,0 +1,37 @@
+{
+  "name": "@bashbuddy/socketless",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./env": "./env.ts"
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "tsc --watch",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@bashbuddy/validators": "workspace:*",
+    "@t3-oss/env-core": "catalog:",
+    "socketless.ws": "^1.5.2"
+  },
+  "devDependencies": {
+    "@bashbuddy/eslint-config": "workspace:*",
+    "@bashbuddy/prettier-config": "workspace:*",
+    "@bashbuddy/tsconfig": "workspace:*",
+    "dotenv-cli": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
+  },
+  "prettier": "@bashbuddy/prettier-config"
+}

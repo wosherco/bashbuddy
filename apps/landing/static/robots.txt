@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Allow: /*
+Sitemap: https://bashbuddy.run/sitemap-index.xml

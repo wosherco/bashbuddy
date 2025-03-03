@@ -1,0 +1,45 @@
+{
+  "name": "@bashbuddy/email",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./src/index.tsx"
+    },
+    "./env": "./src/env.ts"
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "tsc --watch & email dev --port 8026",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@react-email/components": "0.0.32",
+    "@t3-oss/env-core": "catalog:",
+    "nodemailer": "^6.9.16",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@bashbuddy/envs": "workspace:*",
+    "@bashbuddy/eslint-config": "workspace:*",
+    "@bashbuddy/prettier-config": "workspace:*",
+    "@bashbuddy/tsconfig": "workspace:*",
+    "@types/nodemailer": "^6.4.17",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "dotenv-cli": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-email": "3.0.6",
+    "typescript": "catalog:"
+  },
+  "prettier": "@bashbuddy/prettier-config"
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "hello_world": "Hello, {name} from es!",
+  "nav_home": "Inicio",
+  "nav_blog": "Blog",
+  "nav_get_beta": "Obtener Beta",
+  "nav_login": "Ir a cuenta",
+  "nav_contact": "Contacto",
+  "nav_download": "Descargar",
+  "footer_created_by": "Creado con 💓 por",
+  "footer_rights": "Todos los derechos reservados.",
+  "footer_x_alt": "Cuenta X de @wosherco"
+}

@@ -1,0 +1,45 @@
+{
+  "name": "create-t3-turbo",
+  "private": true,
+  "engines": {
+    "node": ">=20.12.0"
+  },
+  "packageManager": "pnpm@9.12.2",
+  "scripts": {
+    "build": "turbo build",
+    "build:env": "infisical run -env dev -- turbo build",
+    "clean": "git clean -xdf node_modules",
+    "clean:workspaces": "turbo clean",
+    "db:push": "pnpm -F db push",
+    "db:studio": "pnpm -F db studio",
+    "db:up": "pnpm -F db db:up",
+    "db:generate": "pnpm -F db db:generate",
+    "dev": "PUBLIC_ENVIRONMENT=development infisical run --env dev -- turbo watch dev --continue --concurrency 30",
+    "dev:dotenv": "PUBLIC_ENVIRONMENT=development dotenv -e ./.env -- turbo watch dev --continue --concurrency 30",
+    "format": "turbo format --continue -- --cache --cache-location .cache/.prettiercache",
+    "format:fix": "turbo format --continue -- --write --cache --cache-location .cache/.prettiercache",
+    "lint": "turbo lint --continue -- --cache --cache-location .cache/.eslintcache",
+    "lint:fix": "turbo lint --continue -- --fix --cache --cache-location .cache/.eslintcache",
+    "lint:ws": "pnpm dlx sherif@0.11.0",
+    "precommit": "pnpm typecheck && pnpm lint:fix && pnpm list && pnpm format:fix && pnpm format && pnpm build",
+    "pc": "pnpm run precommit",
+    "postinstall": "pnpm lint:ws",
+    "typecheck": "turbo typecheck",
+    "ui-add": "pnpm -F ui ui-add",
+    "test": "vitest",
+    "test:watch": "vitest --watch"
+  },
+  "dependencies": {
+    "bun": "1.2.4",
+    "vitest": "catalog:",
+    "@infisical/cli": "0.34.2"
+  },
+  "devDependencies": {
+    "@bashbuddy/prettier-config": "workspace:*",
+    "@turbo/gen": "^2.3.1",
+    "prettier": "catalog:",
+    "turbo": "^2.3.1",
+    "typescript": "catalog:"
+  },
+  "prettier": "@bashbuddy/prettier-config"
+}

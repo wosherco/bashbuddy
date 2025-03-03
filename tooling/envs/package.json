@@ -1,0 +1,27 @@
+{
+  "name": "@bashbuddy/envs",
+  "private": true,
+  "version": "0.3.0",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./ngrok": "./ngrok.ts",
+    "./urls": "./urls.ts"
+  },
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "typecheck": "tsc --noEmit",
+    "ensure-env": "bun run ./ensureEnv.ts"
+  },
+  "devDependencies": {
+    "@t3-oss/env-core": "catalog:",
+    "@bashbuddy/prettier-config": "workspace:*",
+    "@bashbuddy/eslint-config": "workspace:*",
+    "@bashbuddy/tsconfig": "workspace:*",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
+  },
+  "prettier": "@bashbuddy/prettier-config"
+}

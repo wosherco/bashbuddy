@@ -1,0 +1,5 @@
+{
+  "extends": "@bashbuddy/tsconfig/internal-package.json",
+  "include": ["src", "*.ts", "../api/src/logic/actions"],
+  "exclude": ["node_modules"]
+}

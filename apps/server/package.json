@@ -1,0 +1,47 @@
+{
+  "name": "@bashbuddy/server",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "start:env": "infisical run --env prod -- bun run src/index.ts",
+    "dev": "PUBLIC_ENVIRONMENT=development bun run --watch src/index.ts",
+    "dev:env": "infisical run --env dev -- pnpm dev",
+    "dev:dotenv": "dotenv -e ../../.env -- pnpm dev",
+    "clean": "rm -rf .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "devDependencies": {
+    "@bashbuddy/envs": "workspace:*",
+    "@bashbuddy/eslint-config": "workspace:*",
+    "@bashbuddy/prettier-config": "workspace:*",
+    "@bashbuddy/tsconfig": "workspace:*",
+    "@bashbuddy/opentelemetry": "workspace:*",
+    "@types/bun": "latest",
+    "dotenv-cli": "7.4.2",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "hono-pino": "catalog:"
+  },
+  "dependencies": {
+    "@hono/trpc-server": "^0.3.2",
+    "@bashbuddy/api": "workspace:*",
+    "@bashbuddy/auth": "workspace:*",
+    "@bashbuddy/db": "workspace:*",
+    "@bashbuddy/stripe": "workspace:*",
+    "@bashbuddy/logger": "workspace:*",
+    "@ngrok/ngrok": "^1.4.1",
+    "@sentry/bun": "^8.50.0",
+    "@t3-oss/env-core": "catalog:",
+    "@trpc/server": "catalog:",
+    "elysia": "^1.2.23",
+    "@elysiajs/trpc": "^1.1.0",
+    "@elysiajs/cors": "^1.0.0",
+    "zod": "catalog:"
+  },
+  "prettier": "@bashbuddy/prettier-config"
+}

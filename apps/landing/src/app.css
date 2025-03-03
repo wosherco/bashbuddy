@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 264 19% 95%;
+    --foreground: 264 5% 0%;
+    --card: 264 19% 90%;
+    --card-foreground: 264 5% 10%;
+    --popover: 264 19% 95%;
+    --popover-foreground: 264 95% 0%;
+    --primary: 264 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 264 19% 70%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 226 19% 85%;
+    --muted-foreground: 264 5% 35%;
+    --accent: 226 19% 80%;
+    --accent-foreground: 264 5% 10%;
+    --destructive: 0 50% 30%;
+    --destructive-foreground: 264 5% 90%;
+    --border: 264 20% 50%;
+    --input: 264 20% 18%;
+    --ring: 264 100% 50%;
+    --radius: 1rem;
+  }
+  .dark {
+    --background: 264 19% 5%;
+    --foreground: 264 5% 90%;
+    --card: 264 19% 0%;
+    --card-foreground: 264 5% 90%;
+    --popover: 264 19% 5%;
+    --popover-foreground: 264 5% 90%;
+    --primary: 264 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 264 19% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 226 19% 15%;
+    --muted-foreground: 264 5% 60%;
+    --accent: 226 19% 15%;
+    --accent-foreground: 264 5% 90%;
+    --destructive: 0 50% 30%;
+    --destructive-foreground: 264 5% 90%;
+    --border: 264 20% 18%;
+    --input: 264 20% 18%;
+    --ring: 264 100% 50%;
+    --radius: 1rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.hero-grid-scene {
+  perspective: 200px;
+}
+
+.hero-grid {
+  background-image: repeating-linear-gradient(
+      rgba(204, 204, 204, 0.3) 0 1px,
+      transparent 1px 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(204, 204, 204, 0.3) 0 1px,
+      transparent 1px 100%
+    );
+  background-size: 50px 25px;
+  transform: rotateX(45deg);
+  animation: gridMove 5s linear infinite;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Fade overlays */
+.hero-grid-scene::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--background) / 1) 40%,
+    hsl(var(--background) / 0.8) 50%,
+    hsl(var(--background) / 0) 60%,
+    hsl(var(--background) / 0.8) 70%,
+    hsl(var(--background) / 1) 80%
+  );
+}
+
+.hero-grid-scene::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    hsl(var(--background) / 1) 0%,
+    hsl(var(--background) / 0) 5%,
+    hsl(var(--background) / 0) 95%,
+    hsl(var(--background) / 1) 100%
+  );
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translateX(0) rotateX(45deg);
+  }
+  100% {
+    transform: translateX(-50px) rotateX(45deg);
+  }
+}

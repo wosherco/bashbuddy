@@ -1,0 +1,35 @@
+{
+  "name": "@bashbuddy/components",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./src/*": {
+      "default": "./src/*.svelte"
+    }
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "svelte-check --tsconfig ./tsconfig.json --watch",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "typecheck": "svelte-check --tsconfig ./tsconfig.json",
+    "typecheck:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "svelte": "catalog:",
+    "svelte-check": "catalog:"
+  },
+  "devDependencies": {
+    "@bashbuddy/eslint-config": "workspace:*",
+    "@bashbuddy/prettier-config": "workspace:*",
+    "@bashbuddy/tsconfig": "workspace:*",
+    "dotenv-cli": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
+  },
+  "prettier": "@bashbuddy/prettier-config"
+}

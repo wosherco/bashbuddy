@@ -1,0 +1,54 @@
+{
+  "name": "@bashbuddy/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./client": {
+      "types": "./dist/src/client.d.ts",
+      "default": "./src/client.ts"
+    },
+    "./schema": {
+      "types": "./dist/src/schema/index.d.ts",
+      "default": "./src/schema/index.ts"
+    },
+    "./env": "./env.ts"
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "tsc --watch",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "push": "infisical run --env dev -- drizzle-kit push",
+    "generate": "infisical run --env dev -- drizzle-kit generate",
+    "migrate": "infisical run --env dev -- drizzle-kit migrate",
+    "studio": "infisical run --env dev -- drizzle-kit studio",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@bashbuddy/validators": "workspace:*",
+    "@bashbuddy/envs": "workspace:*",
+    "@t3-oss/env-core": "catalog:",
+    "drizzle-orm": "0.39.3",
+    "nanoid": "5.0.9",
+    "postgres": "^3.4.5",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@bashbuddy/eslint-config": "workspace:*",
+    "@bashbuddy/prettier-config": "workspace:*",
+    "@bashbuddy/tsconfig": "workspace:*",
+    "dotenv-cli": "catalog:",
+    "drizzle-kit": "0.28.0",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
+  },
+  "prettier": "@bashbuddy/prettier-config"
+}
