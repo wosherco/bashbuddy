@@ -12,13 +12,13 @@ export function pinoLogger({ isBrowser = false }: LoggerOptions = {}) {
   const isDevelopment = env.PUBLIC_ENVIRONMENT === "development";
 
   const baseOptions: pino.LoggerOptions = {
-    level: env.LOG_LEVEL,
+    level: env.LOG_LEVEL ?? "info",
     browser: {
       write: {
         info: (o) => console.info(o),
         error: (o) => console.error(o),
         warn: (o) => console.warn(o),
-        debug: (o) => console.debug(o),
+        debug: (o) => console.info(o),
         trace: (o) => console.trace(o),
         fatal: (o) => console.error(o),
       },

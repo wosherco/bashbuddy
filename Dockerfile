@@ -27,6 +27,10 @@ FROM base AS deps
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 FROM deps AS build
+
+ENV NODE_ENV=production
+ENV LOG_LEVEL=info
+
 RUN pnpm -F envs ensure-env
 # TODO: Build the rest
 RUN CI=1 pnpm build
@@ -74,17 +78,20 @@ CMD ["pnpm", "-F", "authenticator", "start:env"]
 ##########################
 FROM caddy:2-alpine AS landing
 COPY --from=build /app/apps/landing/build /usr/share/caddy
+COPY ./infra/Caddyfile /etc/caddy/Caddyfile
 
-EXPOSE 5175
+EXPOSE 80
+EXPOSE 443
 
-ENV PORT=5175
+#######################
+#      apps/docs      #
+#######################
+FROM caddy:2-alpine AS docs
+COPY --from=build /app/apps/docs/build /usr/share/caddy
+COPY ./infra/Caddyfile /etc/caddy/Caddyfile
 
-RUN printf ":{$PORT} {\n\
-    root * /usr/share/caddy\n\
-    encode gzip\n\
-    try_files {path} /index.html\n\
-    file_server\n\
-}\n" > /etc/caddy/Caddyfile
+EXPOSE 80
+EXPOSE 443
 
 #########################
 #       apps/server     #

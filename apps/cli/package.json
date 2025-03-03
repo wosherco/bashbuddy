@@ -8,7 +8,6 @@
   },
   "scripts": {
     "start": "NODE_ENV=development bun run bin/index.ts",
-    "build": "bun run compile.ts bin/index.ts dist",
     "build:all": "bun run compile.ts bin/index.ts dist",
     "clean": "rm -rf .turbo node_modules",
     "format": "prettier --check . --ignore-path ../../.gitignore",

@@ -8,7 +8,18 @@ services:
     env_file:
       - .env
     ports:
-      - 3002:3002
+      - 5175:5175
+
+  docs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: docs
+    image: bashbuddy/docs
+    env_file:
+      - .env
+    ports:
+      - 3001:3001
 
   account:
     build:
@@ -41,4 +52,4 @@ services:
     env_file:
       - .env
     ports:
-      - 3001:3001
+      - 3000:3000

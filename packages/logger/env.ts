@@ -8,7 +8,8 @@ export const env = createEnv({
   server: {
     LOG_LEVEL: z
       .enum(["trace", "debug", "info", "warn", "error", "fatal", "silent"])
-      .default("info"),
+      .default("info")
+      .optional(),
   },
   runtimeEnv,
   skipValidation,
