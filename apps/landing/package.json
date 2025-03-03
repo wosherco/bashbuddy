@@ -9,7 +9,7 @@
     "dev:dotenv": "dotenv -e ../../.env -- pnpm dev",
     "start": "node build",
     "start:env": "infisical run --env prod -- node build",
-    "build": "vite build",
+    "build": "pnpm -F envs ensure-env && vite build",
     "build:env": "infisical run --env dev -- vite build",
     "preview": "vite preview",
     "preview:env": "infisical run --env dev -- vite preview",
