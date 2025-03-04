@@ -14,7 +14,7 @@
   let scrollY = $state(0);
   let prevScrollY = $state(0);
   let isScrollingUp = $state(true);
-  let headerElement: HTMLElement;
+  let headerElement = $state<HTMLElement | null>(null);
 
   // Enhanced reactive state for header appearance
   const isAtTop = $derived(scrollY < 20);

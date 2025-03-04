@@ -13,7 +13,13 @@
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
+  "devDependencies": {
+    "@types/eslint-config-prettier": "^6.11.3",
+    "@bashbuddy/prettier-config": "workspace:*",
+    "@bashbuddy/tsconfig": "workspace:*",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
     "eslint-config-turbo": "^1.13.3",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.8.0",
@@ -21,15 +27,8 @@
     "eslint-plugin-react-hooks": "5.1.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.36.0",
-    "typescript-eslint": "catalog:"
-  },
-  "devDependencies": {
-    "@types/eslint-config-prettier": "^6.11.3",
-    "@bashbuddy/prettier-config": "workspace:*",
-    "@bashbuddy/tsconfig": "workspace:*",
-    "eslint": "catalog:",
-    "prettier": "catalog:",
-    "typescript": "catalog:"
+    "typescript-eslint": "catalog:",
+    "globals": "^15.0.0"
   },
   "prettier": "@bashbuddy/prettier-config"
 }
