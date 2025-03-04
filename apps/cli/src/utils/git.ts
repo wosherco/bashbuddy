@@ -1,4 +1,8 @@
-import { $ } from "bun";
+import { executeCommand } from "./shell";
+
+async function runGitCommand(command: string): Promise<string> {
+  return executeCommand(`git ${command}`);
+}
 
 /**
  * Checks if the current directory is inside a git repository
@@ -7,10 +11,10 @@ import { $ } from "bun";
 export async function isGitRepository(): Promise<boolean> {
   try {
     // Run 'git rev-parse --is-inside-work-tree' to check if we're in a git repo
-    const result = await $`git rev-parse --is-inside-work-tree`.text();
+    const result = await runGitCommand("rev-parse --is-inside-work-tree");
 
     // If the command was successful and returned "true", we're in a git repo
-    return result.trim() === "true";
+    return result === "true";
   } catch {
     // If there was an error executing the command, we're not in a git repo
     // or git is not installed
@@ -25,11 +29,11 @@ export async function isGitRepository(): Promise<boolean> {
 export async function getGitRepositoryRoot(): Promise<string | null> {
   try {
     // Run 'git rev-parse --show-toplevel' to get the root directory of the git repo
-    const result = await $`git rev-parse --show-toplevel`.text();
+    const result = await runGitCommand("rev-parse --show-toplevel");
 
     // If the command was successful, return the path to the git repo root
     if (result) {
-      return result.trim();
+      return result;
     }
 
     return null;
@@ -46,8 +50,8 @@ export async function getGitRepositoryRoot(): Promise<string | null> {
  */
 export async function getGitCurrentBranch(): Promise<string | null> {
   try {
-    const result = await $`git branch --show-current`.text();
-    return result.trim();
+    const result = await runGitCommand("branch --show-current");
+    return result;
   } catch {
     return null;
   }
@@ -59,8 +63,8 @@ export async function getGitCurrentBranch(): Promise<string | null> {
  */
 export async function getGitStatus(): Promise<string | null> {
   try {
-    const result = await $`git status --short`.text();
-    return result.trim();
+    const result = await runGitCommand("status --short");
+    return result;
   } catch {
     return null;
   }
@@ -72,8 +76,8 @@ export async function getGitStatus(): Promise<string | null> {
  */
 export async function getGitRemotes(): Promise<string | null> {
   try {
-    const result = await $`git remote -v`.text();
-    return result.trim();
+    const result = await runGitCommand("remote -v");
+    return result;
   } catch {
     return null;
   }
@@ -85,8 +89,8 @@ export async function getGitRemotes(): Promise<string | null> {
  */
 export async function getGitLastCommit(): Promise<string | null> {
   try {
-    const result = await $`git log -1 --pretty=format:"%h %s %an %ad"`.text();
-    return result.trim();
+    const result = await runGitCommand("log -1 --pretty=format:%h %s %an %ad");
+    return result;
   } catch {
     return null;
   }
@@ -98,8 +102,8 @@ export async function getGitLastCommit(): Promise<string | null> {
  */
 export async function getGitLastBranches(): Promise<string | null> {
   try {
-    const result = await $`git branch -r --sort=-committerdate`.text();
-    return result.trim();
+    const result = await runGitCommand("branch -r --sort=-committerdate");
+    return result;
   } catch {
     return null;
   }
