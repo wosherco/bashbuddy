@@ -1,4 +1,4 @@
-import "./instrumentation.ts";
+// import "./instrumentation.ts";
 
 import { trpcServer } from "@hono/trpc-server";
 import ngrok from "@ngrok/ngrok";
