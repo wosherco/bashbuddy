@@ -23,6 +23,10 @@ jobs:
       - name: Build And Check Packages
         run: pnpm build
 
+      # pkg-pr-new does not support prepublish, since it does "npm pack"
+      - name: Prepublishing
+        run: pnpm -F cli prepublish
+
       - name: Create pkg.pr.new build
         run: pnpm dlx pkg-pr-new publish --comment=create ./apps/cli
         env:
