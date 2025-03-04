@@ -7,7 +7,7 @@
     "dev": "PUBLIC_ENVIRONMENT=development vite dev --port 5175 --host",
     "dev:env": "infisical run --env dev -- pnpm dev",
     "dev:dotenv": "dotenv -e ../../.env -- pnpm dev",
-    "start": "node build",
+    "start": "vite preview",
     "start:env": "infisical run --env prod -- node build",
     "build": "pnpm -F envs ensure-env && vite build",
     "build:env": "infisical run --env dev -- vite build",
