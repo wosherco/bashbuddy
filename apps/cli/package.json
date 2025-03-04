@@ -42,5 +42,9 @@
     "superjson": "catalog:",
     "zod": "catalog:"
   },
-  "prettier": "@bashbuddy/prettier-config"
+  "prettier": "@bashbuddy/prettier-config",
+  "files": [
+    "dist",
+    "package.json"
+  ]
 }
