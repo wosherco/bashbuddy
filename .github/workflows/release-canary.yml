@@ -1,7 +1,8 @@
-name: Release
+name: Release Canary
 
 on:
-  push:
+  pull_request:
+    types: [labeled]
     branches:
       - main
 
@@ -9,6 +10,8 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
+    if: contains(github.event.pull_request.labels.*.name, 'release canary')
+    timeout-minutes: 10
     name: Release
     runs-on: ubuntu-latest
     steps:
@@ -20,23 +23,10 @@ jobs:
       - name: Build And Check Packages
         run: turbo --filter "./packages/*" build typecheck lint
 
-      - name: Creating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: pnpm publish
+      - name: Create pkg.pr.new build
+        run: bunx pkg-pr-new publish --comment=create ./apps/cli
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # - name: TODO: Send a Discord notification if a publish happens
       #   if: steps.changesets.outputs.published == 'true'
