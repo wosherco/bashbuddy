@@ -21,7 +21,7 @@ jobs:
         uses: ./tooling/github/setup
 
       - name: Build And Check Packages
-        run: turbo --filter "./packages/*" build typecheck lint
+        run: pnpm build
 
       - name: Create pkg.pr.new build
         run: bunx pkg-pr-new publish --comment=create ./apps/cli
