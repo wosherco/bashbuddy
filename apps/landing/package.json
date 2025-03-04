@@ -13,7 +13,7 @@
     "build:env": "infisical run --env dev -- vite build",
     "preview": "vite preview",
     "preview:env": "infisical run --env dev -- vite preview",
-    "i18n": "paraglide-js compile --project project.inlang",
+    "i18n": "paraglide-js compile --project project.inlang --outdir src/lib/paraglide",
     "pretypecheck": "pnpm i18n",
     "typecheck": "CI=1 svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "typecheck:watch": "CI=1 svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
