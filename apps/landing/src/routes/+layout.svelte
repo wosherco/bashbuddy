@@ -15,19 +15,20 @@
 
   const { children } = $props();
 
-  beforeNavigate(({ to, from }) => {
+  beforeNavigate(() => {
     if (browser) {
       posthog.capture("$pageleave");
     }
   });
 
-  afterNavigate(({ to }) => {
+  afterNavigate(() => {
     if (browser) {
       posthog.capture("$pageview");
     }
   });
 
   onNavigate((navigation) => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!document.startViewTransition) return;
 
     return new Promise((resolve) => {

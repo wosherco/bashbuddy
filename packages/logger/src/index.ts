@@ -42,13 +42,13 @@ export function pinoLogger({ isBrowser = false }: LoggerOptions = {}) {
     baseOptions.browser = {
       ...baseOptions.browser,
       asObject: true,
-      transmit: {
-        level: "error",
-        send: async (level, logEvent) => {
-          // Here you could implement error reporting to your backend
-          // For example sending errors to your error tracking service
-        },
-      },
+      // transmit: {
+      //   level: "error",
+      //   send: async (level, logEvent) => {
+      //     // Here you could implement error reporting to your backend
+      //     // For example sending errors to your error tracking service
+      //   },
+      // },
     };
   }
 

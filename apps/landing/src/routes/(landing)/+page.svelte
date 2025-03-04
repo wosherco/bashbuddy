@@ -4,43 +4,29 @@
   import LandingCard from "$lib/components/LandingCard.svelte";
   import { Button } from "$lib/components/ui/button";
   import {
-    ArrowRight,
     Brain,
     Check,
     ChevronRight,
     Circle,
     CircleDot,
-    Clock,
     Cloud,
     Copy,
     Cpu,
-    Database,
     DollarSign,
-    Eye,
     EyeOff,
-    FileText,
-    Folder,
-    GitBranch,
     Github,
     Globe,
-    HardDrive,
     Info,
-    ListTodo,
     Lock,
-    Mail,
     Rocket,
-    Search,
     Settings,
     Shield,
     Sparkles,
     Terminal,
-    TrendingUp,
     User,
-    Wifi,
     WifiOff,
     Zap,
   } from "lucide-svelte";
-  import posthog from "posthog-js";
 
   type ShellType = "bash" | "zsh" | "powershell" | "npm" | "bun";
 
@@ -72,13 +58,13 @@
   }
 
   // Demo examples for How It Works section
-  type DemoExample = {
+  interface DemoExample {
     userInput: string;
     shellType: "bash" | "powershell";
     generatedCommand: string;
     explanation: string;
     prompt: string;
-  };
+  }
 
   const demoExamples: DemoExample[] = [
     {

@@ -10,18 +10,16 @@
 
   import type { PageProps } from "./$types";
 
-  let { data }: PageProps = $props();
+  const { data }: PageProps = $props();
   let copied = $state(false);
   let open = $state(false);
 
-  function copyToken() {
-    if (navigator.clipboard && data.token) {
-      navigator.clipboard.writeText(data.token);
-      copied = true;
-      setTimeout(() => {
-        copied = false;
-      }, 2000);
-    }
+  async function copyToken() {
+    await navigator.clipboard.writeText(data.token);
+    copied = true;
+    setTimeout(() => {
+      copied = false;
+    }, 2000);
   }
 </script>
 

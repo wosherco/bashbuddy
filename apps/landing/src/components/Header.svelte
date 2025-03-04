@@ -1,9 +1,7 @@
 <script lang="ts">
   import { fade, slide } from "svelte/transition";
-  import { page } from "$app/stores";
   import { clickOutside } from "$lib/actions/click-outside";
   import { Button } from "$lib/components/ui/button";
-  import * as m from "$lib/paraglide/messages.js";
   import { cn } from "$lib/utils";
   import { Menu, X } from "lucide-svelte";
 
@@ -13,7 +11,6 @@
   const { pathname } = $props();
   let scrollY = $state(0);
   let prevScrollY = $state(0);
-  let isScrollingUp = $state(true);
   let headerElement = $state<HTMLElement | null>(null);
 
   // Enhanced reactive state for header appearance
@@ -38,7 +35,6 @@
   // Track scroll direction with debounce-like behavior
   $effect(() => {
     if (Math.abs(scrollY - prevScrollY) > 10) {
-      isScrollingUp = scrollY < prevScrollY;
       prevScrollY = scrollY;
     }
   });

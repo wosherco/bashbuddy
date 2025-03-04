@@ -5,7 +5,7 @@ import svelteConfig from "@bashbuddy/eslint-config/svelte";
 
 export default ts.config(
   {
-    ignores: ["build/", ".svelte-kit/", "dist/"],
+    ignores: ["build/", ".svelte-kit/", "dist/", "src/lib/components/ui/**"],
   },
   ...baseConfig,
   ...svelteConfig,

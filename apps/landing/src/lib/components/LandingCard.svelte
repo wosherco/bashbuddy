@@ -12,8 +12,8 @@
     onClick?: () => void;
   } | null = null;
   export let variant: "default" | "cloud" = "default";
-  export let className: string = "";
-  export let rawHtml: boolean = false;
+  export let className = "";
+  export let rawHtml = false;
 </script>
 
 <div
