@@ -1,9 +1,16 @@
 import { $ } from "bun";
 
-// Filling the version and the git sha
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-const version = (await Bun.file("./package.json").json()).version as number;
-const commitSha = (await $`git rev-parse HEAD`.text()).trim();
+let version = "0.0.0";
+let commitSha = "unknown";
+
+try {
+  // Filling the version and the git sha
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  version = (await Bun.file("./package.json").json()).version as string;
+  commitSha = (await $`git rev-parse HEAD`.text()).trim();
+} catch (error) {
+  console.warn("Warning: Failed to retrieve version or commit SHA:", error);
+}
 
 await Bun.write(
   "./src/version.ts",
