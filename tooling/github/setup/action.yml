@@ -18,3 +18,7 @@ runs:
     - name: Install dependencies
       shell: bash
       run: pnpm install
+
+    - name: Ensuring dummy .env
+      shell: bash
+      run: pnpm -F envs ensure-env
