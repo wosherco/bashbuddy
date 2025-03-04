@@ -1,7 +1,7 @@
 import { createTRPCClient, unstable_httpBatchStreamLink } from "@trpc/client";
 import SuperJSON from "superjson";
 
-import type { AppRouter } from "@bashbuddy/api/";
+import type { AppRouter } from "@bashbuddy/api";
 import { SITE_URLS } from "@bashbuddy/consts";
 
 import { ConfigManager } from "../utils/config";

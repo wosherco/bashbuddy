@@ -1,5 +1,5 @@
 import type { AIModelId } from "./models";
-import { KeytarManager } from "./kv";
+import { KVManager } from "./kv";
 
 // Keys for configuration
 export const CONFIG_KEYS = {
@@ -23,7 +23,7 @@ export class ConfigManager {
    * @returns The current AI mode (defaults to CLOUD)
    */
   static async getMode(): Promise<AIMode> {
-    return await KeytarManager.get<AIMode>(CONFIG_KEYS.MODE, AI_MODES[0]);
+    return await KVManager.get<AIMode>(CONFIG_KEYS.MODE, AI_MODES[0]);
   }
 
   /**
@@ -31,7 +31,7 @@ export class ConfigManager {
    * @param mode The mode to set
    */
   static async setMode(mode: AIMode): Promise<void> {
-    await KeytarManager.save(CONFIG_KEYS.MODE, mode);
+    await KVManager.save(CONFIG_KEYS.MODE, mode);
   }
 
   /**
@@ -57,7 +57,7 @@ export class ConfigManager {
    * @param models The models to save
    */
   static async saveLocalModel(model: AIModelId): Promise<void> {
-    await KeytarManager.save(CONFIG_KEYS.LOCAL_MODEL, model);
+    await KVManager.save(CONFIG_KEYS.LOCAL_MODEL, model);
   }
 
   /**
@@ -65,20 +65,14 @@ export class ConfigManager {
    * @returns The saved models info or null if not found
    */
   static async getLocalModel(): Promise<AIModelId | null> {
-    return await KeytarManager.get<AIModelId | null>(
-      CONFIG_KEYS.LOCAL_MODEL,
-      null,
-    );
+    return await KVManager.get<AIModelId | null>(CONFIG_KEYS.LOCAL_MODEL, null);
   }
 
   static async saveCloudToken(token: string | null): Promise<void> {
-    await KeytarManager.save(CONFIG_KEYS.CLOUD_TOKEN, token);
+    await KVManager.save(CONFIG_KEYS.CLOUD_TOKEN, token);
   }
 
   static async getCloudToken(): Promise<string | null> {
-    return await KeytarManager.get<string | null>(
-      CONFIG_KEYS.CLOUD_TOKEN,
-      null,
-    );
+    return await KVManager.get<string | null>(CONFIG_KEYS.CLOUD_TOKEN, null);
   }
 }

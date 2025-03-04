@@ -1,3 +1,4 @@
+import { spawn } from "child_process";
 import fs from "fs/promises";
 import os from "os";
 import path from "path";
@@ -183,4 +184,24 @@ export function getShellType(): string {
     return "powershell";
 
   return "unknown";
+}
+
+export async function executeCommand(command: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const child = spawn(command.split(" ")[0], command.split(" ").slice(1));
+
+    let data = "";
+
+    child.stdout.on("data", (chunk) => {
+      data += chunk;
+    });
+
+    child.on("close", () => {
+      resolve(data.trim());
+    });
+
+    child.on("error", (error) => {
+      reject(error);
+    });
+  });
 }

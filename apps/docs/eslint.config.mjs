@@ -5,7 +5,7 @@ import reactConfig from "@bashbuddy/eslint-config/react";
 
 export default ts.config(
   {
-    ignores: ["dist/"],
+    ignores: ["dist/", "build/", ".docusaurus/"],
   },
   ...baseConfig,
   ...reactConfig,

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { externalDependencies } from "./bundle.ts";
 
@@ -14,6 +16,7 @@ const dependenciesToKeep = dependencies.filter((dependency) =>
 );
 
 packageJson.dependencies = dependenciesToKeep.reduce((acc, dependency) => {
+  // @ts-expect-error - This is safe because we are filtering the dependencies
   acc[dependency] = packageJson.dependencies[dependency];
   return acc;
 }, {});

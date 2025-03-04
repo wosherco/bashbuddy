@@ -1,10 +1,10 @@
 import fs from "fs/promises";
 import os from "os";
 import path from "path";
-import { $ } from "bun";
 
 import type { ProgressData } from "./downloadManager";
 import { DownloadManager } from "./downloadManager";
+import { executeCommand } from "./shell";
 
 // Define model interface
 export interface AIModel {
@@ -108,7 +108,9 @@ export class ModelManager {
 
     try {
       // Check for CUDA (NVIDIA GPU)
-      const output = await $`bunx --no node-llama-cpp inspect gpu`.text();
+      const output = await executeCommand(
+        "bunx --no node-llama-cpp inspect gpu",
+      );
 
       // Check for CUDA support
       if (output.includes("CUDA") && !output.includes("CUDA: not available")) {
@@ -242,7 +244,7 @@ export class ModelManager {
     if (!canRun) {
       recommendation = `This model requires at least ${model.requiredRAM} GB of RAM, but you only have ${freeRAM} GB available.`;
     } else if (freeRAM < model.requiredRAM * 1.5) {
-      recommendation = `This model will run, but performance might be limited. Consider closing other applications for better performance.`;
+      recommendation = `This model will run, but performance might be limited. Consider using BashBuddy Cloud. More info on https://docs.bashbuddy.run/cloud`;
     }
 
     return { canRun, recommendation };
