@@ -1,6 +1,9 @@
 import { fail, redirect } from "@sveltejs/kit";
 
-import { createCheckoutSession, createCustomerSession } from "@bashbuddy/stripe";
+import {
+  createCheckoutSession,
+  createCustomerSession,
+} from "@bashbuddy/stripe";
 
 import type { Actions } from "./$types";
 
