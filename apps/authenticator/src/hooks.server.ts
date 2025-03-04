@@ -1,4 +1,4 @@
-import "@bashbuddy/opentelemetry";
+// import "@bashbuddy/opentelemetry";
 
 import type { Handle } from "@sveltejs/kit";
 import * as Sentry from "@sentry/sveltekit";
