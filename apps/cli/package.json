@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@bashbuddy/envs": "workspace:*",
+    "@bashbuddy/api": "workspace:*",
     "@bashbuddy/eslint-config": "workspace:*",
     "@bashbuddy/opentelemetry": "workspace:*",
     "@bashbuddy/prettier-config": "workspace:*",
