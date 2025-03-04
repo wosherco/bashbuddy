@@ -52,7 +52,7 @@ EXPOSE 5174
 ENV PORT=5174
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["pnpm", "-F", "account", "start:env"]
+CMD ["pnpm", "-F", "account", "start"]
 
 ################################
 #       apps/authenticator     #
@@ -71,7 +71,7 @@ EXPOSE 5173
 ENV PORT=5173
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["pnpm", "-F", "authenticator", "start:env"]
+CMD ["pnpm", "-F", "authenticator", "start"]
 
 ##########################
 #      apps/landing      #
@@ -110,4 +110,4 @@ EXPOSE 3001
 ENV PORT=3001
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["pnpm", "-F", "server", "start:env"]
+CMD ["pnpm", "-F", "server", "start"]
