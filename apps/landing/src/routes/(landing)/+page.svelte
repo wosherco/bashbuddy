@@ -257,7 +257,12 @@
         icon={Github}
         title="Open Source"
         description="BashBuddy is completely open source. Inspect the code, contribute, or customize it to your needs. We believe in transparency and community-driven development."
-        button={{ label: "View on GitHub", icon: Github }}
+        button={{
+          label: "View on GitHub",
+          icon: Github,
+          onClick: () =>
+            (window.location.href = "https://github.com/wosherco/bashbuddy"),
+        }}
       />
 
       <!-- Natural Language card -->
@@ -471,9 +476,13 @@
       <!-- Affordable card -->
       <LandingCard
         icon={DollarSign}
+        className="col-span-2"
         title="Really Affordable"
-        description="Just $2 per month for unlimited command generations. No hidden fees or usage limits."
-        button={{ label: "Subscribe Now" }}
+        description="Just $2 per month for instant command generations. No hidden fees."
+        button={{
+          label: "Subscribe Now",
+          onClick: () => (window.location.href = SITE_URLS.ACCOUNT_URL),
+        }}
         variant="cloud"
       />
 
@@ -500,14 +509,6 @@
         icon={Globe}
         title="Works Everywhere"
         description="Perfect for servers, low-powered devices, or when you're on the go."
-        variant="cloud"
-      />
-
-      <!-- No Logs card -->
-      <LandingCard
-        icon={EyeOff}
-        title="No Logs, No Traces"
-        description="We don't keep logs of your commands or usage patterns. Your terminal interactions remain completely private."
         variant="cloud"
       />
 

@@ -18,7 +18,7 @@
 
 <div
   class={cn(
-    "rounded-xl backdrop-blur-md bg-zinc-800/30 border border-zinc-700/50 p-8 transition-all duration-300 w-full group",
+    "rounded-xl backdrop-blur-md bg-zinc-800/30 border border-zinc-700/50 p-8 transition-all duration-300 w-full group flex flex-col",
     variant === "cloud"
       ? "hover:bg-zinc-800/50 hover:border-orange-500/50 hover:shadow-[0_0_30px_rgba(249,115,22,0.1)]"
       : "hover:bg-zinc-800/50 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(0,0,0,0.3)]",
@@ -62,7 +62,7 @@
   {/if}
 
   {#if button}
-    <div class="mt-4">
+    <div class="mt-auto">
       <button
         class="w-full {variant === 'cloud'
           ? 'bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 border-0 text-white py-2 px-4 rounded-md'

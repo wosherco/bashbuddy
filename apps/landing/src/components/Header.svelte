@@ -3,7 +3,7 @@
   import { clickOutside } from "$lib/actions/click-outside";
   import { Button } from "$lib/components/ui/button";
   import { cn } from "$lib/utils";
-  import { Menu, X } from "lucide-svelte";
+  import { Github, Menu, X } from "lucide-svelte";
 
   import { SITE_URLS } from "@bashbuddy/consts";
 
@@ -75,7 +75,12 @@
   >
     <nav class="flex h-14 items-center justify-between px-4">
       <!-- Logo -->
-      <a href="/" class="text-xl font-bold"> BashBuddy </a>
+      <div class="flex items-center gap-4">
+        <a href="/" class="text-xl font-bold"> BashBuddy </a>
+        <a href="https://github.com/wosherco/bashbuddy" target="_blank">
+          <Github class="h-4 w-4" />
+        </a>
+      </div>
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center justify-between flex-1">
