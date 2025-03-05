@@ -143,7 +143,12 @@ export async function handleStripeWebhook(req: Request): Promise<Response> {
       const session = event.data.object;
 
       if (!session.customer || !session.subscription) {
-        // TODO: Handle with sentry
+        Sentry.captureMessage("Invalid customer or subscription", {
+          level: "error",
+          tags: {
+            webhook: "stripe",
+          },
+        });
         return new Response("Invalid customer or subscription", {
           status: 400,
         });
@@ -165,6 +170,7 @@ export async function handleStripeWebhook(req: Request): Promise<Response> {
         .set({
           subscriptionId: subscription.id,
           subscribedUntil: subscriptionEnd,
+          completionsUsedThisMonth: 0,
         })
         .where(eq(userTable.stripeCustomerId, customerId))
         .returning({
@@ -186,7 +192,12 @@ export async function handleStripeWebhook(req: Request): Promise<Response> {
       const invoice = event.data.object;
 
       if (!invoice.customer || !invoice.subscription) {
-        // TODO: Handle with sentry
+        Sentry.captureMessage("Invalid customer or subscription", {
+          level: "error",
+          tags: {
+            webhook: "stripe",
+          },
+        });
         return new Response("Invalid customer or subscription", {
           status: 400,
         });
@@ -207,6 +218,7 @@ export async function handleStripeWebhook(req: Request): Promise<Response> {
         .update(userTable)
         .set({
           subscribedUntil: subscriptionEnd,
+          completionsUsedThisMonth: 0,
         })
         .where(eq(userTable.stripeCustomerId, customerId));
 

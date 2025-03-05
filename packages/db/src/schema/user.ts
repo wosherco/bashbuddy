@@ -24,6 +24,7 @@ export const userTable = pgTable("user", {
   subscriptionId: text(),
   stripeCustomerId: text(),
   subscribedUntil: timestamp({ withTimezone: true }),
+  completionsUsedThisMonth: integer().notNull().default(0),
 
   // Onboarding stuff
   onboardingStep: integer().notNull().default(0),

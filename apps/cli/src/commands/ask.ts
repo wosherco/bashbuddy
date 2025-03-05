@@ -67,6 +67,8 @@ async function execute(question: string) {
       commandToRun = await cliInfer(
         await createNewOutputStream(question),
         createNewOutputStream,
+        1,
+        false,
       );
 
       await llm.dispose();
@@ -87,6 +89,8 @@ async function execute(question: string) {
         commandToRun = await cliInfer(
           await createNewOutputStream(question),
           createNewOutputStream,
+          1,
+          true,
         );
       } catch (err) {
         if (err instanceof TRPCClientError) {
@@ -102,6 +106,18 @@ async function execute(question: string) {
               `You're not subscribed to BashBuddy. Go to ${chalk.underline(
                 `${SITE_URLS.ACCOUNT_URL}/subscription`,
               )} to subscribe.`,
+            );
+          } else if (code === "NOT_FOUND") {
+            return p.log.error(
+              "Chat not found. Please start a new chat and try again.",
+            );
+          } else if (code === "PAYLOAD_TOO_LARGE") {
+            return p.log.error("Chat is too long. Please start a new chat.");
+          } else if (code === "TOO_MANY_REQUESTS") {
+            return p.log.error("Too many requests. Please try again later.");
+          } else if (code === "BAD_REQUEST") {
+            return p.log.error(
+              "You've reached the maximum of 5000 completions this month. Contact us to increase this limit.",
             );
           }
         }
@@ -125,6 +141,8 @@ async function cliInfer(
   createNewOutputStream: (
     newUserInput: string,
   ) => Promise<AsyncIterable<string>>,
+  revisionCount = 1,
+  isCloudMode = false,
 ): Promise<string | undefined> {
   const llmSpinner = p.spinner();
   llmSpinner.start("Processing...");
@@ -168,14 +186,25 @@ async function cliInfer(
     );
   }
 
+  // Options for the select component
+  const options = [
+    { value: "run", label: "Run the command" },
+    { value: "copy", label: "Copy to clipboard" },
+  ];
+
+  // Only add the suggest option if we haven't reached the revision limit in cloud mode
+  if (!isCloudMode || revisionCount < 5) {
+    options.push({ value: "suggest", label: "Suggest changes" });
+  } else if (revisionCount >= 5) {
+    p.log.message(
+      chalk.yellow("You've reached the maximum of 5 revisions in cloud mode."),
+    );
+  }
+
   // Replace the text prompt with a select component
   const action = await p.select({
     message: "What would you like to do with this command?",
-    options: [
-      { value: "run", label: "Run the command" },
-      { value: "copy", label: "Copy to clipboard" },
-      { value: "suggest", label: "Suggest changes" },
-    ],
+    options,
   });
 
   // Handle user selection
@@ -214,6 +243,8 @@ async function cliInfer(
         return cliInfer(
           await createNewOutputStream(suggestion),
           createNewOutputStream,
+          revisionCount + 1,
+          isCloudMode,
         );
       }
       return undefined;
