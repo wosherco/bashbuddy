@@ -1,3 +1,4 @@
 {
-  "name": "@bashbuddy/github"
+  "name": "@bashbuddy/github",
+  "private": true
 }
