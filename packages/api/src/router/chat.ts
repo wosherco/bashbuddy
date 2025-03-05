@@ -155,6 +155,13 @@ export const chatRouter = {
         });
       }
 
+      if (chatSession.messages.length > 10) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Chat is too long. Please start a new chat.",
+        });
+      }
+
       const groqLLM = new GroqLLM(
         chatSession.messages,
         input.chatId,
