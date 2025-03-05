@@ -19,3 +19,10 @@ const PROD_SITE_URLS = {
 };
 
 export const SITE_URLS = isDev ? DEV_SITE_URLS : PROD_SITE_URLS;
+
+const DEV_STRIPE_PRICE_ID = "price_1QxbUQRJ9x8LyhxTPSntQtcy";
+const PROD_STRIPE_PRICE_ID = "price_1QzPoVRJ9x8LyhxTHdzGpkTz";
+
+export const STRIPE_PRICE_ID = isDev
+  ? DEV_STRIPE_PRICE_ID
+  : PROD_STRIPE_PRICE_ID;

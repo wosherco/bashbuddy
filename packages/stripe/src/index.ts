@@ -1,6 +1,7 @@
 import * as Sentry from "@sentry/bun";
 import Stripe from "stripe";
 
+import { STRIPE_PRICE_ID } from "@bashbuddy/consts";
 import { eq } from "@bashbuddy/db";
 import { db } from "@bashbuddy/db/client";
 import { paymentTable, userTable } from "@bashbuddy/db/schema";
@@ -74,7 +75,7 @@ export async function createCheckoutSession(userId: string) {
     mode: "subscription",
     line_items: [
       {
-        price: "price_1QxbUQRJ9x8LyhxTPSntQtcy",
+        price: STRIPE_PRICE_ID,
         quantity: 1,
       },
     ],

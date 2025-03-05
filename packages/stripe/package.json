@@ -23,6 +23,7 @@
     "@bashbuddy/envs": "workspace:*",
     "@bashbuddy/db": "workspace:*",
     "@bashbuddy/posthog": "workspace:*",
+    "@bashbuddy/consts": "workspace:*",
     "@t3-oss/env-core": "catalog:",
     "stripe": "^17.5.0"
   },

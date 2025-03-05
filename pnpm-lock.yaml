@@ -1298,6 +1298,9 @@ importers:
 
   packages/stripe:
     dependencies:
+      '@bashbuddy/consts':
+        specifier: workspace:*
+        version: link:../consts
       '@bashbuddy/db':
         specifier: workspace:*
         version: link:../db
