@@ -24,6 +24,7 @@
     "@bashbuddy/auth": "workspace:*",
     "@bashbuddy/socketless": "workspace:*",
     "@bashbuddy/db": "workspace:*",
+    "@bashbuddy/posthog": "workspace:*",
     "@bashbuddy/eslint-config": "workspace:*",
     "@bashbuddy/logger": "workspace:*",
     "@bashbuddy/opentelemetry": "workspace:*",

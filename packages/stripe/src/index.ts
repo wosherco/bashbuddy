@@ -4,6 +4,7 @@ import Stripe from "stripe";
 import { eq } from "@bashbuddy/db";
 import { db } from "@bashbuddy/db/client";
 import { paymentTable, userTable } from "@bashbuddy/db/schema";
+import { posthog } from "@bashbuddy/posthog";
 
 import { env } from "../env";
 
@@ -136,7 +137,6 @@ export async function handleStripeWebhook(req: Request): Promise<Response> {
     });
   }
 
-  // TODO: Add posthog events
   // Handle the event
   switch (event.type) {
     case "checkout.session.completed": {
@@ -186,6 +186,15 @@ export async function handleStripeWebhook(req: Request): Promise<Response> {
         amount: session.amount_total ?? -1,
       });
 
+      posthog.capture({
+        distinctId: user.id,
+        event: "subscription.payment",
+        properties: {
+          amount: session.amount_total ?? -1,
+          new: true,
+        },
+      });
+
       return new Response("Payment succeeded", { status: 200 });
     }
     case "invoice.paid": {
@@ -214,18 +223,37 @@ export async function handleStripeWebhook(req: Request): Promise<Response> {
 
       const subscriptionEnd = new Date(subscription.current_period_end * 1000);
 
-      await db
+      const [user] = await db
         .update(userTable)
         .set({
           subscribedUntil: subscriptionEnd,
           completionsUsedThisMonth: 0,
         })
-        .where(eq(userTable.stripeCustomerId, customerId));
+        .where(eq(userTable.stripeCustomerId, customerId))
+        .returning({
+          id: userTable.id,
+        });
+
+      if (user) {
+        await db.insert(paymentTable).values({
+          userId: user.id,
+          amount: invoice.amount_paid,
+        });
+
+        posthog.capture({
+          distinctId: user.id,
+          event: "subscription.payment",
+          properties: {
+            amount: invoice.amount_paid,
+          },
+        });
+      }
 
       return new Response("Payment succeeded", { status: 200 });
     }
     case "invoice.payment_failed":
       // TODO: Notify user
+      // TODO: Maybe track with posthog?
       return new Response("Payment failed", { status: 200 });
     default:
       return new Response("Unhandled event type", { status: 200 });

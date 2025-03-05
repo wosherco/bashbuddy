@@ -1,5 +1,5 @@
 {
-  "name": "@bashbuddy/stripe",
+  "name": "@bashbuddy/posthog",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,7 +8,7 @@
       "types": "./dist/src/index.d.ts",
       "default": "./src/index.ts"
     },
-    "./env": "./env.ts"
+    "./env": "./src/env.ts"
   },
   "license": "Apache-2.0",
   "scripts": {
@@ -20,11 +20,8 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@bashbuddy/envs": "workspace:*",
-    "@bashbuddy/db": "workspace:*",
-    "@bashbuddy/posthog": "workspace:*",
-    "@t3-oss/env-core": "catalog:",
-    "stripe": "^17.5.0"
+    "posthog-node": "^4.9.0",
+    "@t3-oss/env-core": "catalog:"
   },
   "devDependencies": {
     "@bashbuddy/eslint-config": "workspace:*",

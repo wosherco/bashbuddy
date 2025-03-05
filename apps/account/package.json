@@ -26,6 +26,7 @@
     "@bashbuddy/eslint-config": "workspace:*",
     "@bashbuddy/prettier-config": "workspace:*",
     "@bashbuddy/stripe": "workspace:*",
+    "@bashbuddy/posthog": "workspace:*",
     "@bashbuddy/tsconfig": "workspace:*",
     "@bashbuddy/opentelemetry": "workspace:*",
     "@sveltejs/adapter-node": "catalog:",
