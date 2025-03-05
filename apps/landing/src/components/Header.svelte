@@ -99,7 +99,9 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <Button href="/download">Install BashBuddy</Button>
+          <Button href={`${SITE_URLS.DOCS_URL}/install`}
+            >Install BashBuddy</Button
+          >
           <Button
             href={SITE_URLS.ACCOUNT_URL}
             class="bg-orange-600 hover:bg-orange-700">Go to account</Button
@@ -181,7 +183,7 @@
             </div>
             <div class="flex flex-col gap-2 pb-4">
               <a
-                href="/download"
+                href={`${SITE_URLS.DOCS_URL}/install`}
                 class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
                 onclick={closeMenu}
               >

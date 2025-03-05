@@ -7,6 +7,8 @@ import posthog from "posthog-js";
 
 import type { LayoutLoad } from "./$types";
 
+export const prerender = true;
+
 export const load: LayoutLoad = () => {
   if (browser) {
     posthog.init(PUBLIC_POSTHOG_API_KEY, {

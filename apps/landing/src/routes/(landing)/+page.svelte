@@ -28,6 +28,8 @@
     Zap,
   } from "lucide-svelte";
 
+  import { SITE_URLS } from "@bashbuddy/consts";
+
   type ShellType = "bash" | "zsh" | "powershell" | "npm" | "bun";
 
   let selectedShell = $state<ShellType>("bash");
@@ -136,7 +138,7 @@
       "Write commands naturally, without worrying about arguments | BashBuddy",
     description:
       "BashBuddy is an AI assistant that helps you get things done. Make your day-to-day less painful.",
-    images: [{ url: "https://bashbuddy.run/og.png" }],
+    // images: [{ url: "https://bashbuddy.run/og.png" }],
   }}
   twitter={{
     card: "summary_large_image",
@@ -231,7 +233,7 @@
       <Lock class="h-4 w-4" />
       <p>
         Completely private & local - <a
-          href="/privacy"
+          href={`${SITE_URLS.DOCS_URL}/privacy`}
           class="text-primary hover:underline inline-flex items-center"
           >learn more <ChevronRight class="h-3 w-3 ml-0.5" /></a
         >

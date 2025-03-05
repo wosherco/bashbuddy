@@ -11,8 +11,8 @@
     # Root directory for all static files
     root * /usr/share/caddy
     
-    # Try files or serve index.html as fallback
-    try_files {path} /index.html
+    # Try files or serve 404.html as fallback
+    try_files {path} /404.html
     
     # Serve static files
     file_server
