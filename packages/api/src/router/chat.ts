@@ -6,6 +6,9 @@ import { z } from "zod";
 
 import type { LLM } from "@bashbuddy/agent";
 import { processPrompt } from "@bashbuddy/agent";
+import { eq, increment } from "@bashbuddy/db";
+import { db } from "@bashbuddy/db/client";
+import { userTable } from "@bashbuddy/db/schema";
 import {
   addMessageToChatSession,
   createChatSession,
@@ -111,7 +114,7 @@ const createChatRatelimit = createRatelimit(
 
 const askRatelimit = createRatelimit(
   "chat.ask",
-  Ratelimit.slidingWindow(10, "10s"),
+  Ratelimit.slidingWindow(500, "1d"),
 );
 
 export const chatRouter = {
@@ -137,6 +140,14 @@ export const chatRouter = {
       }),
     )
     .mutation(async function* ({ ctx, input }) {
+      if (ctx.user.completionsUsedThisMonth >= 5000) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message:
+            "You've reached the maximum of 5000 completions this month. Contact us to increase this limit.",
+        });
+      }
+
       const rl = await askRatelimit.limit(ctx.user.id);
 
       if (!rl.success) {
@@ -157,10 +168,20 @@ export const chatRouter = {
 
       if (chatSession.messages.length > 10) {
         throw new TRPCError({
-          code: "BAD_REQUEST",
+          code: "PAYLOAD_TOO_LARGE",
           message: "Chat is too long. Please start a new chat.",
         });
       }
+
+      const incrementNumberPromise = db
+        .update(userTable)
+        .set({
+          completionsUsedThisMonth: increment(
+            userTable.completionsUsedThisMonth,
+          ),
+        })
+        .where(eq(userTable.id, ctx.user.id))
+        .execute();
 
       const groqLLM = new GroqLLM(
         chatSession.messages,
@@ -186,5 +207,7 @@ export const chatRouter = {
         role: "assistant",
         content,
       });
+
+      await incrementNumberPromise;
     }),
 } satisfies TRPCRouterRecord;

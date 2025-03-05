@@ -111,8 +111,14 @@ async function execute(question: string) {
             return p.log.error(
               "Chat not found. Please start a new chat and try again.",
             );
-          } else if (code === "BAD_REQUEST") {
+          } else if (code === "PAYLOAD_TOO_LARGE") {
             return p.log.error("Chat is too long. Please start a new chat.");
+          } else if (code === "TOO_MANY_REQUESTS") {
+            return p.log.error("Too many requests. Please try again later.");
+          } else if (code === "BAD_REQUEST") {
+            return p.log.error(
+              "You've reached the maximum of 5000 completions this month. Contact us to increase this limit.",
+            );
           }
         }
 

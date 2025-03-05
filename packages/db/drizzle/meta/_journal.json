@@ -15,6 +15,13 @@
       "when": 1740856436341,
       "tag": "0001_tranquil_makkari",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1741200545978,
+      "tag": "0002_right_bloodaxe",
+      "breakpoints": true
     }
   ]
 }
