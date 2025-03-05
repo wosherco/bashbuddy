@@ -2,6 +2,7 @@ import { Command } from "commander";
 
 import { createAliasCommand } from "./commands/alias";
 import { createAskCommand } from "./commands/ask";
+import { createCloudCommand } from "./commands/cloud";
 import { createLocalCommand } from "./commands/local";
 import { createLoginCommand } from "./commands/login";
 import { createLogoutCommand } from "./commands/logout";
@@ -24,6 +25,7 @@ export function createCLI() {
 
   // Add commands
   program.addCommand(createLocalCommand());
+  program.addCommand(createCloudCommand());
   program.addCommand(createModeCommand());
   program.addCommand(createAskCommand());
   program.addCommand(createLoginCommand());
