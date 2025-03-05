@@ -190,6 +190,9 @@ importers:
       '@bashbuddy/opentelemetry':
         specifier: workspace:*
         version: link:../../packages/opentelemetry
+      '@bashbuddy/posthog':
+        specifier: workspace:*
+        version: link:../../packages/posthog
       '@bashbuddy/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
@@ -332,6 +335,9 @@ importers:
       '@bashbuddy/opentelemetry':
         specifier: workspace:*
         version: link:../../packages/opentelemetry
+      '@bashbuddy/posthog':
+        specifier: workspace:*
+        version: link:../../packages/posthog
       '@bashbuddy/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
@@ -796,6 +802,9 @@ importers:
       '@bashbuddy/envs':
         specifier: workspace:*
         version: link:../../tooling/envs
+      '@bashbuddy/posthog':
+        specifier: workspace:*
+        version: link:../posthog
       '@bashbuddy/redis':
         specifier: workspace:*
         version: link:../redis
@@ -1182,6 +1191,37 @@ importers:
         specifier: 'catalog:'
         version: 5.7.3
 
+  packages/posthog:
+    dependencies:
+      '@t3-oss/env-core':
+        specifier: 'catalog:'
+        version: 0.11.1(typescript@5.7.3)(zod@3.24.1)
+      posthog-node:
+        specifier: ^4.9.0
+        version: 4.9.0
+    devDependencies:
+      '@bashbuddy/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@bashbuddy/prettier-config':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@bashbuddy/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/typescript
+      dotenv-cli:
+        specifier: 'catalog:'
+        version: 7.4.2
+      eslint:
+        specifier: 'catalog:'
+        version: 9.19.0(jiti@1.21.7)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.4.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.7.3
+
   packages/redis:
     dependencies:
       '@t3-oss/env-core':
@@ -1261,6 +1301,9 @@ importers:
       '@bashbuddy/envs':
         specifier: workspace:*
         version: link:../../tooling/envs
+      '@bashbuddy/posthog':
+        specifier: workspace:*
+        version: link:../posthog
       '@t3-oss/env-core':
         specifier: 'catalog:'
         version: 0.11.1(typescript@5.7.3)(zod@3.24.1)
@@ -10589,8 +10632,8 @@ packages:
   posthog-js@1.215.3:
     resolution: {integrity: sha512-vTk8/gyjbKP7EbDxWzo/GBCK7Ok7M6RTqEWOzRgIxCPf/KA5faFi5z1T4cRR1oPgcDqLeB1ZGa04Za/cPEHxgA==}
 
-  posthog-node@4.4.1:
-    resolution: {integrity: sha512-o9G9sSvwWITrfSJgIUrPLJd//AYPGJNu5D+pSLxqiBvhUeicc/i639FvU0DPr1OsHiLDE2zHNMmLpa0mw4kBCg==}
+  posthog-node@4.9.0:
+    resolution: {integrity: sha512-Jg4YmHTzUUJ/lrwPAvYQcF6xpfaW/l11UJISlTqajj1+xANv3WJXRtBml+atWVqbwTvSBlkzXwEq9rd0Sy188A==}
     engines: {node: '>=15.0.0'}
 
   preact@10.25.4:
@@ -15370,7 +15413,7 @@ snapshots:
       consola: 3.2.3
       dedent: 1.5.1
       json5: 2.2.3
-      posthog-node: 4.4.1
+      posthog-node: 4.9.0
     transitivePeerDependencies:
       - babel-plugin-macros
       - debug
@@ -23825,7 +23868,7 @@ snapshots:
       preact: 10.25.4
       web-vitals: 4.2.4
 
-  posthog-node@4.4.1:
+  posthog-node@4.9.0:
     dependencies:
       axios: 1.7.9(debug@4.4.0)
     transitivePeerDependencies:

@@ -33,6 +33,7 @@
     "@bashbuddy/common": "workspace:*",
     "@bashbuddy/db": "workspace:*",
     "@bashbuddy/envs": "workspace:*",
+    "@bashbuddy/posthog": "workspace:*",
     "@bashbuddy/redis": "workspace:*",
     "@bashbuddy/socketless": "workspace:*",
     "@bashbuddy/validators": "workspace:*",

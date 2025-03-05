@@ -12,6 +12,7 @@ import { decodeIdToken } from "arctic";
 import { and, eq } from "@bashbuddy/db";
 import { db } from "@bashbuddy/db/client";
 import { accountTable, userTable } from "@bashbuddy/db/schema";
+import { posthog } from "@bashbuddy/posthog";
 
 export async function GET(event: RequestEvent): Promise<Response> {
   const code = event.url.searchParams.get("code");
@@ -103,6 +104,26 @@ export async function GET(event: RequestEvent): Promise<Response> {
     });
 
     return user;
+  });
+
+  posthog.identify({
+    distinctId: user.id,
+    properties: {
+      email: user.email,
+      name: user.name,
+      profilePicture: user.profilePicture,
+      platform: "GOOGLE",
+    },
+  });
+  posthog.capture({
+    distinctId: user.id,
+    event: "create user",
+    properties: {
+      email: user.email,
+      name: user.name,
+      profilePicture: user.profilePicture,
+      platform: "GOOGLE",
+    },
   });
 
   const sessionToken = generateSessionToken();

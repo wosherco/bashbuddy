@@ -9,6 +9,7 @@ import { processPrompt } from "@bashbuddy/agent";
 import { eq, increment } from "@bashbuddy/db";
 import { db } from "@bashbuddy/db/client";
 import { userTable } from "@bashbuddy/db/schema";
+import { posthog } from "@bashbuddy/posthog";
 import {
   addMessageToChatSession,
   createChatSession,
@@ -128,7 +129,17 @@ export const chatRouter = {
       });
     }
 
-    return createChatSession(ctx.user.id);
+    const chatId = await createChatSession(ctx.user.id);
+
+    posthog.capture({
+      distinctId: ctx.user.id,
+      event: "chat.create",
+      properties: {
+        chatId,
+      },
+    });
+
+    return chatId;
   }),
 
   ask: subscribedProcedure
@@ -172,6 +183,14 @@ export const chatRouter = {
           message: "Chat is too long. Please start a new chat.",
         });
       }
+
+      posthog.capture({
+        distinctId: ctx.user.id,
+        event: "chat.ask",
+        properties: {
+          chatId: input.chatId,
+        },
+      });
 
       const incrementNumberPromise = db
         .update(userTable)
