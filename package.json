@@ -28,8 +28,7 @@
     "typecheck": "turbo typecheck",
     "ui-add": "pnpm -F ui ui-add",
     "test": "vitest",
-    "test:watch": "vitest --watch",
-    "changeset": "pnpm dlx @changesets/cli"
+    "test:watch": "vitest --watch"
   },
   "dependencies": {
     "bun": "1.2.4",
@@ -41,7 +40,8 @@
     "@turbo/gen": "^2.3.1",
     "prettier": "catalog:",
     "turbo": "^2.3.1",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@changesets/cli": "2.28.1"
   },
   "prettier": "@bashbuddy/prettier-config"
 }
