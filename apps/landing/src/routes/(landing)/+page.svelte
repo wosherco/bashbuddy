@@ -116,14 +116,6 @@
     clearInterval(carouselInterval);
     carouselInterval = setInterval(rotateDemo, 8000);
   }
-
-  // Function to scroll to a section smoothly
-  function scrollToSection(id: string) {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  }
 </script>
 
 <SvelteSeo
@@ -212,15 +204,11 @@
     </div>
 
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <Button
-        variant="outline"
-        class="gap-2"
-        onclick={() => scrollToSection("how-it-works")}
-      >
+      <Button variant="outline" class="gap-2" href="/#how-it-works">
         <Info class="h-4 w-4" />
         How it works?
       </Button>
-      <Button class="gap-2">
+      <Button class="gap-2" href={`${SITE_URLS.DOCS_URL}/install`}>
         Install today
         <ChevronRight class="h-4 w-4" />
       </Button>
@@ -298,7 +286,10 @@
 
     <!-- Features CTA -->
     <div class="mt-16 text-center">
-      <Button class="gap-2 px-8 py-6 text-lg">
+      <Button
+        class="gap-2 px-8 py-6 text-lg"
+        href={`${SITE_URLS.DOCS_URL}/install`}
+      >
         <Terminal class="h-5 w-5" />
         Experience the power of BashBuddy
         <ChevronRight class="h-5 w-5" />
@@ -401,7 +392,10 @@
 
     <!-- How It Works CTA -->
     <div class="mt-16 text-center">
-      <Button class="gap-2 px-8 py-6 text-lg">
+      <Button
+        class="gap-2 px-8 py-6 text-lg"
+        href={`${SITE_URLS.DOCS_URL}/install`}
+      >
         <Terminal class="h-5 w-5" />
         Try BashBuddy Now
         <ChevronRight class="h-5 w-5" />
@@ -531,6 +525,7 @@
     <div class="mt-16 text-center">
       <Button
         class="gap-2 px-8 py-6 text-lg bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 border-none"
+        href={SITE_URLS.ACCOUNT_URL}
       >
         <Zap class="h-5 w-5" />
         Subscribe to BashBuddy Cloud
@@ -586,7 +581,11 @@
 
     <!-- Local CTA -->
     <div class="mt-16 text-center">
-      <Button variant="outline" class="gap-2 px-8 py-6 text-lg">
+      <Button
+        variant="outline"
+        class="gap-2 px-8 py-6 text-lg"
+        href={`${SITE_URLS.DOCS_URL}/install`}
+      >
         <Cpu class="h-5 w-5" />
         Install BashBuddy Locally
         <ChevronRight class="h-5 w-5" />
@@ -651,7 +650,10 @@
       </p>
 
       <div class="pt-8 flex flex-col md:flex-row gap-6 justify-center">
-        <Button class="gap-2 px-10 py-8 text-xl">
+        <Button
+          class="gap-2 px-10 py-8 text-xl"
+          href={`${SITE_URLS.DOCS_URL}/install`}
+        >
           <Terminal class="h-6 w-6" />
           Install BashBuddy
           <ChevronRight class="h-6 w-6" />
@@ -660,6 +662,7 @@
         <Button
           variant="outline"
           class="gap-2 px-10 py-8 text-xl bg-gradient-to-r from-orange-500/10 to-red-500/10 hover:from-orange-500/20 hover:to-red-500/20 border-orange-500/30"
+          href={SITE_URLS.ACCOUNT_URL}
         >
           <Zap class="h-6 w-6 text-orange-500" />
           <span
