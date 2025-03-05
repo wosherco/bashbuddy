@@ -1,0 +1,88 @@
+---
+id: install
+title: Install BashBuddy CLI
+description: Learn how to install BashBuddy on your system
+slug: /install
+sidebar_position: 2
+---
+
+import TabItem from "@theme/TabItem";
+import Tabs from "@theme/Tabs";
+
+# Installing BashBuddy
+
+Installing BashBuddy is easy! You just need to run the following command:
+
+<Tabs groupId="install-method">
+     <TabItem value="bash" label="MacOS & Linux">
+       ```bash 
+       curl -fsSL https://get.bashbuddy.run/install.sh | bash
+       ```
+     </TabItem>
+     <TabItem value="powershell" label="Windows">
+       ```powershell
+      powershell -c "irm https://get.bashbuddy.run/install.ps1 | iex"
+       ```
+     </TabItem>
+     <TabItem value="bun" label="bun">
+       ```bash
+       bun install -g @bashbuddy/cli
+       ```
+     </TabItem>
+   </Tabs>
+
+## Verifying Installation
+
+To verify that BashBuddy is installed correctly, run:
+
+```bash
+bashbuddy --version
+```
+
+You should see the current version number displayed.
+
+## Next steps
+
+Once you have BashBuddy installed, you'll need to choose between using it locally, or using [BashBuddy Cloud](/cloud).
+
+### Using locally
+
+> If you computer is not fast enough to run the AI model locally, you won't have a great experience.
+
+Setup the local model by running:
+
+```bash
+bashbuddy local
+```
+
+You will be prompted to choose a model. The CLI will download and install the model for you.
+
+Once the model is installed, you can start using BashBuddy by running:
+
+```bash
+bashbuddy ask echo 5 times 4
+```
+
+### Using BashBuddy Cloud
+
+Refer to the [BashBuddy Cloud](/cloud) page for more information.
+
+## Installing the alias
+
+Typing `bashbuddy ask` in your terminal all the time is slow. We expect you to be more productive than that!
+
+To make it easier to use, you can install the alias by running:
+
+```bash
+bashbuddy alias
+```
+
+If installed correctly, you should be able to use `bb` instead of `bashbuddy ask`.
+
+```bash
+bb git commit add new feature with no verify
+```
+
+## Troubleshooting
+
+If you encounter any issues, please refer to the [troubleshooting guide](/troubleshooting).

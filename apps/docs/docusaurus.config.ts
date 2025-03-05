@@ -7,7 +7,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 const config: Config = {
   title: "BashBuddy",
   tagline: "Your AI-powered terminal assistant",
-  favicon: "img/favicon.ico",
+  favicon: "favicon.ico",
 
   // Set the production url of your site here
   url: "https://docs.bashbuddy.run",
@@ -17,10 +17,10 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "bashbuddy", // Usually your GitHub org/user name.
+  organizationName: "wosherco", // Usually your GitHub org/user name.
   projectName: "bashbuddy", // Usually your repo name.
 
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
 
   // Even if you don't use internationalization, you can use this field to set
@@ -51,12 +51,12 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: "img/bashbuddy-social-card.jpg",
+    image: "android-chrome-512x512.png",
     navbar: {
       title: "BashBuddy",
       logo: {
         alt: "BashBuddy Logo",
-        src: "img/logo.svg",
+        src: "android-chrome-512x512.png",
       },
       items: [
         {
@@ -66,7 +66,7 @@ const config: Config = {
           label: "Docs",
         },
         {
-          href: "https://github.com/bashbuddy/bashbuddy",
+          href: "https://github.com/wosherco/bashbuddy",
           label: "GitHub",
           position: "right",
         },
@@ -79,8 +79,16 @@ const config: Config = {
           title: "Docs",
           items: [
             {
-              label: "Installation",
-              to: "/installation",
+              label: "Getting Started",
+              to: "/getting-started",
+            },
+            {
+              label: "Install",
+              to: "/install",
+            },
+            {
+              label: "BashBuddy Cloud",
+              to: "/cloud",
             },
           ],
         },
@@ -88,13 +96,21 @@ const config: Config = {
           title: "Community",
           items: [
             {
+              label: "Discord",
+              href: "https://discord.com/invite/knDFUB5UtU",
+            },
+            {
               label: "GitHub Discussions",
-              href: "https://github.com/bashbuddy/bashbuddy/discussions",
+              href: "https://github.com/wosherco/bashbuddy/discussions",
+            },
+            {
+              label: "GitHub Issues",
+              href: "https://github.com/wosherco/bashbuddy/issues",
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} BashBuddy. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} wosher.co. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
