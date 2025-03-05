@@ -28,7 +28,8 @@
     "typecheck": "turbo typecheck",
     "ui-add": "pnpm -F ui ui-add",
     "test": "vitest",
-    "test:watch": "vitest --watch"
+    "test:watch": "vitest --watch",
+    "changeset": "pnpm dlx @changesets/cli"
   },
   "dependencies": {
     "bun": "1.2.4",
