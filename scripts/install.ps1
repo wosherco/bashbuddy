@@ -59,7 +59,7 @@ $host.UI.RawUI.ForegroundColor = "White"
 
 try {
     # Run the bun install command
-    bun i -g @bashbuddy/cli
+    bun i -g @bashbuddy/cli@latest
     
     $host.UI.RawUI.ForegroundColor = "Green"
     Write-Host "BashBuddy CLI has been successfully installed/updated!"

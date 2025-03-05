@@ -35,7 +35,7 @@ fi
 
 # Install or update @bashbuddy/cli
 echo -e "${BLUE}Installing/updating @bashbuddy/cli...${NC}"
-bun i -g @bashbuddy/cli
+bun i -g @bashbuddy/cli@latest
 
 # Check if installation was successful
 if [ $? -eq 0 ]; then
