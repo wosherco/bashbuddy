@@ -30,25 +30,22 @@
 
   import { SITE_URLS } from "@bashbuddy/consts";
 
-  type ShellType = "bash" | "zsh" | "powershell" | "npm" | "bun";
+  type ShellType = "bash" | "powershell" | "bun";
 
   let selectedShell = $state<ShellType>("bash");
   let copied = $state(false);
 
   const shellOptions = [
     { id: "bash" as ShellType, label: "Bash" },
-    { id: "zsh" as ShellType, label: "Zsh" },
     { id: "powershell" as ShellType, label: "PowerShell" },
-    { id: "npm" as ShellType, label: "npm" },
     { id: "bun" as ShellType, label: "Bun" },
   ];
 
   const shellCommands: Record<ShellType, string> = {
-    bash: "curl -fsSL https://get.bashbuddy.run | bash",
-    zsh: "curl -fsSL https://get.bashbuddy.run | zsh",
-    powershell: "iwr -useb https://get.bashbuddy.run/install.ps1 | iex",
-    npm: "npm install -g bashbuddy",
-    bun: "bun install -g bashbuddy",
+    bash: "curl -fsSL https://get.bashbuddy.run/install.sh | bash",
+    powershell:
+      'powershell -c "irm https://get.bashbuddy.run/install.ps1 | iex"',
+    bun: "bun install -g @bashbuddy/cli",
   };
 
   function copyCommand() {
