@@ -22,15 +22,16 @@ export const externalDependencies = [
   "@node-llama-cpp",
   "@reflink",
   "node-llama-cpp",
-  "@clack/prompts",
-  "clipboardy",
-  "commander",
 ];
 
 await Bun.build({
   entrypoints: ["./bin/index.ts"],
   outdir: "./dist",
-  minify: true,
-  target: "node",
+  // minify: true,
+  target: "bun",
   external: externalDependencies,
+  define: {
+    "process.env.NODE_ENV": "production",
+    "process.env.PUBLIC_ENVIRONMENT": "production",
+  },
 });
