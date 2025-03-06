@@ -13,7 +13,6 @@ export const load: LayoutLoad = () => {
   if (browser) {
     posthog.init(PUBLIC_POSTHOG_API_KEY, {
       api_host: PUBLIC_POSTHOG_ENDPOINT,
-      person_profiles: "identified_only",
       capture_pageview: false,
       capture_pageleave: false,
     });
