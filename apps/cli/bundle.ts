@@ -31,7 +31,7 @@ await Bun.build({
   target: "bun",
   external: externalDependencies,
   define: {
-    "process.env.NODE_ENV": "production",
-    "process.env.PUBLIC_ENVIRONMENT": "production",
+    "process.env.NODE_ENV": '"production"',
+    "process.env.PUBLIC_ENVIRONMENT": '"production"',
   },
 });
