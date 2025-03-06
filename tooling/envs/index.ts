@@ -15,10 +15,10 @@ export const env = createEnv({
      */
     NODE_ENV: z
       .enum(["development", "production", "test"])
-      .default("development"),
+      .default("production"),
     PUBLIC_ENVIRONMENT: z
       .enum(["development", "production", "test", "staging"])
-      .default("development"),
+      .default("production"),
   },
   runtimeEnv,
   skipValidation,

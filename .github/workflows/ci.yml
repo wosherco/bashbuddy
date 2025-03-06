@@ -56,16 +56,17 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+  # TODO: Re-enable when tests are added
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - name: Setup
-        uses: ./tooling/github/setup
+  #     - name: Setup
+  #       uses: ./tooling/github/setup
 
-      - name: Test
-        run: pnpm test
+  #     - name: Test
+  #       run: pnpm test
 
   # cicd:
   #   runs-on: ubuntu-latest
