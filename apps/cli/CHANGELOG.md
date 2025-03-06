@@ -1,5 +1,11 @@
 # @bashbuddy/cli
 
+## 0.1.2
+
+### Patch Changes
+
+- 10a0eed: Fix not working correctly
+
 ## 0.1.1
 
 ### Patch Changes
