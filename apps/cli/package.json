@@ -11,7 +11,7 @@
     "start:dist": "bun run dist/index.js",
     "build": "NODE_ENV=production bun run bundle.ts",
     "clean": "rm -rf .turbo node_modules",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore --ignore-path .prettierignore --ignore-path .gitignore ",
     "lint": "eslint",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "prepublish": "bun run prepublish.ts"
