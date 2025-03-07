@@ -17,8 +17,8 @@
     "prepublish": "bun run prepublish.ts"
   },
   "devDependencies": {
-    "@bashbuddy/envs": "workspace:*",
     "@bashbuddy/api": "workspace:*",
+    "@bashbuddy/envs": "workspace:*",
     "@bashbuddy/eslint-config": "workspace:*",
     "@bashbuddy/opentelemetry": "workspace:*",
     "@bashbuddy/prettier-config": "workspace:*",
@@ -40,6 +40,7 @@
     "commander": "^13.1.0",
     "node-llama-cpp": "^3.6.0",
     "superjson": "catalog:",
+    "yaml": "^2.7.0",
     "zod": "catalog:"
   },
   "prettier": "@bashbuddy/prettier-config",
