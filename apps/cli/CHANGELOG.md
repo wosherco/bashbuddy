@@ -1,5 +1,11 @@
 # @bashbuddy/cli
 
+## 0.1.3
+
+### Patch Changes
+
+- eeacf7c: Not including trpc/client in the bundle
+
 ## 0.1.2
 
 ### Patch Changes
