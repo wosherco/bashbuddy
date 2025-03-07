@@ -16,7 +16,6 @@ export function uniqueArray<
 export const gitContextSchema = z.object({
   currentBranch: z.string().nullable(),
   root: z.string(),
-  status: z.string().nullable(),
   remotes: z.string().nullable(),
   lastCommit: z.string().nullable(),
   lastBranches: z.string().nullable(),

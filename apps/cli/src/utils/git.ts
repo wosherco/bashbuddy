@@ -58,19 +58,6 @@ export async function getGitCurrentBranch(): Promise<string | null> {
 }
 
 /**
- * Gets the status of the git repository
- * @returns {string|null} The status of the git repository, or null if not in a git repository
- */
-export async function getGitStatus(): Promise<string | null> {
-  try {
-    const result = await runGitCommand("status --short");
-    return result;
-  } catch {
-    return null;
-  }
-}
-
-/**
  * Gets the remotes of the git repository
  * @returns {string|null} The remotes of the git repository, or null if not in a git repository
  */
@@ -89,8 +76,10 @@ export async function getGitRemotes(): Promise<string | null> {
  */
 export async function getGitLastCommit(): Promise<string | null> {
   try {
-    const result = await runGitCommand("log -1 --pretty=format:%h %s %an %ad");
-    return result;
+    const result = await runGitCommand(
+      "log -1 --pretty=format:'%h %s %an %ad'",
+    );
+    return result || null;
   } catch {
     return null;
   }
@@ -102,7 +91,9 @@ export async function getGitLastCommit(): Promise<string | null> {
  */
 export async function getGitLastBranches(): Promise<string | null> {
   try {
-    const result = await runGitCommand("branch -r --sort=-committerdate");
+    const result = await runGitCommand(
+      "branch -r --sort=-committerdate | head -n 4",
+    );
     return result;
   } catch {
     return null;
