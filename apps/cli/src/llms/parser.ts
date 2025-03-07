@@ -1,4 +1,5 @@
 import { JSONParser } from "@streamparser/json-node";
+import { parse as parseYaml } from "yaml";
 
 import type { LLMResponse } from "@bashbuddy/validators";
 import { isDev } from "@bashbuddy/consts";
@@ -78,6 +79,46 @@ export async function parseLLMResponse(
         )} ${finalResponse}`,
       );
     }
+    throw new ResponseParseError();
+  }
+
+  return parsedFinalResponse.data;
+}
+
+export async function parseYamlResponse(
+  stream: AsyncIterable<string>,
+  cb: (response: Partial<LLMResponse>) => void,
+): Promise<LLMResponse> {
+  let finalResponse = "";
+
+  for await (const chunk of stream) {
+    finalResponse += chunk;
+    try {
+      const parsed = llmResponseSchema.safeParse(parseYaml(finalResponse));
+      if (parsed.success) {
+        cb(parsed.data);
+      }
+    } catch {
+      // Do nothing
+    }
+  }
+  console.log("parsedFinalResponse", finalResponse);
+
+  const parsedFinalResponse = llmResponseSchema.safeParse(
+    parseYaml(finalResponse),
+  );
+
+  if (!parsedFinalResponse.success) {
+    if (isDev) {
+      console.error(
+        `DEV ONLY Failed to parse final response ${JSON.stringify(
+          parsedFinalResponse.error,
+          null,
+          2,
+        )} ${finalResponse}`,
+      );
+    }
+
     throw new ResponseParseError();
   }
 
