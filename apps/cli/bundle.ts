@@ -22,6 +22,7 @@ export const externalDependencies = [
   "@node-llama-cpp",
   "@reflink",
   "node-llama-cpp",
+  "@trpc/client",
 ];
 
 await Bun.build({

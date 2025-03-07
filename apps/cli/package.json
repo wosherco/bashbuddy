@@ -11,14 +11,14 @@
     "start:dist": "bun run dist/index.js",
     "build": "NODE_ENV=production bun run bundle.ts",
     "clean": "rm -rf .turbo node_modules",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore --ignore-path .prettierignore --ignore-path .gitignore ",
     "lint": "eslint",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "prepublish": "bun run prepublish.ts"
   },
   "devDependencies": {
-    "@bashbuddy/envs": "workspace:*",
     "@bashbuddy/api": "workspace:*",
+    "@bashbuddy/envs": "workspace:*",
     "@bashbuddy/eslint-config": "workspace:*",
     "@bashbuddy/opentelemetry": "workspace:*",
     "@bashbuddy/prettier-config": "workspace:*",
@@ -40,6 +40,7 @@
     "commander": "^13.1.0",
     "node-llama-cpp": "^3.6.0",
     "superjson": "catalog:",
+    "yaml": "^2.7.0",
     "zod": "catalog:"
   },
   "prettier": "@bashbuddy/prettier-config",

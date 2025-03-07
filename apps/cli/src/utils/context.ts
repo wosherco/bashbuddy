@@ -11,7 +11,6 @@ import {
   getGitLastCommit,
   getGitRemotes,
   getGitRepositoryRoot,
-  getGitStatus,
   isGitRepository,
 } from "./git";
 import { getShellHistory } from "./shell";
@@ -57,19 +56,16 @@ export async function getGitContext(): Promise<GitContext | undefined> {
     return undefined;
   }
 
-  const [currentBranch, status, remotes, lastCommit, lastBranches] =
-    await Promise.all([
-      getGitCurrentBranch(),
-      getGitStatus(),
-      getGitRemotes(),
-      getGitLastCommit(),
-      getGitLastBranches(),
-    ]);
+  const [currentBranch, remotes, lastCommit, lastBranches] = await Promise.all([
+    getGitCurrentBranch(),
+    getGitRemotes(),
+    getGitLastCommit(),
+    getGitLastBranches(),
+  ]);
 
   return {
     root,
     currentBranch,
-    status,
     remotes,
     lastCommit,
     lastBranches,

@@ -13,7 +13,7 @@
     "build": "tsc",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "dev": "svelte-check --tsconfig ./tsconfig.json --watch",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore --ignore-path .prettierignore --ignore-path .gitignore ",
     "typecheck": "svelte-check --tsconfig ./tsconfig.json",
     "typecheck:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "eslint"
