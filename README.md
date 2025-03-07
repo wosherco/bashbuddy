@@ -10,4 +10,4 @@ Write bash commands with natural language.
 
 ## How to install?
 
-To install BashBuddy, we recommend checking our [installation guide](https://docs.bashbuddy.run/getting-started/installation).
+To install BashBuddy, we recommend checking our [installation guide](https://docs.bashbuddy.run/install).
