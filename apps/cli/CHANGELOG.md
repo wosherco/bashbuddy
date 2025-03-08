@@ -1,5 +1,11 @@
 # @bashbuddy/cli
 
+## 0.2.0
+
+### Minor Changes
+
+- 2bff9b7: Upgraded the prompt for less parsing errors
+
 ## 0.1.3
 
 ### Patch Changes
