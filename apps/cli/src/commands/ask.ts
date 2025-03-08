@@ -10,11 +10,7 @@ import { SITE_URLS } from "@bashbuddy/consts";
 
 import { isV2 } from "../consts";
 import { LocalLLM } from "../llms/localllm";
-import {
-  parseLLMResponse,
-  parseYamlResponse,
-  ResponseParseError,
-} from "../llms/parser";
+import { parseYamlResponse, ResponseParseError } from "../llms/parser";
 import { trpc } from "../trpc";
 import { CLOUD_MODE, ConfigManager, LOCAL_MODE } from "../utils/config";
 import { getContext } from "../utils/context";
@@ -67,7 +63,7 @@ async function execute(question: string) {
       modelSpinner.stop("Model loaded!");
 
       const createNewOutputStream = (newUserInput: string) =>
-        Promise.resolve(processPrompt(llm, context, newUserInput, isV2()));
+        Promise.resolve(processPrompt(llm, context, newUserInput, true));
 
       commandToRun = await cliInfer(
         await createNewOutputStream(question),
@@ -89,6 +85,7 @@ async function execute(question: string) {
             input: newUserInput,
             context,
             chatId,
+            useYaml: true,
           });
 
         commandToRun = await cliInfer(
@@ -155,14 +152,11 @@ async function cliInfer(
   let finalResponse: LLMResponse;
 
   try {
-    finalResponse = await (isV2() ? parseYamlResponse : parseLLMResponse)(
-      outputStream,
-      (response) => {
-        if (response.command) {
-          llmSpinner.message(response.command);
-        }
-      },
-    );
+    finalResponse = await parseYamlResponse(outputStream, (response) => {
+      if (response.command) {
+        llmSpinner.message(response.command);
+      }
+    });
   } catch (err) {
     if (err instanceof ResponseParseError) {
       llmSpinner.stop("Failed to parse LLM response");
