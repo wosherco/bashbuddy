@@ -102,7 +102,6 @@ export async function parseYamlResponse(
       // Do nothing
     }
   }
-  console.log("parsedFinalResponse", finalResponse);
 
   const parsedFinalResponse = llmResponseSchema.safeParse(
     parseYaml(finalResponse),

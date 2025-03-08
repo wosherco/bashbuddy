@@ -25,8 +25,6 @@ export const load: PageServerLoad = async ({ request, cookies }) => {
       .from(authSessionTable)
       .where(eq(authSessionTable.id, authSession));
 
-    console.log(authSession, dbAuthSession);
-
     if (dbAuthSession) {
       if (dbAuthSession.expiresAt.getTime() > Date.now()) {
         await notifyAuthSessionCreated(dbAuthSession.id, token);
