@@ -48,8 +48,21 @@ if (-not (Test-CommandExists "bun")) {
 }
 else {
     $host.UI.RawUI.ForegroundColor = "Green"
-    Write-Host "Bun is already installed."
+    Write-Host "Bun is already installed. Checking for updates..."
     $host.UI.RawUI.ForegroundColor = "White"
+    
+    try {
+        bun upgrade
+        
+        $host.UI.RawUI.ForegroundColor = "Green"
+        Write-Host "Bun has been updated to the latest version."
+        $host.UI.RawUI.ForegroundColor = "White"
+    }
+    catch {
+        $host.UI.RawUI.ForegroundColor = "Yellow"
+        Write-Host "Failed to update Bun. Continuing with existing version. Error: $_"
+        $host.UI.RawUI.ForegroundColor = "White"
+    }
 }
 
 # Install or update @bashbuddy/cli

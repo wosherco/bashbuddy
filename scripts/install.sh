@@ -30,7 +30,9 @@ if ! command -v bun &> /dev/null; then
     
     echo -e "${GREEN}Bun has been installed successfully!${NC}"
 else
-    echo -e "${GREEN}Bun is already installed.${NC}"
+    echo -e "${GREEN}Bun is already installed. Checking for updates...${NC}"
+    bun upgrade
+    echo -e "${GREEN}Bun has been updated to the latest version.${NC}"
 fi
 
 # Install or update @bashbuddy/cli
