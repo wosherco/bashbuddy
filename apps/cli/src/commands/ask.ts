@@ -9,7 +9,7 @@ import { processPrompt } from "@bashbuddy/agent";
 import { SITE_URLS } from "@bashbuddy/consts";
 
 import { LocalLLM } from "../llms/localllm";
-import { parseLLMResponse, ResponseParseError } from "../llms/parser";
+import { parseYamlResponse, ResponseParseError } from "../llms/parser";
 import { trpc } from "../trpc";
 import { CLOUD_MODE, ConfigManager, LOCAL_MODE } from "../utils/config";
 import { getContext } from "../utils/context";
@@ -62,7 +62,7 @@ async function execute(question: string) {
       modelSpinner.stop("Model loaded!");
 
       const createNewOutputStream = (newUserInput: string) =>
-        Promise.resolve(processPrompt(llm, context, newUserInput));
+        Promise.resolve(processPrompt(llm, context, newUserInput, true));
 
       commandToRun = await cliInfer(
         await createNewOutputStream(question),
@@ -84,6 +84,7 @@ async function execute(question: string) {
             input: newUserInput,
             context,
             chatId,
+            useYaml: true,
           });
 
         commandToRun = await cliInfer(
@@ -150,7 +151,7 @@ async function cliInfer(
   let finalResponse: LLMResponse;
 
   try {
-    finalResponse = await parseLLMResponse(outputStream, (response) => {
+    finalResponse = await parseYamlResponse(outputStream, (response) => {
       if (response.command) {
         llmSpinner.message(response.command);
       }

@@ -148,6 +148,7 @@ export const chatRouter = {
         input: z.string(),
         context: contextSchema,
         chatId: z.string(),
+        useYaml: z.boolean().optional().default(false),
       }),
     )
     .mutation(async function* ({ ctx, input }) {
@@ -208,7 +209,12 @@ export const chatRouter = {
         ctx.user.id,
       );
 
-      const stream = processPrompt(groqLLM, input.context, input.input);
+      const stream = processPrompt(
+        groqLLM,
+        input.context,
+        input.input,
+        input.useYaml,
+      );
 
       await addMessageToChatSession(input.chatId, {
         role: "user",
