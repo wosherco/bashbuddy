@@ -8,7 +8,6 @@ import type { LLMResponse } from "@bashbuddy/validators";
 import { processPrompt } from "@bashbuddy/agent";
 import { SITE_URLS } from "@bashbuddy/consts";
 
-import { isV2 } from "../consts";
 import { LocalLLM } from "../llms/localllm";
 import { parseYamlResponse, ResponseParseError } from "../llms/parser";
 import { trpc } from "../trpc";
