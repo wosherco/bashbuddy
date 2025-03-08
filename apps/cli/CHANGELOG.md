@@ -1,5 +1,11 @@
 # @bashbuddy/cli
 
+## 0.2.1
+
+### Patch Changes
+
+- b86193e: Fixed kv not being able to create
+
 ## 0.2.0
 
 ### Minor Changes
