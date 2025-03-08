@@ -1,5 +1,11 @@
 # @bashbuddy/cli
 
+## 0.2.2
+
+### Patch Changes
+
+- 540ceef: Added update command & update checker
+
 ## 0.2.1
 
 ### Patch Changes
