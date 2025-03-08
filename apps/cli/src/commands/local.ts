@@ -38,13 +38,13 @@ async function selectModel(): Promise<AIModel | null> {
   }
 
   // Check if the model can run on this system
-  const { freeRAM } = await ModelManager.checkSystemCapabilities();
-  const { canRun, recommendation } = ModelManager.canModelRunOnSystem(
+  const { totalRAM } = await ModelManager.checkSystemCapabilities();
+  const recommendation = ModelManager.canModelRunOnSystem(
     selectedModel,
-    freeRAM,
+    totalRAM,
   );
 
-  if (!canRun) {
+  if (recommendation) {
     p.log.warning(recommendation);
     const forceContinue = await p.confirm({
       message: "Do you want to continue anyway?",
@@ -54,8 +54,6 @@ async function selectModel(): Promise<AIModel | null> {
       p.cancel("Operation cancelled");
       return null;
     }
-  } else if (recommendation) {
-    p.log.warning(recommendation);
   }
 
   if (!selectedModel.isDownloaded) {
@@ -112,7 +110,7 @@ export function createLocalCommand(): Command {
       p.intro("BashBuddy Local AI Model Management");
 
       // Check system capabilities first
-      const { totalRAM, freeRAM, isCapable, hardwareAcceleration } =
+      const { totalRAM, hardwareAcceleration } =
         await ModelManager.checkSystemCapabilities();
 
       // Check if any hardware acceleration is available
@@ -120,51 +118,41 @@ export function createLocalCommand(): Command {
         (acc) => acc.available && acc.type !== "none",
       );
 
-      if (!isCapable || !hasHardwareAcceleration) {
+      // Only show hardware acceleration warning if none is available
+      if (!hasHardwareAcceleration) {
         // Create a more eye-catching warning message
         const warningTitle = chalk.bgYellow.black.bold(
-          " ⚠️  SYSTEM REQUIREMENTS WARNING ⚠️ ",
+          " ⚠️  HARDWARE ACCELERATION WARNING ⚠️ ",
         );
 
         let warningMessage = "";
 
-        // RAM warning
-        if (!isCapable) {
-          warningMessage += chalk.yellow.bold(
-            `\n⚠️  RAM ISSUE: Your system has ${totalRAM} GB total RAM with ${freeRAM} GB free, which is not sufficient to run local AI models effectively.`,
-          );
-          warningMessage += chalk.yellow(
-            `\n   Consider closing other applications or using cloud-based models for better performance.`,
-          );
-        }
-
         // Hardware acceleration warning
-        if (!hasHardwareAcceleration) {
-          warningMessage += chalk.yellow.bold(
-            `\n⚠️  HARDWARE ACCELERATION ISSUE: No GPU acceleration detected!`,
-          );
-          warningMessage += chalk.yellow(
-            `\n   Running models on CPU only will be significantly slower.`,
-          );
-          warningMessage += chalk.yellow(
-            `\n   For optimal performance, a compatible GPU with CUDA, Metal, or Vulkan support is recommended.`,
-          );
-        } else {
-          // Show available acceleration
-          const availableAccelerations = hardwareAcceleration
-            .filter((acc) => acc.available && acc.type !== "none")
-            .map((acc) => acc.details ?? acc.type)
-            .join(", ");
-
-          warningMessage += chalk.green(
-            `\n✅  HARDWARE ACCELERATION: ${availableAccelerations}`,
-          );
-        }
+        warningMessage += chalk.yellow.bold(
+          `\n⚠️  HARDWARE ACCELERATION ISSUE: No GPU acceleration detected!`,
+        );
+        warningMessage += chalk.yellow(
+          `\n   Running models on CPU only will be significantly slower.`,
+        );
+        warningMessage += chalk.yellow(
+          `\n   For optimal performance, a compatible GPU with CUDA, Metal, or Vulkan support is recommended.`,
+        );
 
         // Display the warning box
         console.log("\n" + warningTitle);
         console.log(warningMessage + "\n");
+      } else {
+        // Show available acceleration
+        const availableAccelerations = hardwareAcceleration
+          .filter((acc) => acc.available && acc.type !== "none")
+          .map((acc) => acc.details ?? acc.type)
+          .join(", ");
+
+        p.log.success(`Hardware Acceleration: ${availableAccelerations}`);
       }
+
+      // Show RAM information
+      p.log.info(`System RAM: ${totalRAM} GB total`);
 
       const model = await selectModel();
       if (!model) {
