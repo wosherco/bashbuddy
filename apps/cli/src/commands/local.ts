@@ -139,8 +139,8 @@ export function createLocalCommand(): Command {
         );
 
         // Display the warning box
-        console.log("\n" + warningTitle);
-        console.log(warningMessage + "\n");
+        p.log.warning("\n" + warningTitle);
+        p.log.warning(warningMessage + "\n");
       } else {
         // Show available acceleration
         const availableAccelerations = hardwareAcceleration
