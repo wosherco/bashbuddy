@@ -1,5 +1,11 @@
 # @bashbuddy/cli
 
+## 0.2.3
+
+### Patch Changes
+
+- 9fcdda4: Better hardware checking
+
 ## 0.2.2
 
 ### Patch Changes
