@@ -20,7 +20,7 @@ export function createCLI() {
     .action(() => {
       console.log("👋 Welcome to BashBuddy CLI!");
       console.log("Run with --help to see available commands.");
-      program.help();
+      program.outputHelp();
     });
 
   // Add commands
