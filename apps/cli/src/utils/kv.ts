@@ -21,6 +21,7 @@ export class KVManager {
       return JSON.parse(content) as Record<string, unknown>;
     } catch {
       // File doesn't exist or isn't valid JSON
+      await fs.mkdir(path.dirname(STORAGE_FILE), { recursive: true });
       const emptyStorage = {};
       await fs.writeFile(STORAGE_FILE, JSON.stringify(emptyStorage, null, 2));
       return emptyStorage;
