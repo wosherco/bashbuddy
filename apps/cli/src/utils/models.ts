@@ -199,19 +199,15 @@ export class ModelManager {
    */
   static async checkSystemCapabilities(): Promise<{
     totalRAM: number;
-    freeRAM: number;
     isCapable: boolean;
     hardwareAcceleration: HardwareAcceleration[];
   }> {
     // Get system memory info
     const totalRAM = Math.floor(os.totalmem() / (1024 * 1024 * 1024)); // Convert to GB
-    const freeRAM = Math.floor(os.freemem() / (1024 * 1024 * 1024)); // Convert to GB
 
-    // Check if system has enough RAM for at least the smallest model
-    const minRequiredRAM = Math.min(
-      ...availableModels.map((model) => model.requiredRAM),
-    );
-    const isCapable = freeRAM >= minRequiredRAM;
+    // Always set isCapable to true - we'll let the user decide if they want to run the model
+    // The canModelRunOnSystem method will provide recommendations based on total RAM
+    const isCapable = true;
 
     // Detect hardware acceleration
     const hardwareAcceleration =
@@ -219,7 +215,6 @@ export class ModelManager {
 
     return {
       totalRAM,
-      freeRAM,
       isCapable,
       hardwareAcceleration,
     };
@@ -231,23 +226,16 @@ export class ModelManager {
    * @param freeRAM The available RAM in GB
    * @returns Whether the model can run and a recommendation
    */
-  static canModelRunOnSystem(
-    model: AIModel,
-    freeRAM: number,
-  ): {
-    canRun: boolean;
-    recommendation: string;
-  } {
-    const canRun = freeRAM >= model.requiredRAM;
+  static canModelRunOnSystem(model: AIModel, totalRam: number): string {
+    // Always allow the model to run, but provide recommendations based on total RAM
     let recommendation = "";
 
-    if (!canRun) {
-      recommendation = `This model requires at least ${model.requiredRAM} GB of RAM, but you only have ${freeRAM} GB available.`;
-    } else if (freeRAM < model.requiredRAM * 1.5) {
-      recommendation = `This model will run, but performance might be limited. Consider using BashBuddy Cloud. More info on https://docs.bashbuddy.run/cloud`;
+    // Check if total RAM is less than model required + 10GB buffer
+    if (totalRam < model.requiredRAM + 10) {
+      recommendation = `This model recommends at least ${model.requiredRAM + 10} GB of total RAM, but your system has ${totalRam} GB. Performance may be degraded.`;
     }
 
-    return { canRun, recommendation };
+    return recommendation;
   }
 
   /**
