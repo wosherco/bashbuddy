@@ -7,6 +7,7 @@ import { createLocalCommand } from "./commands/local";
 import { createLoginCommand } from "./commands/login";
 import { createLogoutCommand } from "./commands/logout";
 import { createModeCommand } from "./commands/mode";
+import { createUpdateCommand } from "./commands/update";
 import { GIT_SHA, VERSION } from "./version";
 
 /**
@@ -17,10 +18,15 @@ export function createCLI() {
     .name("bashbuddy")
     .description("BashBuddy CLI - Your command line assistant")
     .version(`${VERSION} (${GIT_SHA})`)
-    .action(() => {
-      console.log("👋 Welcome to BashBuddy CLI!");
-      console.log("Run with --help to see available commands.");
-      program.outputHelp();
+    .argument("[command]", "The command to run")
+    .action((command) => {
+      if (command) {
+        program.outputHelp();
+      } else {
+        console.log("👋 Welcome to BashBuddy CLI!");
+        console.log("Run with --help to see available commands.");
+        program.outputHelp();
+      }
     });
 
   // Add commands
@@ -31,6 +37,7 @@ export function createCLI() {
   program.addCommand(createLoginCommand());
   program.addCommand(createLogoutCommand());
   program.addCommand(createAliasCommand());
+  program.addCommand(createUpdateCommand());
 
   return program;
 }
