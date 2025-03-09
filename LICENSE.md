@@ -8,7 +8,7 @@ BashBuddy is distributed under a dual licensing model. The licenses applicable t
    All code, except for the files and folders specified below, is licensed under the Apache License, Version 2.0. You can find a copy of this license in the `licenses/` folder.
 
 2. **Server Side Public License (SSPL)**  
-   Files and folders under the directory `/apps/server` are licensed under the Server Side Public License (SSPL). A copy of this license is also available in the `licenses/` folder.
+   Files and folders under the directory `/apps/server` and `/packages/agent` are licensed under the Server Side Public License (SSPL). A copy of this license is also available in the `licenses/` folder.
 
 ## Contributor License Agreement (CLA)
 
