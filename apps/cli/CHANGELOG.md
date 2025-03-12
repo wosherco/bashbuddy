@@ -1,5 +1,11 @@
 # @bashbuddy/cli
 
+## 0.2.4
+
+### Patch Changes
+
+- 2541ac6: Fixed AI escaping wrongly
+
 ## 0.2.3
 
 ### Patch Changes
