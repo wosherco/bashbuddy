@@ -1,0 +1,51 @@
+{
+    # Global options
+    auto_https off
+    http_port 80
+    https_port 443
+    admin off
+}
+
+# HTTP site handler
+:80 {
+    # Root directory for all static files
+    root * /usr/share/caddy
+    
+    # Try the exact path first, then {path}/index.html, then fall back to 404.html
+    try_files {path} {path}/index.html /404.html
+    
+    # Serve static files
+    file_server
+    
+    # Logging
+    log {
+        output stdout
+        format json
+    }
+}
+
+# Default site handler
+:443 {
+    # Enable TLS with self-signed certificate
+    tls internal {
+        protocols tls1.2 tls1.3
+    }
+    
+    # Compression
+    encode gzip
+    
+    # Root directory for all static files
+    root * /usr/share/caddy
+    
+    # Try the exact path first, then {path}/index.html, then fall back to 404.html
+    try_files {path} {path}/index.html /404.html
+    
+    # Serve static files
+    file_server
+    
+    # Logging
+    log {
+        output stdout
+        format json
+    }
+}
