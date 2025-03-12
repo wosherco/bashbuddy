@@ -88,7 +88,7 @@ EXPOSE 443
 #######################
 FROM caddy:2-alpine AS docs
 COPY --from=build /app/apps/docs/build /usr/share/caddy
-COPY ./infra/Caddyfile /etc/caddy/Caddyfile
+COPY ./infra/docs.Caddyfile /etc/caddy/Caddyfile
 
 EXPOSE 80
 EXPOSE 443
