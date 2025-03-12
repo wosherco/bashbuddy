@@ -182,7 +182,7 @@ async function cliInfer(
   if (finalResponse.dangerous) {
     p.log.message(
       chalk.red(
-        `⚠️  We careful, buddy has marked this command as dangerous. Make sure to know what it does.`,
+        `⚠️  Be careful, buddy has marked this command as dangerous. Make sure to know what it does.`,
       ),
     );
   }

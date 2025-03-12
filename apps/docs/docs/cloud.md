@@ -12,10 +12,10 @@ BashBuddy Cloud is a service that allows you to generate commands instantly, wit
 ## How to subscribe?
 
 1. Head over to your account page on [account.bashbuddy.run](https://account.bashbuddy.run). (If you don't have an account, you'll be redirected to the login page.)
-2. Click on "Subscription" button. In this page you will be able to see your current subscription status, and manage your subscription.
+2. Click on the "Subscription" button. On this page you will be able to see your current subscription status, and manage your subscription.
 3. Since you don't have an active subscription, click on the "Subscribe" button. You will be redirected to the payment page.
 4. Once payment is completed, you should be ready to go!
-5. Head over to your Shell of preference, and run `bashbuddy login` to login to your BashBuddy Cloud account. (if you don't have the cli installed, head over to the [install page](/install) and follow the instructions)
+5. Head over to your Shell of preference, and run `bashbuddy login` to login to your BashBuddy Cloud account. (if you don't have the CLI installed, head over to the [install page](/install) and follow the instructions)
 6. If you are already logged in, you can run `bashbuddy mode` to switch to cloud mode.
 
 ## Limitations
