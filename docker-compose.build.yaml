@@ -53,3 +53,20 @@ services:
       - .env
     ports:
       - 3000:3000
+
+  migrator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: migrator
+    image: bashbuddy/migrator
+    env_file:
+      - .env
+
+  complete:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bashbuddy/complete
+    env_file:
+      - .env

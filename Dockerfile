@@ -111,3 +111,44 @@ ENV PORT=3001
 ENV HOSTNAME="0.0.0.0"
 
 CMD ["pnpm", "-F", "server", "start"]
+
+###########################
+#       apps/migrator     #
+###########################
+FROM deps AS migrator-build
+RUN pnpm deploy -F db /prod/migrator
+
+FROM base AS migrator
+COPY --from=migrator-build /prod/migrator /prod/migrator
+WORKDIR /prod/migrator
+
+ENV NODE_ENV=production
+
+CMD ["sh", "-c", "pnpm -F db exec drizzle-kit migrate"]
+
+#########################
+#       Final Image     #
+#########################
+FROM node:20.17-slim AS final
+
+WORKDIR /app
+
+# Install pnpm
+RUN npm install -g pnpm@9.12.2
+
+# Copy all built applications
+COPY --from=account-build /prod/account /app/account
+COPY --from=authenticator-build /prod/authenticator /app/authenticator
+COPY --from=build /app/apps/landing/build /app/landing
+COPY --from=build /app/apps/docs/build /app/docs
+COPY --from=server-build /prod/server /app/server
+COPY --from=migrator-build /prod/migrator /app/migrator
+
+# Environment variables
+ENV NODE_ENV=production
+
+# Expose all ports
+EXPOSE 3001 5173 5174 80 443
+
+# Default command - can be overridden when running the container
+CMD ["echo", "This is a multi-app image. Please specify which app to run by overriding the CMD."]
