@@ -148,7 +148,7 @@ COPY --from=migrator-build /prod/migrator /app/migrator
 ENV NODE_ENV=production
 
 # Expose all ports
-EXPOSE 3001 5173 5174 80 443
+# EXPOSE 3001 5173 5174 80 443
 
 # Default command - can be overridden when running the container
 CMD ["echo", "This is a multi-app image. Please specify which app to run by overriding the CMD."]
