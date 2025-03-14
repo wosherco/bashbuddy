@@ -65,6 +65,56 @@ else {
     }
 }
 
+# Set SHELL environment variable if not already set
+if (-not $env:SHELL) {
+    # Determine which PowerShell is being used
+    $isPowerShellCore = $PSVersionTable.PSEdition -eq "Core"
+    
+    if ($isPowerShellCore) {
+        # PowerShell Core (pwsh)
+        try {
+            $shellPath = (Get-Command pwsh).Source
+        } catch {
+            $host.UI.RawUI.ForegroundColor = "Red"
+            Write-Host "PowerShell Core (pwsh) not found in PATH. Please set SHELL environment variable manually."
+            $host.UI.RawUI.ForegroundColor = "White"
+        }
+    } else {
+        # Windows PowerShell (powershell.exe)
+        if (-not $PSHOME) {
+            $host.UI.RawUI.ForegroundColor = "Red"
+            Write-Host "`$PSHOME is not set. Cannot determine Windows PowerShell path. Please set SHELL environment variable manually."
+            $host.UI.RawUI.ForegroundColor = "White"
+        }
+        $shellPath = Join-Path $PSHOME "powershell.exe"
+    }
+    
+    if (setx SHELL $shellPath) {
+        # Update the current session so a restart is not required
+        $env:SHELL = $shellPath
+        
+        # Verify that the environment variable is now available
+        if ($env:SHELL) {
+            $host.UI.RawUI.ForegroundColor = "Green"
+            Write-Host "Successfully set SHELL environment variable to '$shellPath'"
+            $host.UI.RawUI.ForegroundColor = "White"
+        } else {
+            $host.UI.RawUI.ForegroundColor = "Red"
+            Write-Host "SHELL environment variable was not set in the current session."
+            $host.UI.RawUI.ForegroundColor = "White"
+        }
+    } else {
+        $host.UI.RawUI.ForegroundColor = "Red"
+        Write-Host "Failed to set the SHELL environment variable using setx."
+        Write-Host "Please set it manually to '$shellPath'."
+        $host.UI.RawUI.ForegroundColor = "White"
+    }
+} else {
+    $host.UI.RawUI.ForegroundColor = "Yellow"
+    Write-Host "SHELL environment variable is already set to '$env:SHELL'"
+    $host.UI.RawUI.ForegroundColor = "White"
+}
+
 # Install or update @bashbuddy/cli
 $host.UI.RawUI.ForegroundColor = "Cyan"
 Write-Host "Installing/updating @bashbuddy/cli..."

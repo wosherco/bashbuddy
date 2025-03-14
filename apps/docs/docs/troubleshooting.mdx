@@ -8,7 +8,19 @@ sidebar_position: 80
 
 # Troubleshooting your BashBuddy installation
 
-TODO
+## "SHELL environment variable is not set" error
+
+BashBuddy requires the SHELL environment variable to be set with the path to your shell executable. This may not be set on Windows.
+
+If you encounter this error:
+
+1. For Windows users:
+   - Open PowerShell
+   - For Windows PowerShell, run: `setx SHELL "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"`
+   - For PowerShell Core, run: `setx SHELL "C:\Program Files\PowerShell\7\pwsh.exe"` (adjust path as needed)
+   - Restart your terminal
+
+The official installer script should set this automatically for Windows users.
 
 ## I still have issues
 
