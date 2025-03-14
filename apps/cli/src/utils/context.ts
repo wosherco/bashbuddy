@@ -1,3 +1,5 @@
+import os from "os";
+
 import type {
   GitContext,
   LLMContext,
@@ -16,9 +18,11 @@ import {
 import { getShellHistory } from "./shell";
 
 export async function getContext(): Promise<LLMContext> {
-  const shell = process.env.SHELL;
-  if (!shell) {
-    throw new Error("SHELL environment variable is not set");
+  let shell = process.env.SHELL;
+  if (process.env.PSModulePath) {
+    shell = "powershell";
+  } else if (!shell) {
+    shell = "unknown (use bash)";
   }
 
   const type = shell.split("/").pop()?.split("-")[0];
@@ -74,8 +78,8 @@ export async function getGitContext(): Promise<GitContext | undefined> {
 
 export function getOSContext(): OSContext {
   return {
-    platform: process.platform,
-    arch: process.arch,
-    version: process.version,
+    platform: os.platform(),
+    arch: os.arch(),
+    version: os.release(),
   };
 }
