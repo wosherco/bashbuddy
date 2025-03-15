@@ -54,7 +54,7 @@ jobs:
       - name: Tag and push images
         run: |
           # Get all service names from docker-compose.build.yaml
-          SERVICES=$(grep -A1 "services:" docker-compose.build.yaml | grep -v "services:" | awk '{print $1}' | sed 's/://g')
+          SERVICES=$(grep -E "^  [a-zA-Z0-9_-]+:" docker-compose.build.yaml | sed 's/://g' | awk '{print $1}')
 
           # Tag and push each image
           for SERVICE in $SERVICES; do
