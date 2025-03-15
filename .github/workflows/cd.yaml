@@ -16,38 +16,8 @@ env:
   OWNER: ${{ github.repository_owner }}
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-      version: ${{ steps.set-version.outputs.version }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Extract service names from docker-compose.build.yaml
-        id: set-matrix
-        run: |
-          SERVICES=$(grep -A1 "services:" docker-compose.build.yaml | grep -v "services:" | awk '{print $1}' | sed 's/://g' | jq -R -s -c 'split("\n") | map(select(length > 0))')
-          echo "matrix=${SERVICES}" >> $GITHUB_OUTPUT
-
-      - name: Set version
-        id: set-version
-        run: |
-          if [[ $GITHUB_REF == refs/tags/v* ]]; then
-            VERSION=${GITHUB_REF#refs/tags/v}
-          else
-            VERSION=latest
-          fi
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-
   build-and-push:
-    needs: setup
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        service: ${{ fromJson(needs.setup.outputs.matrix) }}
-      fail-fast: false
     permissions:
       contents: read
       packages: write
@@ -66,23 +36,52 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.OWNER }}/bashbuddy-${{ matrix.service }}
-          tags: |
-            type=raw,value=${{ needs.setup.outputs.version }}
-            type=sha,format=short
+      - name: Set version
+        id: set-version
+        run: |
+          if [[ $GITHUB_REF == refs/tags/v* ]]; then
+            VERSION=${GITHUB_REF#refs/tags/v}
+          else
+            VERSION=latest
+          fi
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          target: ${{ matrix.service }}
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+      - name: Build all images in parallel
+        run: |
+          docker compose -f docker-compose.build.yaml build --parallel
+
+      - name: Tag and push images
+        run: |
+          # Get all service names from docker-compose.build.yaml
+          SERVICES=$(grep -A1 "services:" docker-compose.build.yaml | grep -v "services:" | awk '{print $1}' | sed 's/://g')
+
+          # Tag and push each image
+          for SERVICE in $SERVICES; do
+            # Skip empty lines
+            [ -z "$SERVICE" ] && continue
+            
+            # Get the image name from docker-compose.build.yaml
+            IMAGE_NAME=$(grep -A5 "  $SERVICE:" docker-compose.build.yaml | grep "image:" | awk '{print $2}')
+            
+            # Skip if no image name found
+            [ -z "$IMAGE_NAME" ] && continue
+            
+            echo "Processing $SERVICE with image $IMAGE_NAME"
+            
+            # Tag with version and SHA
+            GHCR_IMAGE="${REGISTRY}/${OWNER}/bashbuddy-${SERVICE}"
+            SHA_TAG=$(echo ${{ github.sha }} | cut -c1-7)
+            
+            docker tag $IMAGE_NAME $GHCR_IMAGE:$VERSION
+            docker tag $IMAGE_NAME $GHCR_IMAGE:$SHA_TAG
+            
+            # Push if not a PR
+            if [[ "${{ github.event_name }}" != "pull_request" ]]; then
+              docker push $GHCR_IMAGE:$VERSION
+              docker push $GHCR_IMAGE:$SHA_TAG
+              echo "Pushed $GHCR_IMAGE:$VERSION and $GHCR_IMAGE:$SHA_TAG"
+            else
+              echo "Skipping push for PR (would have pushed $GHCR_IMAGE:$VERSION and $GHCR_IMAGE:$SHA_TAG)"
+            fi
+          done
