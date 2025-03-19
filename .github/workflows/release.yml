@@ -18,7 +18,7 @@ jobs:
         uses: ./tooling/github/setup
 
       - name: Build And Check Packages
-        run: pnpm build
+        run: turbo --filter "./packages/*" build typecheck lint
 
       - name: Creating .npmrc
         run: |
