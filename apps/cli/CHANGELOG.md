@@ -1,5 +1,11 @@
 # @bashbuddy/cli
 
+## 0.2.5
+
+### Patch Changes
+
+- 76e7d9b: Detecting powershell better
+
 ## 0.2.4
 
 ### Patch Changes
