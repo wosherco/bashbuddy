@@ -45,6 +45,7 @@
     "svelte-check": "catalog:",
     "svelte-seo": "catalog:",
     "svelte-sonner": "^0.3.28",
+    "sveltekit-static-sitemap": "^1.1.0",
     "sveltekit-superforms": "^2.20.0",
     "tailwind-merge": "^2.5.4",
     "tailwind-variants": "^0.2.1",
@@ -56,10 +57,10 @@
     "zod": "^3.23.8"
   },
   "dependencies": {
-    "@bashbuddy/logger": "workspace:*",
     "@bashbuddy/consts": "workspace:*",
-    "@sentry/sveltekit": "^8.50.0",
+    "@bashbuddy/logger": "workspace:*",
     "@inlang/paraglide-sveltekit": "^0.15.5",
+    "@sentry/sveltekit": "^8.50.0",
     "@tailwindcss/typography": "^0.5.15",
     "lucide-svelte": "catalog:",
     "posthog-js": "^1.194.1"

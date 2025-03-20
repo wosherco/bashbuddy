@@ -426,7 +426,7 @@
     </div>
 
     <!-- Performance Comparison -->
-    <div class="max-w-4xl mx-auto mb-20">
+    <div class="max-w-4xl mx-auto mb-10">
       <h3 class="text-2xl font-semibold text-center mb-8">
         Performance Comparison
       </h3>
@@ -463,26 +463,15 @@
           </div>
         </div>
       </div>
-
-      <p class="text-center text-muted-foreground mt-6">
-        BashBuddy Cloud delivers responses up to <span
-          class="text-orange-500 font-semibold">30x faster</span
-        > than local processing.
-      </p>
     </div>
 
-    <!-- Cloud Features Grid -->
-    <div class="flex flex-col lg:grid grid-cols-3 justify-center gap-6">
+    <!-- Cloud Highlight Cards -->
+    <div class="flex flex-col lg:grid grid-cols-2 justify-center gap-6 mb-10">
       <!-- Affordable card -->
       <LandingCard
         icon={DollarSign}
-        className="col-span-2"
         title="Really Affordable"
         description="Just $2 per month for instant command generations. No hidden fees."
-        button={{
-          label: "Subscribe Now",
-          onClick: () => (window.location.href = SITE_URLS.ACCOUNT_URL),
-        }}
         variant="cloud"
       />
 
@@ -490,34 +479,7 @@
       <LandingCard
         icon={Zap}
         title="Instant Generation"
-        description="Get command suggestions in milliseconds. BashBuddy Cloud's optimized infrastructure ensures you never wait for generation <br><br> <b>(powered by <a href='https://groq.com' class='text-[#f55036] hover:underline'>Groq</a>)</b>"
-        variant="cloud"
-        rawHtml
-      />
-
-      <!-- Privacy card -->
-      <LandingCard
-        icon={Shield}
-        title="Completely Private"
-        description="Your data is only stored for 10 minutes to enable chat-like behavior. After that, it's <b>permanently deleted</b> from our systems."
-        variant="cloud"
-        rawHtml
-      />
-
-      <!-- Works Everywhere card -->
-      <LandingCard
-        icon={Globe}
-        title="Works Everywhere"
-        description="Perfect for servers, low-powered devices, or when you're on the go."
-        variant="cloud"
-      />
-
-      <!-- Sync Settings card -->
-      <LandingCard
-        icon={Settings}
-        title="Sync Your Settings"
-        description="Keep your preferences and customizations synchronized across all your devices. Your BashBuddy experience remains consistent everywhere."
-        tags={[{ label: "Coming Soon", primary: true }]}
+        description="Get command suggestions in milliseconds. BashBuddy Cloud's optimized infrastructure ensures you never wait."
         variant="cloud"
       />
     </div>
@@ -526,10 +488,10 @@
     <div class="mt-16 text-center">
       <Button
         class="gap-2 px-8 py-6 text-lg bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 border-none"
-        href={SITE_URLS.ACCOUNT_URL}
+        href="/cloud"
       >
         <Zap class="h-5 w-5" />
-        Subscribe to BashBuddy Cloud
+        Learn More About BashBuddy Cloud
         <ChevronRight class="h-5 w-5" />
       </Button>
     </div>
@@ -546,7 +508,8 @@
       </p>
     </div>
 
-    <div class="flex flex-col lg:grid grid-cols-3 justify-center gap-6">
+    <!-- Local Highlight Cards -->
+    <div class="flex flex-col lg:grid grid-cols-2 justify-center gap-6 mb-10">
       <!-- Offline card -->
       <LandingCard
         icon={WifiOff}
@@ -554,41 +517,19 @@
         description="Work completely offline. All data stays on your device, making BashBuddy perfect for secure environments or when you're off the grid."
       />
 
-      <!-- Hardware Accelerated card -->
-      <LandingCard
-        icon={Cpu}
-        className="col-span-2"
-        title="Hardware Accelerated"
-        description="BashBuddy leverages your GPU with Metal (macOS), CUDA (NVIDIA), and Vulkan support to deliver the fastest possible local inference performance. (powered by <a href='https://github.com/withcatai/node-llama-cpp' class='text-primary hover:underline'>node-llama-cpp</a>)"
-        rawHtml
-        tags={[{ label: "Metal" }, { label: "CUDA" }, { label: "Vulkan" }]}
-      />
-
       <!-- Data Privacy card -->
       <LandingCard
         icon={Shield}
-        className="col-span-2"
         title="Complete Data Privacy"
-        description="Your commands, context, and data never leave your device. Perfect for handling sensitive information or working in regulated environments."
-      />
-
-      <!-- No account required card -->
-      <LandingCard
-        icon={User}
-        title="No Account Required"
-        description="No need to create an account or sign in. Just install and start typing."
+        description="Your commands, context, and data never leave your device. Perfect for handling sensitive information."
       />
     </div>
 
     <!-- Local CTA -->
     <div class="mt-16 text-center">
-      <Button
-        variant="outline"
-        class="gap-2 px-8 py-6 text-lg"
-        href={`${SITE_URLS.DOCS_URL}/install`}
-      >
+      <Button variant="outline" class="gap-2 px-8 py-6 text-lg" href="/local">
         <Cpu class="h-5 w-5" />
-        Install BashBuddy Locally
+        Learn More About Local Installation
         <ChevronRight class="h-5 w-5" />
       </Button>
     </div>
