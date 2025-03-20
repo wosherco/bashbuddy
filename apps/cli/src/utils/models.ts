@@ -38,6 +38,65 @@ export const availableModels: AIModel[] = [
     size: "8.54 GB",
     requiredRAM: 12,
   },
+
+  // TODO: Waiting on update from node-llama-cpp (https://github.com/withcatai/node-llama-cpp/issues/440)
+  // {
+  //   id: "Gemma-3-4B-IT-Q4_K_M",
+  //   name: "Gemma 3 4B Q4",
+  //   description: "Less weight, faster, but less accurate",
+  //   downloadUrl:
+  //     "https://huggingface.co/unsloth/gemma-3-4b-it-GGUF/resolve/main/gemma-3-4b-it-Q4_K_M.gguf",
+  //   size: "2.4 GB",
+  //   requiredRAM: 6,
+  // },
+  // {
+  //   id: "Gemma-3-12B-IT-Q4_K_M",
+  //   name: "Gemma 3 12B Q4",
+  //   description: "Heavier, slower, but more accurate",
+  //   downloadUrl:
+  //     "https://huggingface.co/unsloth/gemma-3-12b-it-GGUF/resolve/main/gemma-3-12b-it-Q4_K_M.gguf",
+  //   size: "7.3 GB",
+  //   requiredRAM: 12,
+  // },
+  // It's fucking stupid
+  // {
+  //   id: "Llama-3.2-3B-Instruct-Q4_K_M",
+  //   name: "Llama 3.2 3B Q4",
+  //   description: "(Not recommended) Light, fast, not accurate",
+  //   downloadUrl:
+  //     "https://huggingface.co/unsloth/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+  //   size: "2.02 GB",
+  //   requiredRAM: 4,
+  // },
+
+  // TODO: Needs testing (maybe too big?)
+  // {
+  //   id: "Phi-4-Q4",
+  //   name: "Phi-4 Q4",
+  //   description: "",
+  //   downloadUrl:
+  //     "https://huggingface.co/microsoft/phi-4-gguf/resolve/main/phi-4-q4.gguf",
+  //   size: "9.05 GB",
+  //   requiredRAM: 16,
+  // },
+  {
+    id: "Qwen-2.5-7B-Instruct-Q6_K",
+    name: "Qwen 2.5 7B Q6",
+    description: "",
+    downloadUrl:
+      "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q6_K.gguf",
+    size: "6.65 GB",
+    requiredRAM: 10,
+  },
+  {
+    id: "Qwen-2.5-7B-Instruct-Q4_K_M",
+    name: "Qwen 2.5 7B Q4",
+    description: "",
+    downloadUrl:
+      "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q4_K_M.gguf",
+    size: "4.58 GB",
+    requiredRAM: 8,
+  },
 ];
 
 export type AIModelId = (typeof availableModels)[number]["id"];
@@ -232,7 +291,7 @@ export class ModelManager {
 
     // Check if total RAM is less than model required + 10GB buffer
     if (totalRam < model.requiredRAM + 10) {
-      recommendation = `This model recommends at least ${model.requiredRAM + 10} GB of total RAM, but your system has ${totalRam} GB. Performance may be degraded.`;
+      recommendation = `This model recommends at least ${model.requiredRAM} GB of total RAM, but your system has ${totalRam} GB. Performance may be degraded.`;
     }
 
     return recommendation;
