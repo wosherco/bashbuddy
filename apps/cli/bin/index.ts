@@ -1,4 +1,6 @@
 #!/usr/bin/env bun
+import { isDev } from "@bashbuddy/consts";
+
 import createCLI from "../src/index";
 import {
   checkForUpdates,
@@ -22,7 +24,7 @@ async function main(): Promise<void> {
   }
 
   const updateInfo = await updateInfoPromise;
-  if (updateInfo) {
+  if (updateInfo && !isDev) {
     displayUpdateNotification(updateInfo);
   }
 }

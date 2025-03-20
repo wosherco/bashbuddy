@@ -1,0 +1,39 @@
+---
+title: Qwen 2.5 models arrive to BashBuddy! (v0.3.0 release)
+description: We've added Qwen 2.5 models to BashBuddy! (v0.3.0 release)
+author: Pol
+date: 2025-03-20
+image: /images/posts/qwen-2.5-models-arrive-to-bashbuddy/qwen-2.5-models-arrive-to-bashbuddy.png
+---
+
+From launch we just had Llama 3.1 models available, but not anymore. Starting today, you can use Qwen 2.5 models in BashBuddy Local! (just remember to update to 0.3.0)
+
+## Qwen 2.5 models
+
+Qwen 2.5 models are really powerful. From our testing and personal use, they are more precise with command generation. Feel free to try it for yourself!
+
+### More models coming soon
+
+We're expecting to add Gemma 3 models in 1 or 2 weeks. To know when they're available, you can follow us on [X](https://x.com/wosherco) or join our [Discord Community](https://discord.com/invite/knDFUB5UtU).
+
+## More updates
+
+We made some tweaks to the CLI to make it more user friendly.
+
+### Copy & Run
+
+You can now copy and run a command by pressing up arrow and enter. We've made it easy to remember:
+
+- Up arrow: Copy & Run
+- Enter: Run the command
+- Down arrow: Copy command
+
+### Better models and mode commands
+
+We've upgraded the models and mode commands to feel more natural, and have better UX in general.
+
+## That's it for now
+
+We're working on more features, and will keep you updated here.
+
+Have a great day!

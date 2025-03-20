@@ -131,6 +131,9 @@ async function execute(question: string) {
 
   if (commandToRun) {
     p.outro("Running command...");
+
+    p.log.message(chalk.dim(`> ${commandToRun}`));
+
     await runCommandWithStream(commandToRun);
   } else {
     p.outro("Thanks for using BashBuddy!");
@@ -189,6 +192,7 @@ async function cliInfer(
 
   // Options for the select component
   const options = [
+    { value: "copyAndRun", label: "Copy & Run" },
     { value: "run", label: "Run the command" },
     { value: "copy", label: "Copy to clipboard" },
   ];
@@ -206,6 +210,7 @@ async function cliInfer(
   const action = await p.select({
     message: "What would you like to do with this command?",
     options,
+    initialValue: "run",
   });
 
   // Handle user selection
@@ -216,7 +221,6 @@ async function cliInfer(
 
   switch (action) {
     case "run":
-      // Run the command (original behavior when pressing enter)
       return finalResponse.command;
     case "copy": {
       // Copy the command to clipboard
@@ -226,7 +230,27 @@ async function cliInfer(
       } catch {
         p.log.error("Failed to copy command to clipboard");
       }
+
+      p.log.message(
+        chalk.dim(
+          `Feel free to paste the command into your terminal: ${finalResponse.command}`,
+        ),
+      );
+
       return undefined;
+    }
+    case "copyAndRun": {
+      // Copy the command to clipboard and run it
+      try {
+        await clipboardy.write(finalResponse.command);
+        p.log.success("Command copied to clipboard");
+      } catch {
+        p.log.error(
+          `Failed to copy command to clipboard, but will still run. Feel free to copy it: ${finalResponse.command}`,
+        );
+      }
+
+      return finalResponse.command;
     }
     case "suggest": {
       // Allow user to suggest changes (original behavior when typing)

@@ -4,6 +4,7 @@ export interface Post {
   author: string;
   date: string;
   slug: string;
+  image?: string;
 }
 
 export async function getBlogPosts() {

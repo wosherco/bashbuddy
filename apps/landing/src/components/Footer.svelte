@@ -1,7 +1,6 @@
 <script lang="ts">
+  import Socials from "$lib/components/Socials.svelte";
   import * as m from "$lib/paraglide/messages.js";
-
-  import xlogo from "../assets/logos/x.svg";
 
   const year = new Date().getFullYear();
 </script>
@@ -20,13 +19,7 @@
       </a>
     </p>
     <div class="flex flex-row items-center gap-4">
-      <a
-        href="https://x.com/wosherco"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img src={xlogo} width="24" height="24" alt={m.footer_x_alt()} />
-      </a>
+      <Socials />
       <p>
         © {year}{" "}
         <a

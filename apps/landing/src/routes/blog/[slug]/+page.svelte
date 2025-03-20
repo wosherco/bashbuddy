@@ -13,6 +13,12 @@
     type: "article",
     title: data.metadata.title,
     description: data.metadata.description,
+    images: [
+      {
+        url: data.metadata.image,
+        alt: data.metadata.title,
+      },
+    ],
   }}
 />
 
@@ -20,6 +26,7 @@
   <a href="/blog" class="mb-4">⬅️ Go Back</a>
   <h1 class="text-3xl font-bold pt-8">{data.metadata.title}</h1>
   <description class="text-lg pt-2">{data.metadata.description}</description>
+  <img src={data.metadata.image} alt={data.metadata.title} />
   <p class="pt-2">
     Author: {data.metadata.author} | Published: {new Date(
       data.metadata.date,

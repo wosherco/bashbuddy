@@ -1,17 +1,25 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { fade, slide } from "svelte/transition";
   import { clickOutside } from "$lib/actions/click-outside";
+  import Socials from "$lib/components/Socials.svelte";
   import { Button } from "$lib/components/ui/button";
   import { cn } from "$lib/utils";
   import { Github, Menu, X } from "lucide-svelte";
 
   import { SITE_URLS } from "@bashbuddy/consts";
 
+  const BANNER_STORAGE_KEY = "bashbuddy-qwen-banner-closed";
+
   let isMenuOpen = $state(false);
+  let isBannerVisible = $state(false);
+  let isBrowserEnv = $state(false);
   const { pathname } = $props();
   let scrollY = $state(0);
   let prevScrollY = $state(0);
   let headerElement = $state<HTMLElement | null>(null);
+  let bannerElement = $state<HTMLElement | null>(null);
+  let bannerHeight = $state(0);
 
   // Enhanced reactive state for header appearance
   const isAtTop = $derived(scrollY < 20);
@@ -39,6 +47,36 @@
     }
   });
 
+  $effect(() => {
+    if (bannerElement && isBannerVisible && isBrowserEnv) {
+      bannerHeight = bannerElement.clientHeight;
+    } else {
+      bannerHeight = 0;
+    }
+  });
+
+  function onResize() {
+    if (bannerElement && isBannerVisible && isBrowserEnv) {
+      bannerHeight = bannerElement.clientHeight;
+    } else {
+      bannerHeight = 0;
+    }
+  }
+
+  onMount(() => {
+    isBrowserEnv = true;
+
+    // Check if banner was previously closed
+    if (typeof localStorage !== "undefined") {
+      const isClosed = localStorage.getItem(BANNER_STORAGE_KEY) === "true";
+      if (!isClosed) {
+        isBannerVisible = true;
+      }
+    } else {
+      isBannerVisible = true;
+    }
+  });
+
   function toggleMenu() {
     isMenuOpen = !isMenuOpen;
   }
@@ -46,12 +84,49 @@
   function closeMenu() {
     isMenuOpen = false;
   }
+
+  function closeBanner() {
+    isBannerVisible = false;
+    // Save state to localStorage
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(BANNER_STORAGE_KEY, "true");
+    }
+  }
 </script>
 
-<svelte:window bind:scrollY />
+<svelte:window bind:scrollY on:resize={onResize} />
+
+{#if isBrowserEnv && isBannerVisible}
+  <div
+    bind:this={bannerElement}
+    class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-primary w-full h-min py-2 px-2 text-center"
+    transition:slide={{ duration: 200, axis: "y" }}
+  >
+    <p>
+      <span class="font-medium">
+        We've added Qwen 2.5 models to BashBuddy Local!
+      </span>
+
+      <a
+        href="/blog/qwen-2.5-models-arrive-to-bashbuddy"
+        class="underline font-bold">Read more ➡️</a
+      >
+    </p>
+    <button
+      onclick={closeBanner}
+      class="absolute right-2 p-1 hover:bg-primary-foreground/10 rounded-full"
+      aria-label="Close announcement"
+    >
+      <X class="h-4 w-4" />
+    </button>
+  </div>
+{/if}
 
 <div
-  class="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 transition-all duration-300 ease-in-out"
+  class="fixed left-0 right-0 z-50 flex justify-center px-4 transition-all duration-300 ease-in-out"
+  style={`
+    top: ${bannerHeight}px;
+  `}
 >
   <header
     bind:this={headerElement}
@@ -77,9 +152,7 @@
       <!-- Logo -->
       <div class="flex items-center gap-4">
         <a href="/" class="text-xl font-bold"> BashBuddy </a>
-        <a href="https://github.com/wosherco/bashbuddy" target="_blank">
-          <Github class="h-4 w-4" />
-        </a>
+        <Socials />
       </div>
 
       <!-- Desktop Navigation -->
@@ -93,7 +166,7 @@
             <Button href="/local" variant="ghost" class="text-primary">
               Local
             </Button>
-            <Button href="/#roadmap" variant="ghost">Roadmap</Button>
+            <Button href="/blog" variant="ghost">Blog</Button>
 
             <div class="h-4 w-px bg-border" role="separator"></div>
 
@@ -170,11 +243,11 @@
                 Local
               </a>
               <a
-                href="/#roadmap"
+                href="/blog"
                 class="text-sm font-medium transition-colors hover:text-primary py-3"
                 onclick={closeMenu}
               >
-                Roadmap
+                Blog
               </a>
               <div class="h-px w-full bg-border my-2" role="separator"></div>
               <a
