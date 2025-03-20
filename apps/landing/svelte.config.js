@@ -1,9 +1,9 @@
+import { sitemapWrapAdapter } from "sveltekit-static-sitemap";
 import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex } from "mdsvex";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
-import { sitemapWrapAdapter } from "sveltekit-static-sitemap";
 
 /** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
@@ -28,7 +28,7 @@ const config = {
       }),
       {
         sitemapFile: "sitemap-index.xml",
-      }
+      },
     ),
     paths: {
       relative: false,
