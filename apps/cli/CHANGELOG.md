@@ -1,5 +1,11 @@
 # @bashbuddy/cli
 
+## 0.3.0
+
+### Minor Changes
+
+- 9b91926: Added qwen 2.5 models, better models and mode command, and added Copy & Run option for ask
+
 ## 0.2.6
 
 ### Patch Changes
