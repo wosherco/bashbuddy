@@ -1,5 +1,11 @@
 # @bashbuddy/cli
 
+## 0.2.6
+
+### Patch Changes
+
+- 7d5f499: fix publish
+
 ## 0.2.5
 
 ### Patch Changes
