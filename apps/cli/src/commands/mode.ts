@@ -20,63 +20,68 @@ interface ModeCommandOptions {
 export function createModeCommand(): Command {
   const modeCommand = new Command("mode")
     .description("View or change the AI mode (cloud or local)")
+    .argument("[mode]", "Set the AI mode (cloud or local)")
     .option("-s, --set <mode>", "Set the AI mode (cloud or local)")
-    .action(async (options: ModeCommandOptions) => {
-      p.intro("BashBuddy Mode Configuration");
+    .action(
+      async (modeArg: string | undefined, options: ModeCommandOptions) => {
+        p.intro("BashBuddy Mode Configuration");
 
-      // If mode is provided, set it
-      if (options.set) {
-        const modeInput = options.set.toLowerCase();
+        // If mode is provided via argument or --set option, set it
+        const modeInput = modeArg ?? options.set;
 
-        // Check if the input is a valid AIMode
-        const isValidMode = AI_MODES.includes(modeInput as AIMode);
+        if (modeInput) {
+          const normalizedMode = modeInput.toLowerCase();
 
-        if (isValidMode) {
-          const mode = modeInput as AIMode;
-          await ConfigManager.setMode(mode);
-          p.log.success(`AI mode set to ${mode}`);
+          // Check if the input is a valid AIMode
+          const isValidMode = AI_MODES.includes(normalizedMode as AIMode);
+
+          if (isValidMode) {
+            const mode = normalizedMode as AIMode;
+            await ConfigManager.setMode(mode);
+            p.log.success(`AI mode set to ${mode}`);
+          } else {
+            p.log.error(
+              `Invalid mode: ${normalizedMode}. Valid modes are: ${CLOUD_MODE}, ${LOCAL_MODE}`,
+            );
+          }
         } else {
-          p.log.error(
-            `Invalid mode: ${modeInput}. Valid modes are: ${CLOUD_MODE}, ${LOCAL_MODE}`,
-          );
+          // If no mode is provided, show the current mode and allow changing it
+          const currentMode = await ConfigManager.getMode();
+          p.log.info(`Current AI mode: ${currentMode}`);
+
+          const newMode = await p.select({
+            message: "Select AI mode",
+            options: [
+              {
+                value: CLOUD_MODE,
+                label: "Cloud",
+                hint: "Use cloud-based AI models",
+              },
+              {
+                value: LOCAL_MODE,
+                label: "Local",
+                hint: "Use locally downloaded AI models",
+              },
+            ],
+            initialValue: currentMode,
+          });
+
+          if (p.isCancel(newMode)) {
+            p.cancel("Operation cancelled");
+            return;
+          }
+
+          if (newMode !== currentMode) {
+            await ConfigManager.setMode(newMode);
+            p.log.success(`AI mode changed from ${currentMode} to ${newMode}`);
+          } else {
+            p.log.info(`AI mode unchanged: ${currentMode}`);
+          }
         }
-      } else {
-        // If no mode is provided, show the current mode and allow changing it
-        const currentMode = await ConfigManager.getMode();
-        p.log.info(`Current AI mode: ${currentMode}`);
 
-        const newMode = await p.select({
-          message: "Select AI mode",
-          options: [
-            {
-              value: CLOUD_MODE,
-              label: "Cloud",
-              hint: "Use cloud-based AI models",
-            },
-            {
-              value: LOCAL_MODE,
-              label: "Local",
-              hint: "Use locally downloaded AI models",
-            },
-          ],
-          initialValue: currentMode,
-        });
-
-        if (p.isCancel(newMode)) {
-          p.cancel("Operation cancelled");
-          return;
-        }
-
-        if (newMode !== currentMode) {
-          await ConfigManager.setMode(newMode);
-          p.log.success(`AI mode changed from ${currentMode} to ${newMode}`);
-        } else {
-          p.log.info(`AI mode unchanged: ${currentMode}`);
-        }
-      }
-
-      p.outro("Mode configuration complete");
-    });
+        p.outro("Mode configuration complete");
+      },
+    );
 
   return modeCommand;
 }
