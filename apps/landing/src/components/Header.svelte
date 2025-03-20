@@ -18,6 +18,8 @@
   let scrollY = $state(0);
   let prevScrollY = $state(0);
   let headerElement = $state<HTMLElement | null>(null);
+  let bannerElement = $state<HTMLElement | null>(null);
+  let bannerHeight = $state(0);
 
   // Enhanced reactive state for header appearance
   const isAtTop = $derived(scrollY < 20);
@@ -44,6 +46,22 @@
       prevScrollY = scrollY;
     }
   });
+
+  $effect(() => {
+    if (bannerElement && isBannerVisible && isBrowserEnv) {
+      bannerHeight = bannerElement.clientHeight;
+    } else {
+      bannerHeight = 0;
+    }
+  });
+
+  function onResize() {
+    if (bannerElement && isBannerVisible && isBrowserEnv) {
+      bannerHeight = bannerElement.clientHeight;
+    } else {
+      bannerHeight = 0;
+    }
+  }
 
   onMount(() => {
     isBrowserEnv = true;
@@ -76,11 +94,12 @@
   }
 </script>
 
-<svelte:window bind:scrollY />
+<svelte:window bind:scrollY on:resize={onResize} />
 
 {#if isBrowserEnv && isBannerVisible}
   <div
-    class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-primary w-full h-8 py text-center"
+    bind:this={bannerElement}
+    class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-primary w-full h-min py-2 px-2 text-center"
     transition:slide={{ duration: 200, axis: "y" }}
   >
     <p>
@@ -104,9 +123,10 @@
 {/if}
 
 <div
-  class="fixed {isBrowserEnv && isBannerVisible
-    ? 'top-8'
-    : 'top-0'} left-0 right-0 z-50 flex justify-center px-4 transition-all duration-300 ease-in-out"
+  class="fixed left-0 right-0 z-50 flex justify-center px-4 transition-all duration-300 ease-in-out"
+  style={`
+    top: ${bannerHeight}px;
+  `}
 >
   <header
     bind:this={headerElement}
