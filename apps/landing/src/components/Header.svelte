@@ -1,6 +1,7 @@
 <script lang="ts">
   import { fade, slide } from "svelte/transition";
   import { clickOutside } from "$lib/actions/click-outside";
+  import Socials from "$lib/components/Socials.svelte";
   import { Button } from "$lib/components/ui/button";
   import { cn } from "$lib/utils";
   import { Github, Menu, X } from "lucide-svelte";
@@ -77,9 +78,7 @@
       <!-- Logo -->
       <div class="flex items-center gap-4">
         <a href="/" class="text-xl font-bold"> BashBuddy </a>
-        <a href="https://github.com/wosherco/bashbuddy" target="_blank">
-          <Github class="h-4 w-4" />
-        </a>
+        <Socials />
       </div>
 
       <!-- Desktop Navigation -->
@@ -93,7 +92,7 @@
             <Button href="/local" variant="ghost" class="text-primary">
               Local
             </Button>
-            <Button href="/#roadmap" variant="ghost">Roadmap</Button>
+            <Button href="/blog" variant="ghost">Blog</Button>
 
             <div class="h-4 w-px bg-border" role="separator"></div>
 
@@ -170,11 +169,11 @@
                 Local
               </a>
               <a
-                href="/#roadmap"
+                href="/blog"
                 class="text-sm font-medium transition-colors hover:text-primary py-3"
                 onclick={closeMenu}
               >
-                Roadmap
+                Blog
               </a>
               <div class="h-px w-full bg-border my-2" role="separator"></div>
               <a
