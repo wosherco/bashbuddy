@@ -10,12 +10,12 @@ import { executeCommand } from "./shell";
 export interface AIModel {
   id: string;
   name: string;
-  description: string;
   downloadUrl: string;
   size: string;
   requiredRAM: number; // RAM in GB
   filePath?: string;
   isDownloaded?: boolean;
+  recommended?: boolean;
 }
 
 // Available models
@@ -23,16 +23,15 @@ export const availableModels: AIModel[] = [
   {
     id: "Meta-Llama-3.1-8B-Instruct-Q4_K_M",
     name: "Llama 3.1 8B Q4",
-    description: "Quantized to 4-bit, faster but less accurate",
     downloadUrl:
       "https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
     size: "4.92 GB",
     requiredRAM: 8,
+    recommended: true,
   },
   {
     id: "Meta-Llama-3.1-8B-Instruct-Q8_0",
     name: "Llama 3.1 8B Q8",
-    description: "Quantized to 8-bit, faster and more accurate",
     downloadUrl:
       "https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/Meta-Llama-3.1-8B-Instruct-Q8_0.gguf",
     size: "8.54 GB",
@@ -82,7 +81,6 @@ export const availableModels: AIModel[] = [
   {
     id: "Qwen-2.5-7B-Instruct-Q6_K",
     name: "Qwen 2.5 7B Q6",
-    description: "",
     downloadUrl:
       "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q6_K.gguf",
     size: "6.65 GB",
@@ -91,11 +89,11 @@ export const availableModels: AIModel[] = [
   {
     id: "Qwen-2.5-7B-Instruct-Q4_K_M",
     name: "Qwen 2.5 7B Q4",
-    description: "",
     downloadUrl:
       "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q4_K_M.gguf",
     size: "4.58 GB",
     requiredRAM: 8,
+    recommended: true,
   },
 ];
 

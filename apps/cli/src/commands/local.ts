@@ -14,9 +14,24 @@ import { availableModels, ModelManager } from "../utils/models";
 async function selectModel(): Promise<AIModel | null> {
   const models = await ModelManager.checkDownloadedModels(availableModels);
 
-  const choices = models.map((model) => ({
+  // Sort models: recommended first, then downloaded, then the rest
+  const sortedModels = [...models].sort((a, b) => {
+    // Recommended models at the top
+    if (a.recommended && !b.recommended) return -1;
+    if (!a.recommended && b.recommended) return 1;
+
+    // Then downloaded models
+    if (a.isDownloaded && !b.isDownloaded) return -1;
+    if (!a.isDownloaded && b.isDownloaded) return 1;
+
+    // Default to original order
+    return 0;
+  });
+
+  const choices = sortedModels.map((model) => ({
     value: model.id,
-    label: `${model.name} (${model.size})`,
+    // Add green checkmark for downloaded models, green tag for recommended models
+    label: `${model.isDownloaded ? chalk.green("✓ ") : "  "}${model.name} (${model.size})${model.recommended ? chalk.green(" [Recommended]") : ""}`,
     hint: model.isDownloaded ? "Downloaded" : "Not downloaded",
   }));
 
@@ -105,6 +120,8 @@ async function selectModel(): Promise<AIModel | null> {
  */
 export function createLocalCommand(): Command {
   const localCommand = new Command("local")
+    .alias("model")
+    .alias("models")
     .description("Manage local AI models")
     .action(async () => {
       p.intro("BashBuddy Local AI Model Management");
@@ -164,7 +181,6 @@ export function createLocalCommand(): Command {
       await ConfigManager.setMode(LOCAL_MODE);
 
       p.log.success(`Selected model: ${model.name}`);
-      p.log.info(model.description);
       p.log.info(`Model size: ${model.size}`);
       p.log.info(`Model path: ${model.filePath}`);
 
