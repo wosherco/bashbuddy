@@ -488,7 +488,7 @@ importers:
         version: link:../../packages/validators
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
       eslint:
         specifier: 'catalog:'
         version: 9.19.0(jiti@1.21.7)
@@ -641,6 +641,9 @@ importers:
       svelte-sonner:
         specifier: ^0.3.28
         version: 0.3.28(svelte@5.19.7)
+      sveltekit-static-sitemap:
+        specifier: ^1.1.0
+        version: 1.1.0(@sveltejs/kit@2.17.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.7)(vite@6.0.6(@types/node@22.13.1)(jiti@1.21.7)(sass-embedded@1.83.4)(terser@5.37.0)(yaml@2.7.0)))(svelte@5.19.7)(vite@6.0.6(@types/node@22.13.1)(jiti@1.21.7)(sass-embedded@1.83.4)(terser@5.37.0)(yaml@2.7.0)))
       sveltekit-superforms:
         specifier: ^2.20.0
         version: 2.23.1(@sveltejs/kit@2.17.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.7)(vite@6.0.6(@types/node@22.13.1)(jiti@1.21.7)(sass-embedded@1.83.4)(terser@5.37.0)(yaml@2.7.0)))(svelte@5.19.7)(vite@6.0.6(@types/node@22.13.1)(jiti@1.21.7)(sass-embedded@1.83.4)(terser@5.37.0)(yaml@2.7.0)))(@types/json-schema@7.0.15)(svelte@5.19.7)(typescript@5.7.3)
@@ -731,7 +734,7 @@ importers:
         version: link:../../tooling/typescript
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
       dotenv-cli:
         specifier: 7.4.2
         version: 7.4.2
@@ -1004,7 +1007,7 @@ importers:
         version: 0.11.1(typescript@5.7.3)(zod@3.24.1)
       drizzle-orm:
         specifier: 0.39.3
-        version: 0.39.3(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(bun-types@1.2.4)(postgres@3.4.5)
+        version: 0.39.3(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(bun-types@1.2.5)(postgres@3.4.5)
       nanoid:
         specifier: 5.0.9
         version: 5.0.9
@@ -1416,7 +1419,7 @@ importers:
         version: 1.13.4(eslint@9.19.0(jiti@1.21.7))
       eslint-plugin-import:
         specifier: ^2.29.1
-        version: 2.31.0(@typescript-eslint/parser@8.23.0(eslint@9.19.0(jiti@1.21.7))(typescript@5.7.3))(eslint@9.19.0(jiti@1.21.7))
+        version: 2.31.0(eslint@9.19.0(jiti@1.21.7))
       eslint-plugin-jsx-a11y:
         specifier: ^6.8.0
         version: 6.10.2(eslint@9.19.0(jiti@1.21.7))
@@ -5649,8 +5652,8 @@ packages:
   '@types/btoa-lite@1.0.2':
     resolution: {integrity: sha512-ZYbcE2x7yrvNFJiU7xJGrpF/ihpkM7zKgw8bha3LNJSesvTtUNxbpzaT7WXBIryf6jovisrxTBvymxMeLLj1Mg==}
 
-  '@types/bun@1.2.4':
-    resolution: {integrity: sha512-QtuV5OMR8/rdKJs213iwXDpfVvnskPXY/S0ZiFbsTjQZycuqPbMW8Gf/XhLfwE5njW8sxI2WjISURXPlHypMFA==}
+  '@types/bun@1.2.5':
+    resolution: {integrity: sha512-w2OZTzrZTVtbnJew1pdFmgV99H0/L+Pvw+z1P67HaR18MHOzYnTYOi6qzErhK8HyT+DB782ADVPPE92Xu2/Opg==}
 
   '@types/bunyan@1.8.11':
     resolution: {integrity: sha512-758fRH7umIMk5qt5ELmRMff4mLDlN+xyYzC+dkPTdKwbSkJFvz6xwyScrytPU0QIBbRRwbiE8/BIg8bpajerNQ==}
@@ -6469,8 +6472,8 @@ packages:
   buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
 
-  bun-types@1.2.4:
-    resolution: {integrity: sha512-nDPymR207ZZEoWD4AavvEaa/KZe/qlrbMSchqpQwovPZCKc7pwMoENjEtHgMKaAjJhy+x6vfqSBA1QU3bJgs0Q==}
+  bun-types@1.2.5:
+    resolution: {integrity: sha512-3oO6LVGGRRKI4kHINx5PIdIgnLRb7l/SprhzqXapmoYkFl5m4j6EvALvbDVuuBFaamB46Ap6HCUxIXNLCGy+tg==}
 
   bun@1.2.4:
     resolution: {integrity: sha512-ZY0EZ/UKqheaLeAtMsfJA6jWoWvV9HAtfFaOJSmS3LrNpFKs1Sg5fZLSsczN1h3a+Dtheo4O3p3ZYWrf40kRGw==}
@@ -11991,6 +11994,11 @@ packages:
   svelte@5.19.7:
     resolution: {integrity: sha512-I0UUp2MpB5gF8aqHJVklOcRcoLgQNnBolSwLMMqDepE9gVwmGeYBmJp1/obzae72QpxdPIymA4AunIm2x70LBg==}
     engines: {node: '>=18'}
+
+  sveltekit-static-sitemap@1.1.0:
+    resolution: {integrity: sha512-G28tBqPKcd6U18GnFSGAXOlkCmalKbAIT2ucrsXYzt84KZWNqH5IH30FLsq6G/JQ5idOUWgdXe6AZTqi5JDVSg==}
+    peerDependencies:
+      '@sveltejs/kit': ^1.3.10
 
   sveltekit-superforms@2.23.1:
     resolution: {integrity: sha512-SPj5ac4SMg8SPyP0Zi3ynwXJa7r9U1CTyn+YSyck67zLsjt367Sro4SZnl3yASrLd5kJ6Y57cgIdYJ2aWNArXw==}
@@ -18214,9 +18222,9 @@ snapshots:
 
   '@types/btoa-lite@1.0.2': {}
 
-  '@types/bun@1.2.4':
+  '@types/bun@1.2.5':
     dependencies:
-      bun-types: 1.2.4
+      bun-types: 1.2.5
 
   '@types/bunyan@1.8.11':
     dependencies:
@@ -19197,7 +19205,7 @@ snapshots:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
-  bun-types@1.2.4:
+  bun-types@1.2.5:
     dependencies:
       '@types/node': 22.13.1
       '@types/ws': 8.5.14
@@ -20071,11 +20079,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.39.3(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(bun-types@1.2.4)(postgres@3.4.5):
+  drizzle-orm@0.39.3(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(bun-types@1.2.5)(postgres@3.4.5):
     optionalDependencies:
       '@opentelemetry/api': 1.9.0
       '@types/pg': 8.6.1
-      bun-types: 1.2.4
+      bun-types: 1.2.5
       postgres: 3.4.5
 
   dunder-proto@1.0.1:
@@ -20469,17 +20477,16 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.23.0(eslint@9.19.0(jiti@1.21.7))(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint@9.19.0(jiti@1.21.7)):
+  eslint-module-utils@2.12.0(eslint-import-resolver-node@0.3.9)(eslint@9.19.0(jiti@1.21.7)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
-      '@typescript-eslint/parser': 8.23.0(eslint@9.19.0(jiti@1.21.7))(typescript@5.7.3)
       eslint: 9.19.0(jiti@1.21.7)
       eslint-import-resolver-node: 0.3.9
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.23.0(eslint@9.19.0(jiti@1.21.7))(typescript@5.7.3))(eslint@9.19.0(jiti@1.21.7)):
+  eslint-plugin-import@2.31.0(eslint@9.19.0(jiti@1.21.7)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.8
@@ -20490,7 +20497,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.19.0(jiti@1.21.7)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.23.0(eslint@9.19.0(jiti@1.21.7))(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint@9.19.0(jiti@1.21.7))
+      eslint-module-utils: 2.12.0(eslint-import-resolver-node@0.3.9)(eslint@9.19.0(jiti@1.21.7))
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
@@ -20501,8 +20508,6 @@ snapshots:
       semver: 6.3.1
       string.prototype.trimend: 1.0.9
       tsconfig-paths: 3.15.0
-    optionalDependencies:
-      '@typescript-eslint/parser': 8.23.0(eslint@9.19.0(jiti@1.21.7))(typescript@5.7.3)
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
@@ -25754,6 +25759,10 @@ snapshots:
       locate-character: 3.0.0
       magic-string: 0.30.17
       zimmerframe: 1.1.2
+
+  sveltekit-static-sitemap@1.1.0(@sveltejs/kit@2.17.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.7)(vite@6.0.6(@types/node@22.13.1)(jiti@1.21.7)(sass-embedded@1.83.4)(terser@5.37.0)(yaml@2.7.0)))(svelte@5.19.7)(vite@6.0.6(@types/node@22.13.1)(jiti@1.21.7)(sass-embedded@1.83.4)(terser@5.37.0)(yaml@2.7.0))):
+    dependencies:
+      '@sveltejs/kit': 2.17.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.7)(vite@6.0.6(@types/node@22.13.1)(jiti@1.21.7)(sass-embedded@1.83.4)(terser@5.37.0)(yaml@2.7.0)))(svelte@5.19.7)(vite@6.0.6(@types/node@22.13.1)(jiti@1.21.7)(sass-embedded@1.83.4)(terser@5.37.0)(yaml@2.7.0))
 
   sveltekit-superforms@2.23.1(@sveltejs/kit@2.17.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.7)(vite@6.0.6(@types/node@22.13.1)(jiti@1.21.7)(sass-embedded@1.83.4)(terser@5.37.0)(yaml@2.7.0)))(svelte@5.19.7)(vite@6.0.6(@types/node@22.13.1)(jiti@1.21.7)(sass-embedded@1.83.4)(terser@5.37.0)(yaml@2.7.0)))(@types/json-schema@7.0.15)(svelte@5.19.7)(typescript@5.7.3):
     dependencies:

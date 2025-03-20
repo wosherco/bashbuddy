@@ -42,5 +42,14 @@ packageJson.dependencies = Object.fromEntries(
   ),
 );
 
+// Copy the root README.md to the package folder
+try {
+  const rootReadme = await Bun.file("../../README.md").text();
+  await Bun.write("README.md", rootReadme);
+  console.log("✅ README.md copied from root to package folder");
+} catch (error) {
+  console.error("Failed to copy README.md:", error);
+}
+
 // Write the filtered package.json for publishing
 await Bun.write("package.json", JSON.stringify(packageJson, null, 2));

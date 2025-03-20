@@ -87,10 +87,10 @@
         <div class="flex items-center justify-center flex-1 gap-4">
           <div class="flex gap-2 items-center">
             <Button href="/#how-it-works" variant="ghost">How it works?</Button>
-            <Button href="/#cloud" variant="ghost" class="text-orange-600">
+            <Button href="/cloud" variant="ghost" class="text-orange-600">
               Cloud
             </Button>
-            <Button href="/#local" variant="ghost" class="text-primary">
+            <Button href="/local" variant="ghost" class="text-primary">
               Local
             </Button>
             <Button href="/#roadmap" variant="ghost">Roadmap</Button>
@@ -156,14 +156,14 @@
                 How it works?
               </a>
               <a
-                href="/#cloud"
+                href="/cloud"
                 class="text-sm font-medium transition-colors hover:text-orange-600 py-3 text-orange-600"
                 onclick={closeMenu}
               >
                 Cloud
               </a>
               <a
-                href="/#local"
+                href="/local"
                 class="text-sm font-medium transition-colors hover:text-primary py-3 text-primary"
                 onclick={closeMenu}
               >
