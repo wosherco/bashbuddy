@@ -56,6 +56,10 @@ app.use(
 // Mount PowerSync routes
 app.route("/webhooks/stripe", stripeWebhook);
 
+app.get("/health", (c) =>
+  c.json({ status: "Healthy! What are you doing here?" }),
+);
+
 const port = process.env.PORT ?? 3000;
 
 if (env.NGROK_ENABLED) {
