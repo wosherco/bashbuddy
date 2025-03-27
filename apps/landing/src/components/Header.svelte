@@ -9,7 +9,8 @@
 
   import { SITE_URLS } from "@bashbuddy/consts";
 
-  const BANNER_STORAGE_KEY = "bashbuddy-qwen-banner-closed";
+  // const BANNER_STORAGE_KEY = "bashbuddy-qwen-banner-closed";
+  const BANNER_7DAYS_TILL_PRICE_BUMP = "bashbuddy-banner-7days-till-price-bump";
 
   let isMenuOpen = $state(false);
   let isBannerVisible = $state(false);
@@ -68,7 +69,8 @@
 
     // Check if banner was previously closed
     if (typeof localStorage !== "undefined") {
-      const isClosed = localStorage.getItem(BANNER_STORAGE_KEY) === "true";
+      const isClosed =
+        localStorage.getItem(BANNER_7DAYS_TILL_PRICE_BUMP) === "true";
       if (!isClosed) {
         isBannerVisible = true;
       }
@@ -89,7 +91,7 @@
     isBannerVisible = false;
     // Save state to localStorage
     if (typeof localStorage !== "undefined") {
-      localStorage.setItem(BANNER_STORAGE_KEY, "true");
+      localStorage.setItem(BANNER_7DAYS_TILL_PRICE_BUMP, "true");
     }
   }
 </script>
@@ -99,16 +101,17 @@
 {#if isBrowserEnv && isBannerVisible}
   <div
     bind:this={bannerElement}
-    class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-primary w-full h-min py-2 px-2 text-center"
+    class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gradient-to-r from-orange-500 to-red-500 w-full h-min py-2 px-2 text-center"
     transition:slide={{ duration: 200, axis: "y" }}
   >
     <p>
       <span class="font-medium">
-        We've added Qwen 2.5 models to BashBuddy Local!
+        LAST CHANCE TO GET BashBuddy Cloud AT $2/MONTH! We're introducing better
+        AI models and a new agent mode.
       </span>
 
       <a
-        href="/blog/qwen-2.5-models-arrive-to-bashbuddy"
+        href="/blog/better-cloud-models-and-upcoming-agent-mode"
         class="underline font-bold">Read more ➡️</a
       >
     </p>
