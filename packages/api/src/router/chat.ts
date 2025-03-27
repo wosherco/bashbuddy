@@ -76,7 +76,7 @@ class GroqLLM implements LLM {
 
     const generation = trace?.generation({
       name: "chat.ask",
-      model: "llama-3.1-8b-instant",
+      model: "llama-3.3-70b-versatile",
       input: messages,
       modelParameters: {
         temperature,
@@ -87,7 +87,7 @@ class GroqLLM implements LLM {
 
     const chatCompletion = await this.groq.chat.completions.create({
       messages,
-      model: "llama-3.1-8b-instant",
+      model: "llama-3.3-70b-versatile",
       temperature,
       max_completion_tokens: maxCompletionTokens,
       top_p: topP,
