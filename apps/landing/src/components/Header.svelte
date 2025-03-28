@@ -10,7 +10,8 @@
   import { SITE_URLS } from "@bashbuddy/consts";
 
   // const BANNER_STORAGE_KEY = "bashbuddy-qwen-banner-closed";
-  const BANNER_7DAYS_TILL_PRICE_BUMP = "bashbuddy-banner-7days-till-price-bump";
+  const BANNER_STORAGE_KEY =
+    "bashbuddy-banner-better-cloud-models-and-upcoming-agent-mode";
 
   let isMenuOpen = $state(false);
   let isBannerVisible = $state(false);
@@ -69,8 +70,7 @@
 
     // Check if banner was previously closed
     if (typeof localStorage !== "undefined") {
-      const isClosed =
-        localStorage.getItem(BANNER_7DAYS_TILL_PRICE_BUMP) === "true";
+      const isClosed = localStorage.getItem(BANNER_STORAGE_KEY) === "true";
       if (!isClosed) {
         isBannerVisible = true;
       }
@@ -91,7 +91,7 @@
     isBannerVisible = false;
     // Save state to localStorage
     if (typeof localStorage !== "undefined") {
-      localStorage.setItem(BANNER_7DAYS_TILL_PRICE_BUMP, "true");
+      localStorage.setItem(BANNER_STORAGE_KEY, "true");
     }
   }
 </script>
@@ -106,8 +106,8 @@
   >
     <p>
       <span class="font-medium">
-        LAST CHANCE TO GET BashBuddy Cloud AT $2/MONTH! We're introducing better
-        AI models and a new agent mode.
+        We're introducing better AI models on BashBuddy Cloud and upcoming agent
+        mode.
       </span>
 
       <a
