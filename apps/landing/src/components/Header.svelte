@@ -9,7 +9,8 @@
 
   import { SITE_URLS } from "@bashbuddy/consts";
 
-  const BANNER_STORAGE_KEY = "bashbuddy-qwen-banner-closed";
+  // const BANNER_STORAGE_KEY = "bashbuddy-qwen-banner-closed";
+  const BANNER_STORAGE_KEY = "bashbuddy-gemma-3-banner-closed";
 
   let isMenuOpen = $state(false);
   let isBannerVisible = $state(false);
@@ -104,12 +105,11 @@
   >
     <p>
       <span class="font-medium">
-        We've added Qwen 2.5 models to BashBuddy Local!
+        We've added Gemma 3 models to BashBuddy Local!
       </span>
 
-      <a
-        href="/blog/qwen-2.5-models-arrive-to-bashbuddy"
-        class="underline font-bold">Read more ➡️</a
+      <a href="/blog/gemma-3-arrives-to-bashbuddy" class="underline font-bold"
+        >Read more ➡️</a
       >
     </p>
     <button
