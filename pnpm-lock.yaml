@@ -1255,6 +1255,9 @@ importers:
       '@bashbuddy/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
+      '@types/bun':
+        specifier: latest
+        version: 1.2.8
       dotenv-cli:
         specifier: 'catalog:'
         version: 7.4.2

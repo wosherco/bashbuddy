@@ -88,13 +88,15 @@ export async function parseLLMResponse(
 export async function parseYamlResponse(
   stream: AsyncIterable<string>,
   cb: (response: Partial<LLMResponse>) => void,
-): Promise<LLMResponse> {
+): Promise<{ parsed: LLMResponse; raw: string }> {
   let finalResponse = "";
 
   for await (const chunk of stream) {
     finalResponse += chunk;
     try {
-      const parsed = llmResponseSchema.safeParse(parseYaml(finalResponse));
+      // Clean up YAML code block markers before attempting to parse
+      const cleanedResponse = removeYamlCodeBlockMarkers(finalResponse);
+      const parsed = llmResponseSchema.safeParse(parseYaml(cleanedResponse));
       if (parsed.success) {
         cb(parsed.data);
       }
@@ -103,8 +105,11 @@ export async function parseYamlResponse(
     }
   }
 
+  // Clean up YAML code block markers in the final response
+  const cleanedFinalResponse = removeYamlCodeBlockMarkers(finalResponse);
+
   const parsedFinalResponse = llmResponseSchema.safeParse(
-    parseYaml(finalResponse),
+    parseYaml(cleanedFinalResponse),
   );
 
   if (!parsedFinalResponse.success) {
@@ -121,5 +126,18 @@ export async function parseYamlResponse(
     throw new ResponseParseError();
   }
 
-  return parsedFinalResponse.data;
+  return { parsed: parsedFinalResponse.data, raw: cleanedFinalResponse };
+}
+
+/**
+ * Removes YAML code block markers from a string
+ */
+function removeYamlCodeBlockMarkers(text: string): string {
+  // Remove ```yaml at the beginning
+  let cleaned = text.replace(/^\s*```yaml\s*/i, "");
+
+  // Remove ``` at the end
+  cleaned = cleaned.replace(/\s*```\s*$/, "");
+
+  return cleaned;
 }

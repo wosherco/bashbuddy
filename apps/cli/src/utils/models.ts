@@ -19,7 +19,24 @@ export interface AIModel {
 }
 
 // Available models
-export const availableModels: AIModel[] = [
+export const availableModels = [
+  {
+    id: "Qwen-2.5-7B-Instruct-Q6_K",
+    name: "Qwen 2.5 7B Q6",
+    downloadUrl:
+      "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q6_K.gguf",
+    size: "6.65 GB",
+    requiredRAM: 10,
+  },
+  {
+    id: "Qwen-2.5-7B-Instruct-Q4_K_M",
+    name: "Qwen 2.5 7B Q4",
+    downloadUrl:
+      "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q4_K_M.gguf",
+    size: "4.58 GB",
+    requiredRAM: 8,
+    recommended: true,
+  },
   {
     id: "Meta-Llama-3.1-8B-Instruct-Q4_K_M",
     name: "Llama 3.1 8B Q4",
@@ -38,25 +55,23 @@ export const availableModels: AIModel[] = [
     requiredRAM: 12,
   },
 
-  // TODO: Waiting on update from node-llama-cpp (https://github.com/withcatai/node-llama-cpp/issues/440)
-  // {
-  //   id: "Gemma-3-4B-IT-Q4_K_M",
-  //   name: "Gemma 3 4B Q4",
-  //   description: "Less weight, faster, but less accurate",
-  //   downloadUrl:
-  //     "https://huggingface.co/unsloth/gemma-3-4b-it-GGUF/resolve/main/gemma-3-4b-it-Q4_K_M.gguf",
-  //   size: "2.4 GB",
-  //   requiredRAM: 6,
-  // },
-  // {
-  //   id: "Gemma-3-12B-IT-Q4_K_M",
-  //   name: "Gemma 3 12B Q4",
-  //   description: "Heavier, slower, but more accurate",
-  //   downloadUrl:
-  //     "https://huggingface.co/unsloth/gemma-3-12b-it-GGUF/resolve/main/gemma-3-12b-it-Q4_K_M.gguf",
-  //   size: "7.3 GB",
-  //   requiredRAM: 12,
-  // },
+  {
+    id: "Gemma-3-4B-IT-Q4_K_M",
+    name: "Gemma 3 4B Q4",
+    downloadUrl:
+      "https://huggingface.co/unsloth/gemma-3-4b-it-GGUF/resolve/main/gemma-3-4b-it-Q4_K_M.gguf",
+    size: "2.4 GB",
+    requiredRAM: 4,
+  },
+  {
+    id: "Gemma-3-12B-IT-Q4_K_M",
+    name: "Gemma 3 12B Q4",
+    downloadUrl:
+      "https://huggingface.co/unsloth/gemma-3-12b-it-GGUF/resolve/main/gemma-3-12b-it-Q4_K_M.gguf",
+    size: "7.3 GB",
+    requiredRAM: 12,
+  },
+
   // It's fucking stupid
   // {
   //   id: "Llama-3.2-3B-Instruct-Q4_K_M",
@@ -78,24 +93,7 @@ export const availableModels: AIModel[] = [
   //   size: "9.05 GB",
   //   requiredRAM: 16,
   // },
-  {
-    id: "Qwen-2.5-7B-Instruct-Q6_K",
-    name: "Qwen 2.5 7B Q6",
-    downloadUrl:
-      "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q6_K.gguf",
-    size: "6.65 GB",
-    requiredRAM: 10,
-  },
-  {
-    id: "Qwen-2.5-7B-Instruct-Q4_K_M",
-    name: "Qwen 2.5 7B Q4",
-    downloadUrl:
-      "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q4_K_M.gguf",
-    size: "4.58 GB",
-    requiredRAM: 8,
-    recommended: true,
-  },
-];
+] as const;
 
 export type AIModelId = (typeof availableModels)[number]["id"];
 

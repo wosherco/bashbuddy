@@ -7,7 +7,7 @@ import { env } from "../env";
 export { Ratelimit };
 
 const chatMessageSchema = z.object({
-  role: z.enum(["user", "assistant", "system"]),
+  role: z.enum(["user", "model", "system"]),
   content: z.string(),
 });
 
@@ -26,7 +26,7 @@ const redis = new Redis({
 });
 
 export async function createChatSession(userId: string) {
-  const id = crypto.randomUUID();
+  const id = Bun.randomUUIDv7();
 
   await redis.hset(id, {
     userId,
