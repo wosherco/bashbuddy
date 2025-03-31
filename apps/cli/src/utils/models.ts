@@ -6,9 +6,26 @@ import type { ProgressData } from "./downloadManager";
 import { DownloadManager } from "./downloadManager";
 import { executeCommand } from "./shell";
 
-// Define model interface
+export const QWEN_2_5_7B = "Qwen-2.5-7B-Instruct-Q6_K";
+export const QWEN_2_5_7B_INST = "Qwen-2.5-7B-Instruct-Q4_K_M";
+export const META_LLAMA_3_1_8B_INST = "Meta-Llama-3.1-8B-Instruct-Q4_K_M";
+export const META_LLAMA_3_1_8B_INST_Q8 = "Meta-Llama-3.1-8B-Instruct-Q8_0";
+export const GEMMA_3_4B_IT = "Gemma-3-4B-IT-Q4_K_M";
+export const GEMMA_3_12B_IT = "Gemma-3-12B-IT-Q4_K_M";
+
+export const ALL_MODEL_IDS = [
+  QWEN_2_5_7B,
+  QWEN_2_5_7B_INST,
+  META_LLAMA_3_1_8B_INST,
+  META_LLAMA_3_1_8B_INST_Q8,
+  GEMMA_3_4B_IT,
+  GEMMA_3_12B_IT,
+] as const;
+
+export type AIModelId = (typeof ALL_MODEL_IDS)[number];
+
 export interface AIModel {
-  id: string;
+  id: AIModelId;
   name: string;
   downloadUrl: string;
   size: string;
@@ -19,9 +36,9 @@ export interface AIModel {
 }
 
 // Available models
-export const availableModels = [
+export const availableModels: AIModel[] = [
   {
-    id: "Qwen-2.5-7B-Instruct-Q6_K",
+    id: QWEN_2_5_7B,
     name: "Qwen 2.5 7B Q6",
     downloadUrl:
       "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q6_K.gguf",
@@ -29,7 +46,7 @@ export const availableModels = [
     requiredRAM: 10,
   },
   {
-    id: "Qwen-2.5-7B-Instruct-Q4_K_M",
+    id: QWEN_2_5_7B_INST,
     name: "Qwen 2.5 7B Q4",
     downloadUrl:
       "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q4_K_M.gguf",
@@ -38,7 +55,7 @@ export const availableModels = [
     recommended: true,
   },
   {
-    id: "Meta-Llama-3.1-8B-Instruct-Q4_K_M",
+    id: META_LLAMA_3_1_8B_INST,
     name: "Llama 3.1 8B Q4",
     downloadUrl:
       "https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
@@ -47,7 +64,7 @@ export const availableModels = [
     recommended: true,
   },
   {
-    id: "Meta-Llama-3.1-8B-Instruct-Q8_0",
+    id: META_LLAMA_3_1_8B_INST_Q8,
     name: "Llama 3.1 8B Q8",
     downloadUrl:
       "https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/Meta-Llama-3.1-8B-Instruct-Q8_0.gguf",
@@ -56,7 +73,7 @@ export const availableModels = [
   },
 
   {
-    id: "Gemma-3-4B-IT-Q4_K_M",
+    id: GEMMA_3_4B_IT,
     name: "Gemma 3 4B Q4",
     downloadUrl:
       "https://huggingface.co/unsloth/gemma-3-4b-it-GGUF/resolve/main/gemma-3-4b-it-Q4_K_M.gguf",
@@ -64,7 +81,7 @@ export const availableModels = [
     requiredRAM: 4,
   },
   {
-    id: "Gemma-3-12B-IT-Q4_K_M",
+    id: GEMMA_3_12B_IT,
     name: "Gemma 3 12B Q4",
     downloadUrl:
       "https://huggingface.co/unsloth/gemma-3-12b-it-GGUF/resolve/main/gemma-3-12b-it-Q4_K_M.gguf",
@@ -94,8 +111,6 @@ export const availableModels = [
   //   requiredRAM: 16,
   // },
 ] as const;
-
-export type AIModelId = (typeof availableModels)[number]["id"];
 
 // Hardware acceleration types
 export interface HardwareAcceleration {
