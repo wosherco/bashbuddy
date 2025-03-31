@@ -38,7 +38,7 @@
     "@trpc/client": "catalog:",
     "clipboardy": "^4.0.0",
     "commander": "^13.1.0",
-    "node-llama-cpp": "^3.6.0",
+    "node-llama-cpp": "^3.7.0",
     "superjson": "catalog:",
     "yaml": "^2.7.0",
     "zod": "catalog:"

@@ -22,7 +22,7 @@
   }}
 />
 
-<article class="prose dark:prose-invert mt-20 mx-auto max-w-prose px-4">
+<article class="prose dark:prose-invert mt-32 mx-auto max-w-prose px-4">
   <a href="/blog" class="mb-4">⬅️ Go Back</a>
   <h1 class="text-3xl font-bold pt-8">{data.metadata.title}</h1>
   <description class="text-lg pt-2">{data.metadata.description}</description>

@@ -30,6 +30,7 @@
     "@t3-oss/env-core": "catalog:"
   },
   "devDependencies": {
+    "@types/bun": "latest",
     "@bashbuddy/eslint-config": "workspace:*",
     "@bashbuddy/prettier-config": "workspace:*",
     "@bashbuddy/tsconfig": "workspace:*",

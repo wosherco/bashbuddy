@@ -4,8 +4,8 @@ import { Groq } from "groq-sdk";
 import { Langfuse } from "langfuse";
 import { z } from "zod";
 
-import type { LLM } from "@bashbuddy/agent";
-import { processPrompt } from "@bashbuddy/agent";
+import type { LLM, LLMMessage } from "@bashbuddy/agent";
+import { jsonPrompt, processPrompt, yamlPrompt } from "@bashbuddy/agent";
 import { eq, increment } from "@bashbuddy/db";
 import { db } from "@bashbuddy/db/client";
 import { userTable } from "@bashbuddy/db/schema";
@@ -36,39 +36,27 @@ const langfuse =
 
 class GroqLLM implements LLM {
   private groq: Groq;
-  private messages: Groq.Chat.Completions.ChatCompletionMessageParam[];
   private chatId: string;
   private userId: string;
 
-  constructor(
-    messages: Groq.Chat.Completions.ChatCompletionMessageParam[],
-    chatId: string,
-    userId: string,
-  ) {
+  constructor(chatId: string, userId: string) {
     this.groq = new Groq();
-    this.messages = messages;
     this.chatId = chatId;
     this.userId = userId;
   }
 
-  async *infer(systemPrompt: string, prompt: string): AsyncIterable<string> {
+  async *infer(messages: LLMMessage[]): AsyncIterable<string> {
     const trace = langfuse?.trace({
       name: "chat.ask",
       id: this.chatId,
       userId: this.userId,
     });
 
-    const messages: Groq.Chat.Completions.ChatCompletionMessageParam[] = [
-      {
-        role: "system",
-        content: systemPrompt,
-      },
-      ...this.messages,
-      {
-        role: "user",
-        content: prompt,
-      },
-    ];
+    const groqMessages: Groq.Chat.Completions.ChatCompletionMessageParam[] =
+      messages.map((message) => ({
+        role: message.role === "model" ? "assistant" : message.role,
+        content: message.content,
+      }));
 
     const temperature = 0.7;
     const maxCompletionTokens = 1024;
@@ -86,7 +74,7 @@ class GroqLLM implements LLM {
     });
 
     const chatCompletion = await this.groq.chat.completions.create({
-      messages,
+      messages: groqMessages,
       model: "llama-3.1-8b-instant",
       temperature,
       max_completion_tokens: maxCompletionTokens,
@@ -203,18 +191,23 @@ export const chatRouter = {
         .where(eq(userTable.id, ctx.user.id))
         .execute();
 
-      const groqLLM = new GroqLLM(
-        chatSession.messages,
-        input.chatId,
-        ctx.user.id,
-      );
+      const messages: LLMMessage[] = [
+        {
+          role: "system",
+          content: input.useYaml
+            ? yamlPrompt(input.context)
+            : jsonPrompt(input.context),
+        },
+        ...chatSession.messages,
+        {
+          role: "user",
+          content: input.input,
+        },
+      ];
 
-      const stream = processPrompt(
-        groqLLM,
-        input.context,
-        input.input,
-        input.useYaml,
-      );
+      const groqLLM = new GroqLLM(input.chatId, ctx.user.id);
+
+      const stream = processPrompt(groqLLM, messages);
 
       await addMessageToChatSession(input.chatId, {
         role: "user",
@@ -229,7 +222,7 @@ export const chatRouter = {
       }
 
       await addMessageToChatSession(input.chatId, {
-        role: "assistant",
+        role: "model",
         content,
       });
 

@@ -1,0 +1,23 @@
+---
+title: The last Gemma 3 model from Google arrives to BashBuddy!
+description: We've added the last Gemma 3 model from Google to BashBuddy!
+author: Pol
+date: 2025-03-29
+image: /images/posts/gemma-3-arrives-to-bashbuddy/gemma-3-arrives-to-bashbuddy.png
+---
+
+After the success of having qwen 2.5 model on BashBuddy Local, we've added the last Gemma 3 model from Google!
+
+## Gemma 3 models
+
+Gemma 3 models are really powerful. Me, personally, I still prefer using qwen 2.5, but on some aspects it performed better. It's completely up to you!
+
+## Try it for yourself
+
+You can try it for yourself by updating BashBuddy using `bashbuddy update` and then running `bashbuddy models`.
+
+## That's it for now
+
+We're working on more features, and will keep you updated here.
+
+Have a great day!

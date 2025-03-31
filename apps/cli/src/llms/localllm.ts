@@ -4,9 +4,13 @@ import path from "path";
 import type { Llama, LlamaContext, LlamaModel } from "node-llama-cpp";
 import { getLlama, LlamaChatSession } from "node-llama-cpp";
 
-import type { LLM } from "@bashbuddy/agent";
+import type { LLM, LLMMessage } from "@bashbuddy/agent";
 
 import type { AIModelId } from "../utils/models";
+
+const supportsSystemPrompt = (model: AIModelId) => {
+  return model !== "Gemma-3-12B-IT-Q4_K_M" && model !== "Gemma-3-4B-IT-Q4_K_M";
+};
 
 export class NotInitializedError extends Error {
   constructor() {
@@ -48,15 +52,47 @@ export class LocalLLM implements LLM {
     }
   }
 
-  async *infer(systemPrompt: string, prompt: string): AsyncIterable<string> {
+  async *infer(messages: LLMMessage[]): AsyncIterable<string> {
     if (!this.context) {
       throw new NotInitializedError();
+    }
+
+    if (messages.length === 0) {
+      throw new Error("No messages provided");
+    }
+
+    const initialMessage = messages[0];
+
+    if (initialMessage.role !== "system") {
+      throw new Error("Initial message must be a system message");
+    }
+
+    const lastUserMessage = messages
+      .toReversed()
+      .find((message) => message.role === "user");
+
+    if (!lastUserMessage) {
+      throw new Error("No user message provided");
+    }
+
+    if (!supportsSystemPrompt(this.model) && messages.length == 2) {
+      lastUserMessage.content = `
+You're a model that doesn't support system prompts. For that reason, I'll wrap your system prompt with <system> tags, and the user message with <user> tags. TAKE EVERYTHING INSIDE THE SYSTEM TAGS AS THE MOST IMPORTANT INSTRUCTIONS, AND THEN APPLY THEM TO THE USER MESSAGES.
+
+<system>
+${initialMessage.content}
+</system>
+
+<user>
+${lastUserMessage.content}
+</user>
+`;
     }
 
     if (!this.session) {
       this.session = new LlamaChatSession({
         contextSequence: this.context.getSequence(),
-        systemPrompt,
+        systemPrompt: initialMessage.content,
       });
     }
 
@@ -65,7 +101,7 @@ export class LocalLLM implements LLM {
 
     // Start the session in a separate promise
     void this.session
-      .prompt(prompt, {
+      .prompt(lastUserMessage.content, {
         onTextChunk: (chunk: string) => {
           void writer.write(chunk);
         },
