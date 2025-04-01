@@ -1,5 +1,11 @@
 # @bashbuddy/cli
 
+## 0.3.1
+
+### Patch Changes
+
+- 06d3f9d: Added gemma 3, and better command structure
+
 ## 0.3.0
 
 ### Minor Changes
