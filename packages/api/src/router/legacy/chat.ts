@@ -4,8 +4,8 @@ import { Groq } from "groq-sdk";
 import { Langfuse } from "langfuse";
 import { z } from "zod";
 
-import type { LLM, LLMMessage } from "@bashbuddy/agent";
-import { jsonPrompt, processPrompt, yamlPrompt } from "@bashbuddy/agent";
+import type { LLM, LLMMessage } from "@bashbuddy/agent/legacy";
+import { jsonPrompt, processPrompt, yamlPrompt } from "@bashbuddy/agent/legacy";
 import { eq, increment } from "@bashbuddy/db";
 import { db } from "@bashbuddy/db/client";
 import { userTable } from "@bashbuddy/db/schema";
@@ -18,8 +18,8 @@ import {
 import { createRatelimit, Ratelimit } from "@bashbuddy/redis/ratelimit";
 import { contextSchema } from "@bashbuddy/validators";
 
-import { env } from "../../env";
-import { subscribedProcedure } from "../trpc";
+import { env } from "../../../env";
+import { subscribedProcedure } from "../../trpc";
 
 const langfuse =
   env.LANGFUSE_BASEURL &&

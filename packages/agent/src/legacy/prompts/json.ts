@@ -3,8 +3,9 @@ import zodToJsonSchema from "zod-to-json-schema";
 import type { LLMContext } from "@bashbuddy/validators";
 import { llmResponseSchema } from "@bashbuddy/validators";
 
-import { escape } from "../utils/escape";
+import { escape } from "../../utils/escape";
 
+/** @deprecated */
 export const prompt = (context: LLMContext) => `
 You are BashBuddy, a specialized shell command assistant with expert-level knowledge of bash, PowerShell, zsh, fish, and other command-line interfaces. Your purpose is to generate precise, ready-to-execute shell commands based on user requests.
 

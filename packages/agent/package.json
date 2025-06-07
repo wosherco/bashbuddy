@@ -8,13 +8,17 @@
       "types": "./dist/src/index.d.ts",
       "default": "./src/index.ts"
     },
-    "./context": {
-      "types": "./dist/src/context.d.ts",
-      "default": "./src/context.ts"
+    "./legacy": {
+      "types": "./dist/src/legacy/index.d.ts",
+      "default": "./src/legacy/index.ts"
     },
-    "./skills": {
-      "types": "./dist/src/skills/index.d.ts",
-      "default": "./src/skills/index.ts"
+    "./transport": {
+      "types": "./dist/src/transport/index.d.ts",
+      "default": "./src/transport/index.ts"
+    },
+    "./tools": {
+      "types": "./dist/src/tools/index.d.ts",
+      "default": "./src/tools/index.ts"
     },
     "./env": "./env.ts"
   },
@@ -31,6 +35,8 @@
     "@bashbuddy/validators": "workspace:*",
     "@bashbuddy/common": "workspace:*",
     "@t3-oss/env-core": "catalog:",
+    "@langchain/core": "catalog:",
+    "@langchain/langgraph": "catalog:",
     "langfuse": "^3.35.2",
     "langfuse-langchain": "^3.35.2",
     "zod": "catalog:",

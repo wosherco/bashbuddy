@@ -4,7 +4,7 @@ import path from "path";
 import type { Llama, LlamaContext, LlamaModel } from "node-llama-cpp";
 import { getLlama, LlamaChatSession } from "node-llama-cpp";
 
-import type { LLM, LLMMessage } from "@bashbuddy/agent";
+import type { LLM, LLMMessage } from "@bashbuddy/agent/legacy";
 
 import type { AIModelId } from "../utils/models";
 

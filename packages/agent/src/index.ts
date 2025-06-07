@@ -1,28 +1,49 @@
-export interface LLMMessage {
-  role: "user" | "model" | "system";
-  content: string;
-}
+import type { BaseChatModel } from "@langchain/core/language_models/chat_models";
+import type { BaseCheckpointSaver } from "@langchain/langgraph";
+import { tool } from "@langchain/core/tools";
+import { createReactAgent } from "@langchain/langgraph/prebuilt";
 
-export { prompt as yamlPrompt } from "./prompts/yaml";
-export { prompt as jsonPrompt } from "./prompts/json";
+import type { LLMTools } from "./tools";
+import { getLineGroupToolSchema, runCommandToolSchema } from "./tools";
 
-export async function* processPrompt(
-  llm: LLM,
-  messages: LLMMessage[],
-): AsyncIterable<string> {
-  const stream = llm.infer(messages);
+export function createAgent<T extends BaseChatModel>(
+  llm: T,
+  toolsImplementation: LLMTools,
+  checkpointer: BaseCheckpointSaver,
+) {
+  const runCommandTool = tool(
+    async (input) => {
+      const response = await toolsImplementation.runCommandTool(input);
 
-  for await (const chunk of stream) {
-    yield chunk;
-  }
-}
+      return response;
+    },
+    {
+      name: "run-command",
+      description: "Run a command on the user's terminal",
+      schema: runCommandToolSchema,
+    },
+  );
 
-export interface LLM {
-  /**
-   * Takes a prompt string and returns a stream of string responses
-   * @param systemPrompt The system prompt to use
-   * @param prompt The input prompt to process
-   * @returns A stream of string responses
-   */
-  infer(messages: LLMMessage[]): AsyncIterable<string>;
+  const runGetLineGroupTool = tool(
+    async (input) => {
+      const response = await toolsImplementation.runGetLineGroupTool(input);
+      return response;
+    },
+    {
+      name: "run-get-line-group",
+      description:
+        "Get a group of lines from the stdout or stderr of a command.",
+      schema: getLineGroupToolSchema,
+    },
+  );
+
+  const agent = createReactAgent({
+    llm,
+    tools: [runCommandTool, runGetLineGroupTool],
+    prompt:
+      "You're a helpful assistant that can run commands and get lines from the stdout or stderr of a command. The user will input some instructions to achieve a goal, you through their terminal, you have to achieve it.",
+    checkpointer,
+  });
+
+  return agent;
 }

@@ -5,7 +5,7 @@ import { db } from "@bashbuddy/db/client";
 import { authSessionTable } from "@bashbuddy/db/schema";
 import { socketless } from "@bashbuddy/socketless";
 
-import { protectedProcedure, publicProcedure } from "../trpc";
+import { protectedProcedure, publicProcedure } from "../../trpc";
 
 export const authRouter = {
   getUser: protectedProcedure.query(({ ctx }) => {

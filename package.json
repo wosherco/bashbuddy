@@ -17,6 +17,7 @@
     "db:up": "pnpm -F db db:up",
     "db:generate": "pnpm -F db db:generate",
     "dev": "PUBLIC_ENVIRONMENT=development infisical run --env dev -- turbo watch dev --continue --concurrency 30",
+    "dev:packages": "PUBLIC_ENVIRONMENT=development turbo watch dev --continue --concurrency 30 --filter='./packages/**'",
     "dev:dotenv": "PUBLIC_ENVIRONMENT=development dotenv -e ./.env -- turbo watch dev --continue --concurrency 30",
     "format": "turbo format --continue -- --cache --cache-location .cache/.prettiercache",
     "format:fix": "turbo format --continue -- --write --cache --cache-location .cache/.prettiercache",

@@ -4,10 +4,8 @@ packages:
   - tooling/*
 
 catalog:
-  "@tanstack/react-query": ^5.51.23
-  "@trpc/client": 11.0.0-rc.638
-  "@trpc/react-query": 11.0.0-rc.638
-  "@trpc/server": 11.0.0-rc.638
+  "@trpc/client": ^11.2.0
+  "@trpc/server": ^11.2.0
   superjson: ^2.2.1
   eslint: ^9.9.0
   prettier: ^3.3.3
@@ -51,3 +49,8 @@ catalog:
   "@opentelemetry/exporter-metrics-otlp-http": 0.57.2
   "@opentelemetry/exporter-metrics-otlp-proto": 0.57.2
   "@opentelemetry/exporter-trace-otlp-http": 0.57.2
+
+  "@langchain/community": ^0.3.45
+  "@langchain/core": ^0.3.57
+  "@langchain/google-vertexai": ^0.2.10
+  "@langchain/langgraph": ^0.2.74

@@ -25,6 +25,7 @@
     "@bashbuddy/tsconfig": "workspace:*",
     "@bashbuddy/validators": "workspace:*",
     "@types/bun": "latest",
+    "@types/react": "^19.0.7",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
@@ -34,14 +35,18 @@
     "@bashbuddy/consts": "workspace:*",
     "@bashbuddy/logger": "workspace:*",
     "@clack/prompts": "^0.10.0",
+    "@langchain/community": "catalog:",
     "@streamparser/json-node": "^0.0.22",
     "@trpc/client": "catalog:",
     "clipboardy": "^4.0.0",
     "commander": "^13.1.0",
+    "ink": "^6.0.0",
     "node-llama-cpp": "^3.7.0",
+    "react": "^19.0.0",
     "superjson": "catalog:",
     "yaml": "^2.7.0",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "zustand": "^5.0.5"
   },
   "prettier": "@bashbuddy/prettier-config",
   "files": [

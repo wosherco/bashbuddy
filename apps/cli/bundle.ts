@@ -23,6 +23,10 @@ export const externalDependencies = [
   "@reflink",
   "node-llama-cpp",
   "@trpc/client",
+  "react",
+  "ink",
+  "@clack/prompts",
+  "clipboardy",
 ];
 
 await Bun.build({

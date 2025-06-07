@@ -32,6 +32,7 @@
     "@bashbuddy/api": "workspace:*",
     "@bashbuddy/auth": "workspace:*",
     "@bashbuddy/db": "workspace:*",
+    "@bashbuddy/agent": "workspace:*",
     "@bashbuddy/stripe": "workspace:*",
     "@bashbuddy/logger": "workspace:*",
     "@ngrok/ngrok": "^1.4.1",
