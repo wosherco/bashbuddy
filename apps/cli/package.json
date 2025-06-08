@@ -20,7 +20,6 @@
     "@bashbuddy/api": "workspace:*",
     "@bashbuddy/envs": "workspace:*",
     "@bashbuddy/eslint-config": "workspace:*",
-    "@bashbuddy/opentelemetry": "workspace:*",
     "@bashbuddy/prettier-config": "workspace:*",
     "@bashbuddy/tsconfig": "workspace:*",
     "@bashbuddy/validators": "workspace:*",
@@ -33,7 +32,6 @@
   "dependencies": {
     "@bashbuddy/agent": "workspace:*",
     "@bashbuddy/consts": "workspace:*",
-    "@bashbuddy/logger": "workspace:*",
     "@clack/prompts": "^0.10.0",
     "@langchain/community": "catalog:",
     "@streamparser/json-node": "^0.0.22",
@@ -42,6 +40,7 @@
     "commander": "^13.1.0",
     "ink": "^6.0.0",
     "node-llama-cpp": "^3.7.0",
+    "p-queue": "^8.1.0",
     "react": "^19.0.0",
     "superjson": "catalog:",
     "yaml": "^2.7.0",

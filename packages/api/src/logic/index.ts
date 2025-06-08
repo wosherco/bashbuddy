@@ -7,6 +7,7 @@ import type {
   S2C_AgentMessage,
 } from "@bashbuddy/agent/transport";
 import { createAgent } from "@bashbuddy/agent";
+import { createRedisClient } from "@bashbuddy/redis";
 
 import type { ChatTokenPayload } from "../utils/jwt";
 import { langchainVertexAI } from "../utils/ai";
@@ -71,7 +72,6 @@ export class ClientTransporterHandler implements AgentTransportServer {
     this.ws.send(JSON.stringify(message));
   }
 
-  // TODO: Implement lock or queue to handle messages in order
   onMessage(message: C2S_AgentMessage) {
     switch (message.type) {
       case "agent-cancel":
@@ -88,10 +88,11 @@ export class ClientTransporterHandler implements AgentTransportServer {
 
           this.context.processing = true;
 
-          // TODO: Create a Redis checkpoint saver
+          const redis = createRedisClient();
+
           const saver = new RedisSaver({
-            url: "redis://localhost:6379",
-            ttl: 3600, // Optional TTL in seconds
+            client: redis,
+            ttl: 15 * 60,
           });
 
           const llm = langchainVertexAI();
@@ -120,7 +121,7 @@ export class ClientTransporterHandler implements AgentTransportServer {
               }
             })
             .catch((err) => {
-              // TODO: Register error
+              // TODO: Register error on sentry
               this.sendMessage({
                 type: "agent-error",
                 payload: {
@@ -135,6 +136,7 @@ export class ClientTransporterHandler implements AgentTransportServer {
           const toolCall = this.pendingToolCalls[message.payload.id];
 
           if (toolCall) {
+            // @ts-expect-error - TODO: Fix this
             toolCall.resolve(message.payload.output);
           }
         }
@@ -144,6 +146,7 @@ export class ClientTransporterHandler implements AgentTransportServer {
           const toolCall = this.pendingToolCalls[message.payload.id];
 
           if (toolCall) {
+            // @ts-expect-error - TODO: Fix this
             toolCall.resolve(message.payload.output);
           }
         }

@@ -6,5 +6,4 @@ export const chatTable = pgTable("chat", {
   userId: uuid().notNull(),
   createdAt: timestamp().notNull().defaultNow(),
 });
-
 export type DBChat = InferSelectModel<typeof chatTable>;

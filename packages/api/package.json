@@ -45,8 +45,8 @@
     "jose": "^6.0.11",
     "langfuse": "^3.35.2",
     "langgraph-db": "^0.0.5",
-    "lodash.isnil": "^4.0.0",
     "nanoid": "5.0.9",
+    "p-queue": "^8.1.0",
     "superjson": "catalog:",
     "zod": "catalog:"
   },
@@ -54,7 +54,6 @@
     "@bashbuddy/eslint-config": "workspace:*",
     "@bashbuddy/prettier-config": "workspace:*",
     "@bashbuddy/tsconfig": "workspace:*",
-    "@types/lodash.isnil": "^4.0.9",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"

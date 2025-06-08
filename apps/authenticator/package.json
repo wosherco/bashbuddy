@@ -25,8 +25,6 @@
     "@bashbuddy/db": "workspace:*",
     "@bashbuddy/posthog": "workspace:*",
     "@bashbuddy/eslint-config": "workspace:*",
-    "@bashbuddy/logger": "workspace:*",
-    "@bashbuddy/opentelemetry": "workspace:*",
     "@bashbuddy/prettier-config": "workspace:*",
     "@bashbuddy/tsconfig": "workspace:*",
     "@sveltejs/adapter-node": "catalog:",
@@ -59,7 +57,7 @@
   "dependencies": {
     "@oslojs/crypto": "^1.0.1",
     "@oslojs/encoding": "^1.1.0",
-    "@sentry/sveltekit": "^8.50.0",
+    "@sentry/sveltekit": "catalog:",
     "@bashbuddy/consts": "workspace:*",
     "arctic": "^2.2.2",
     "googleapis": "^144.0.0",

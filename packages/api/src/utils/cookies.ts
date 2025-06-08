@@ -1,4 +1,4 @@
-import type { SerializeOptions } from "cookie";
+import type { CookieSerializeOptions } from "cookie";
 import cookie from "cookie";
 
 export function getCookies(req: Request) {
@@ -18,7 +18,7 @@ export function setCookie(
   resHeaders: Headers,
   name: string,
   value: string,
-  options?: SerializeOptions,
+  options?: CookieSerializeOptions,
 ) {
   resHeaders.append("Set-Cookie", cookie.serialize(name, value, options));
 }

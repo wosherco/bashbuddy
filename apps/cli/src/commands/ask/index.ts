@@ -1,7 +1,7 @@
 import * as p from "@clack/prompts";
 import { Command } from "commander";
 
-import { CliLLMTools } from "../../agent/tools";
+import { trpc } from "../../trpc";
 import { runAskCommand } from "./command";
 import { useAskChatState } from "./state";
 import { CloudTransporter } from "./transporters/cloud";
@@ -50,7 +50,8 @@ async function promptForQuestion() {
 
 async function execute(question: string) {
   // For now we're assuming cloud only
-  const transporter = new CloudTransporter("wss://api.bashbuddy.run/ws");
+  const chatSessionDetails = await trpc.v2.chat.createChatSession.mutate();
+  const transporter = new CloudTransporter(chatSessionDetails.url);
 
   useAskChatState.getState().addMessage({
     role: "user",

@@ -27,7 +27,6 @@
     "@bashbuddy/stripe": "workspace:*",
     "@bashbuddy/posthog": "workspace:*",
     "@bashbuddy/tsconfig": "workspace:*",
-    "@bashbuddy/opentelemetry": "workspace:*",
     "@sveltejs/adapter-node": "catalog:",
     "@sveltejs/kit": "catalog:",
     "@sveltejs/vite-plugin-svelte": "catalog:",
@@ -60,8 +59,7 @@
   },
   "prettier": "@bashbuddy/prettier-config",
   "dependencies": {
-    "@sentry/sveltekit": "^8.50.0",
-    "@bashbuddy/logger": "workspace:*",
+    "@sentry/sveltekit": "catalog:",
     "@bashbuddy/consts": "workspace:*",
     "googleapis": "^144.0.0",
     "js-cookie": "^3.0.5"

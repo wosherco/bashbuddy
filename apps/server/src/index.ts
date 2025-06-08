@@ -4,9 +4,9 @@ import type { ServerWebSocket } from "bun";
 import { trpcServer } from "@hono/trpc-server";
 import ngrok from "@ngrok/ngrok";
 import { Hono } from "hono";
-import { pinoLogger } from "hono-pino";
 import { createBunWebSocket } from "hono/bun";
 import { cors } from "hono/cors";
+import PQueue from "p-queue";
 
 import type { ChatTokenPayload } from "@bashbuddy/api/utils/jwt";
 import { C2S_AgentMessageSchema } from "@bashbuddy/agent/transport";
@@ -16,19 +16,11 @@ import { verifyChatToken } from "@bashbuddy/api/utils/jwt";
 import { validateSessionRequest } from "@bashbuddy/auth";
 
 import { env } from "./env";
-import { logger } from "./logger.ts";
 import { stripeWebhook } from "./routes/stripeWebhook";
 
 const { upgradeWebSocket, websocket } = createBunWebSocket<ServerWebSocket>();
 
 const app = new Hono();
-
-app.use(
-  "*",
-  pinoLogger({
-    pino: logger,
-  }),
-);
 
 if (env.PUBLIC_ENVIRONMENT === "development") {
   app.use(
@@ -78,10 +70,10 @@ if (env.NGROK_ENABLED) {
       domain: env.NGROK_URL,
     })
     .then((listener) => {
-      logger.info(`Ngrok listening on ${listener.url()}`);
+      console.info(`Ngrok listening on ${listener.url()}`);
     })
     .catch((err) => {
-      logger.error("Failed to connect to ngrok", err);
+      console.error("Failed to connect to ngrok", err);
     });
 }
 
@@ -97,6 +89,8 @@ app.get(
     try {
       const chatDetails = await verifyChatToken(token);
 
+      console.log("chatDetails", chatDetails);
+
       // @ts-expect-error - TODO: Fix this
       c.set("chatDetails", chatDetails);
     } catch {
@@ -109,6 +103,7 @@ app.get(
     const chatDetails = c.get("chatDetails") as ChatTokenPayload;
 
     let transporter: ClientTransporterHandler;
+    const messageQueue = new PQueue({ concurrency: 1 });
 
     return {
       onOpen(evt, ws) {
@@ -119,13 +114,15 @@ app.get(
         });
       },
       async onMessage(event) {
-        const parsedMessage = await C2S_AgentMessageSchema.safeParseAsync(
-          event.data,
-        );
+        await messageQueue.add(async () => {
+          const parsedMessage = await C2S_AgentMessageSchema.safeParseAsync(
+            event.data,
+          );
 
-        if (parsedMessage.success) {
-          transporter.onMessage(parsedMessage.data);
-        }
+          if (parsedMessage.success) {
+            transporter.onMessage(parsedMessage.data);
+          }
+        });
       },
       onClose: () => {
         console.log("Connection closed");

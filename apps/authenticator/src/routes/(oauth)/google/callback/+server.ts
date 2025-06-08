@@ -1,6 +1,5 @@
 import type { RequestEvent } from "@sveltejs/kit";
 import type { OAuth2Tokens } from "arctic";
-import { logger } from "@/logger";
 import {
   createSession,
   generateSessionToken,
@@ -40,7 +39,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
   try {
     tokens = await google.validateAuthorizationCode(code, codeVerifier);
   } catch (e) {
-    logger.error(e);
+    console.error(e);
 
     // Invalid code or client credentials
     return new Response("Invalid code or client credentials.", {

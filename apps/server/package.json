@@ -6,6 +6,7 @@
   "scripts": {
     "start": "bun run src/index.ts",
     "start:env": "infisical run --env prod -- bun run src/index.ts",
+    "build:sourcemaps": "tsc -p tsconfig.sources.jsonc",
     "dev": "PUBLIC_ENVIRONMENT=development bun run --watch src/index.ts",
     "dev:env": "infisical run --env dev -- pnpm dev",
     "dev:dotenv": "dotenv -e ../../.env -- pnpm dev",
@@ -19,29 +20,25 @@
     "@bashbuddy/eslint-config": "workspace:*",
     "@bashbuddy/prettier-config": "workspace:*",
     "@bashbuddy/tsconfig": "workspace:*",
-    "@bashbuddy/opentelemetry": "workspace:*",
     "@types/bun": "latest",
     "dotenv-cli": "7.4.2",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "typescript": "catalog:",
-    "hono-pino": "catalog:"
+    "typescript": "catalog:"
   },
   "dependencies": {
-    "@hono/trpc-server": "^0.3.2",
+    "@bashbuddy/agent": "workspace:*",
     "@bashbuddy/api": "workspace:*",
     "@bashbuddy/auth": "workspace:*",
     "@bashbuddy/db": "workspace:*",
-    "@bashbuddy/agent": "workspace:*",
     "@bashbuddy/stripe": "workspace:*",
-    "@bashbuddy/logger": "workspace:*",
+    "@hono/trpc-server": "^0.3.2",
     "@ngrok/ngrok": "^1.4.1",
-    "@sentry/bun": "^8.50.0",
+    "@sentry/bun": "catalog:",
     "@t3-oss/env-core": "catalog:",
     "@trpc/server": "catalog:",
     "elysia": "^1.2.23",
-    "@elysiajs/trpc": "^1.1.0",
-    "@elysiajs/cors": "^1.0.0",
+    "p-queue": "^8.1.0",
     "zod": "catalog:"
   },
   "prettier": "@bashbuddy/prettier-config"

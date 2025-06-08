@@ -6,25 +6,43 @@ import { env } from "../env";
 
 export { Ratelimit };
 
+export const createRedisClient = () =>
+  new Redis({
+    url: env.REDIS_URL,
+    token: env.REDIS_TOKEN,
+  });
+
+/**
+ * @deprecated This is from legacy v1
+ */
 const chatMessageSchema = z.object({
   role: z.enum(["user", "model", "system"]),
   content: z.string(),
 });
 
+/**
+ * @deprecated This is from legacy v1
+ */
 type ChatMessage = z.infer<typeof chatMessageSchema>;
 
+/**
+ * @deprecated This is from legacy v1
+ */
 const chatSessionSchema = z.object({
   userId: z.string(),
   messages: z.array(chatMessageSchema),
 });
 
+/**
+ * @deprecated This is from legacy v1
+ */
 type ChatSession = z.infer<typeof chatSessionSchema>;
 
-const redis = new Redis({
-  url: env.REDIS_URL,
-  token: env.REDIS_TOKEN,
-});
+const redis = createRedisClient();
 
+/**
+ * @deprecated This is from legacy v1
+ */
 export async function createChatSession(userId: string) {
   const id = Bun.randomUUIDv7();
 
@@ -39,6 +57,9 @@ export async function createChatSession(userId: string) {
   return id;
 }
 
+/**
+ * @deprecated This is from legacy v1
+ */
 export async function getChatSession(id: string) {
   const session = await redis.hgetall(id);
 
@@ -49,6 +70,9 @@ export async function getChatSession(id: string) {
   return chatSessionSchema.parse(session);
 }
 
+/**
+ * @deprecated This is from legacy v1
+ */
 export async function addMessageToChatSession(
   id: string,
   messages: ChatMessage | ChatMessage[],

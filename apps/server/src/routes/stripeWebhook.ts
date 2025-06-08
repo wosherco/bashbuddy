@@ -1,19 +1,9 @@
 import * as Sentry from "@sentry/bun";
 import { Hono } from "hono";
-import { pinoLogger } from "hono-pino";
 
 import { handleStripeWebhook } from "@bashbuddy/stripe";
 
-import { logger } from "../logger";
-
-const stripeWebhook = new Hono().use(
-  "*",
-  pinoLogger({
-    pino: logger.child({
-      subrouter: "stripeWebhook",
-    }),
-  }),
-);
+const stripeWebhook = new Hono();
 
 stripeWebhook.post("/", async (c) => {
   try {
@@ -25,7 +15,7 @@ stripeWebhook.post("/", async (c) => {
         webhook: "stripe",
       },
     });
-    c.var.logger.error(error, "Request failed");
+    console.error(error, "Request failed");
     return c.status(500);
   }
 });

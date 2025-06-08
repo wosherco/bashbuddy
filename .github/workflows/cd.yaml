@@ -85,3 +85,93 @@ jobs:
               echo "Skipping push for PR (would have pushed $GHCR_IMAGE:$VERSION and $GHCR_IMAGE:$SHA_TAG)"
             fi
           done
+
+  ###### SENTRY SOURCEMAP JOBS
+  upload-sourcemaps-account:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./tooling/github/setup
+
+      - name: Build and upload sourcemaps for account
+        working-directory: apps/account
+        env:
+          CI: 1
+          SENTRY_AUTH_TOKEN: ${{ secrets.INFISICAL_SENTRY__SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.INFISICAL_SENTRY__SENTRY_ORG }}
+          SENTRY_PROJECT: account-sveltekit
+        run: pnpm build
+
+  upload-sourcemaps-landing:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./tooling/github/setup
+
+      - name: Build and upload sourcemaps for landing
+        working-directory: apps/landing
+        env:
+          CI: 1
+          SENTRY_AUTH_TOKEN: ${{ secrets.INFISICAL_SENTRY__SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.INFISICAL_SENTRY__SENTRY_ORG }}
+          SENTRY_PROJECT: landing-sveltekit
+        run: pnpm build
+
+  upload-sourcemaps-authenticator:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./tooling/github/setup
+
+      - name: Build and upload sourcemaps for authenticator
+        working-directory: apps/authenticator
+        env:
+          CI: 1
+          SENTRY_AUTH_TOKEN: ${{ secrets.INFISICAL_SENTRY__SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.INFISICAL_SENTRY__SENTRY_ORG }}
+          SENTRY_PROJECT: authenticator-sveltekit
+        run: pnpm build
+
+  upload-sourcemaps-server:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./tooling/github/setup
+
+      - name: Build sourcemaps for server
+        run: pnpm -F server build:sourcemaps
+
+      - name: Create Sentry release
+        uses: getsentry/action-release@v3
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.INFISICAL_SENTRY__SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.INFISICAL_SENTRY__SENTRY_ORG }}
+          SENTRY_PROJECT: server-bun
+        with:
+          environment: production
+          sourcemaps: "apps/server/dist"
+          ignore_missing: true

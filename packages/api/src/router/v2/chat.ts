@@ -11,7 +11,13 @@ import { createChatToken } from "../../utils/jwt";
 
 export const v2ChatRouter = {
   createChatSession: subscribedProcedure.mutation(async ({ ctx }) => {
-    // TODO: Check for limit (400/month)
+    if (ctx.user.completionsUsedThisMonth >= 400) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message:
+          "You've reached the maximum of 400 completions this month. Contact us to increase this limit.",
+      });
+    }
 
     const [chat] = await db
       .insert(chatTable)
