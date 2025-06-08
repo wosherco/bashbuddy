@@ -58,3 +58,4 @@ dist/
 test.ts
 test.json
 .svelte-kit/
+.temp/

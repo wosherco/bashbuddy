@@ -62,76 +62,75 @@ export class CloudTransporter implements AgentTransportClient {
   onMessage(message: S2C_AgentMessage): void {
     switch (message.type) {
       case "agent-start":
-        useAskChatState.getState().setState("processing");
+        {
+          useAskChatState.getState().setState("processing");
+        }
         break;
       case "agent-stop":
-        useAskChatState.getState().setState("waiting-reply");
+        {
+          useAskChatState.getState().setState("waiting-reply");
+        }
         break;
       case "agent-error":
-        useAskChatState.getState().setState("error");
+        {
+          useAskChatState.getState().setState("error");
+        }
         break;
       case "agent-token":
-        useAskChatState.getState().modifyLastMessage((lastMessage) => {
+        {
+          const lastMessage = useAskChatState.getState().lastMessage();
           if (lastMessage.role !== "assistant") {
             useAskChatState.getState().addMessage({
               role: "assistant",
               content: message.payload.token,
             });
           } else {
-            lastMessage.content += message.payload.token;
-          }
-
-          return lastMessage;
-        });
-        break;
-      case "agent-running-tool":
-        useAskChatState.getState().modifyLastMessage((lastMessage) => {
-          if (message.payload.tool) {
-            useAskChatState.getState().addMessage({
+            useAskChatState.getState().modifyLastMessage({
               role: "assistant",
-              content: "TODO: TOOL CALLED. IS THIS EVEN NEEDED?",
+              content: lastMessage.content + message.payload.token,
             });
           }
-
-          return lastMessage;
-        });
+        }
         break;
       case "agent-run-command-tool":
-        useAskChatState.getState().addMessage({
-          role: "tool-run-command",
-          input: message.payload.input,
-          output: "",
-        });
-        // TODO: Run this somewhere else. The user must select between yes, no, or replying.
-        void this.toolsImplementation
-          .runCommandTool(message.payload.input)
-          .then((result) => {
-            this.sendMessage({
-              type: "agent-run-command-tool-response",
-              payload: {
-                id: message.payload.id,
-                output: result,
-              },
-            });
+        {
+          useAskChatState.getState().addMessage({
+            role: "tool-run-command",
+            input: message.payload.input,
+            output: "",
           });
-
+          // TODO: Run this somewhere else. The user must select between yes, no, or replying.
+          // void this.toolsImplementation
+          //   .runCommandTool(message.payload.input)
+          //   .then((result) => {
+          //     this.sendMessage({
+          //       type: "agent-run-command-tool-response",
+          //       payload: {
+          //         id: message.payload.id,
+          //         output: result,
+          //       },
+          //     });
+          //   });
+        }
         break;
       case "agent-get-line-group-tool":
-        useAskChatState.getState().addMessage({
-          role: "tool-get-line-group",
-          input: message.payload.input,
-        });
-        void this.toolsImplementation
-          .runGetLineGroupTool(message.payload.input)
-          .then((result) => {
-            this.sendMessage({
-              type: "agent-get-line-group-tool-response",
-              payload: {
-                id: message.payload.id,
-                output: result,
-              },
-            });
+        {
+          useAskChatState.getState().addMessage({
+            role: "tool-get-line-group",
+            input: message.payload.input,
           });
+          void this.toolsImplementation
+            .runGetLineGroupTool(message.payload.input)
+            .then((result) => {
+              this.sendMessage({
+                type: "agent-get-line-group-tool-response",
+                payload: {
+                  id: message.payload.id,
+                  output: result,
+                },
+              });
+            });
+        }
         break;
     }
   }

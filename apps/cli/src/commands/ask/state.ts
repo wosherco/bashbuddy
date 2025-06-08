@@ -46,7 +46,8 @@ interface AskChatState {
   ) => void;
   messages: Message[];
   addMessage: (message: Message) => void;
-  modifyLastMessage: (callback: (lastMessage: Message) => Message) => void;
+  lastMessage: () => Message;
+  modifyLastMessage: (message: Message) => void;
 }
 
 export const useAskChatState = create<AskChatState>((set) => ({
@@ -55,12 +56,10 @@ export const useAskChatState = create<AskChatState>((set) => ({
   messages: [],
   addMessage: (message) =>
     set((state) => ({ messages: [...state.messages, message] })),
-  modifyLastMessage: (callback) =>
+  lastMessage: () => getLastMessageFromState(),
+  modifyLastMessage: (message) =>
     set((state) => ({
-      messages: [
-        ...state.messages.slice(0, -1),
-        callback(state.messages[state.messages.length - 1]),
-      ],
+      messages: [...state.messages.slice(0, -1), message],
     })),
 }));
 

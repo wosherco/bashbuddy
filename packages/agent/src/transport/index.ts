@@ -17,5 +17,5 @@ export interface AgentTransportClient {
 
 export interface AgentTransportServer {
   sendMessage: (message: S2C_AgentMessage) => Promise<void> | void;
-  onMessage: (message: C2S_AgentMessage) => void;
+  onMessage: (message: C2S_AgentMessage) => Promise<void> | void;
 }

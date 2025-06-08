@@ -1,3 +1,4 @@
+import { BaseMessageChunk, isAIMessageChunk } from "@langchain/core/messages";
 import { RedisSaver } from "langgraph-db";
 
 import type { LLMTools } from "@bashbuddy/agent/tools";
@@ -16,6 +17,8 @@ interface BasicWebSocket {
   send: (message: string) => void;
 }
 
+const redis = createRedisClient();
+
 export class ClientTransporterHandler implements AgentTransportServer {
   chatDetails: ChatTokenPayload;
   ws: BasicWebSocket;
@@ -32,6 +35,7 @@ export class ClientTransporterHandler implements AgentTransportServer {
   } = {
     processing: false,
   };
+  stopSignal?: AbortController;
 
   constructor(chatDetails: ChatTokenPayload, ws: BasicWebSocket) {
     this.chatDetails = chatDetails;
@@ -72,11 +76,11 @@ export class ClientTransporterHandler implements AgentTransportServer {
     this.ws.send(JSON.stringify(message));
   }
 
-  onMessage(message: C2S_AgentMessage) {
+  async onMessage(message: C2S_AgentMessage) {
     switch (message.type) {
       case "agent-cancel":
         {
-          // TODO: Handle cancel
+          this.stop();
         }
         break;
       case "send-reply":
@@ -87,48 +91,74 @@ export class ClientTransporterHandler implements AgentTransportServer {
           }
 
           this.context.processing = true;
-
-          const redis = createRedisClient();
+          this.sendMessage({
+            type: "agent-start",
+          });
 
           const saver = new RedisSaver({
             client: redis,
             ttl: 15 * 60,
           });
 
-          const llm = langchainVertexAI();
+          const llm = await langchainVertexAI();
           const agent = createAgent(llm, this.tools, saver);
 
-          void agent
-            .stream(
-              {
-                messages: [
-                  {
-                    role: "user",
-                    content: message.payload.reply,
+          const stopSignal = new AbortController();
+          this.stopSignal = stopSignal;
+          try {
+            void agent
+              .stream(
+                {
+                  messages: [
+                    {
+                      role: "user",
+                      content: message.payload.reply,
+                    },
+                  ],
+                },
+                {
+                  configurable: {
+                    thread_id: this.chatDetails.chatId,
                   },
-                ],
-              },
-              {
-                configurable: {
-                  thread_id: "TODO",
+                  streamMode: "messages",
+                  signal: stopSignal.signal,
                 },
-                streamMode: "messages",
-              },
-            )
-            .then(async (stream) => {
-              for await (const chunk of stream) {
-                console.log(chunk);
-              }
-            })
-            .catch((err) => {
-              // TODO: Register error on sentry
-              this.sendMessage({
-                type: "agent-error",
-                payload: {
-                  error: err instanceof Error ? err.message : String(err),
-                },
+              )
+              .then(async (stream) => {
+                for await (const [message, _metadata] of stream) {
+                  const aiMessage = message as BaseMessageChunk;
+                  if (isAIMessageChunk(aiMessage)) {
+                    this.sendMessage({
+                      type: "agent-token",
+                      payload: {
+                        token:
+                          typeof aiMessage.content === "string"
+                            ? aiMessage.content
+                            : JSON.stringify(aiMessage.content),
+                      },
+                    });
+                  }
+                }
+              })
+              .then(() => {
+                this.context.processing = false;
+                this.sendMessage({
+                  type: "agent-stop",
+                });
+              })
+              .catch((err) => {
+                // TODO: Register error on sentry
+                console.error(err);
+                this.sendMessage({
+                  type: "agent-error",
+                  payload: {
+                    error: err instanceof Error ? err.message : String(err),
+                  },
+                });
               });
-            });
+          } catch (err) {
+            console.error(err);
+          }
         }
         break;
       case "agent-run-command-tool-response":
@@ -151,6 +181,12 @@ export class ClientTransporterHandler implements AgentTransportServer {
           }
         }
         break;
+    }
+  }
+
+  stop() {
+    if (this.stopSignal) {
+      this.stopSignal.abort();
     }
   }
 }

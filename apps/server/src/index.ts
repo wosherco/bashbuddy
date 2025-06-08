@@ -108,23 +108,33 @@ app.get(
     return {
       onOpen(evt, ws) {
         transporter = new ClientTransporterHandler(chatDetails, ws);
-
-        transporter.sendMessage({
-          type: "agent-start",
-        });
       },
       async onMessage(event) {
         await messageQueue.add(async () => {
-          const parsedMessage = await C2S_AgentMessageSchema.safeParseAsync(
-            event.data,
-          );
+          if (typeof event.data !== "string") {
+            return;
+          }
 
-          if (parsedMessage.success) {
-            transporter.onMessage(parsedMessage.data);
+          try {
+            const parsedMessage = await C2S_AgentMessageSchema.safeParseAsync(
+              JSON.parse(event.data),
+            );
+
+            if (parsedMessage.success) {
+              console.log("onMessage", parsedMessage.data);
+              await transporter.onMessage(parsedMessage.data);
+            }
+          } catch (e) {
+            console.error("Error parsing message", e);
           }
         });
       },
+      onError: (event) => {
+        console.error("Error", event);
+        transporter?.stop();
+      },
       onClose: () => {
+        transporter?.stop();
         console.log("Connection closed");
       },
     };

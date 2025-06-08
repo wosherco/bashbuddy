@@ -33,13 +33,6 @@ export const S2C_AgentTokenMessage = z.object({
   }),
 });
 
-export const S2C_AgentRunningToolMessage = z.object({
-  type: z.literal("agent-running-tool"),
-  payload: z.object({
-    tool: z.string(),
-  }),
-});
-
 export const C2S_SendReplyMessage = z.object({
   type: z.literal("send-reply"),
   payload: z.object({
@@ -86,7 +79,6 @@ export const S2C_AgentMessageSchema = z.discriminatedUnion("type", [
   S2C_AgentStopMessage,
   S2C_AgentErrorMessage,
   S2C_AgentTokenMessage,
-  S2C_AgentRunningToolMessage,
 
   // Tools
   S2C_AgentRunCommandToolMessage,
