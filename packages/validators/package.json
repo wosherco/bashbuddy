@@ -7,6 +7,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./src/index.ts"
+    },
+    "./agent": {
+      "types": "./dist/agent/index.d.ts",
+      "default": "./src/agent/index.ts"
     }
   },
   "license": "MIT",
