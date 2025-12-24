@@ -19,6 +19,7 @@
     Shield,
     Sparkles,
     Terminal,
+    User,
     WifiOff,
   } from "lucide-svelte";
 
@@ -414,7 +415,7 @@
     </div>
 
     <!-- Local Highlight Cards -->
-    <div class="flex flex-col lg:grid grid-cols-2 justify-center gap-6 mb-10">
+    <div class="flex flex-col lg:grid grid-cols-3 justify-center gap-6 mb-10">
       <!-- Offline card -->
       <LandingCard
         icon={WifiOff}
@@ -422,19 +423,40 @@
         description="Work completely offline. All data stays on your device, making BashBuddy perfect for secure environments or when you're off the grid."
       />
 
+      <!-- Hardware Accelerated card -->
+      <LandingCard
+        icon={Cpu}
+        className="col-span-2"
+        title="Hardware Accelerated"
+        description="BashBuddy leverages your GPU with Metal (macOS), CUDA (NVIDIA), and Vulkan support to deliver the fastest possible local inference performance. (powered by <a href='https://github.com/withcatai/node-llama-cpp' class='text-primary hover:underline'>node-llama-cpp</a>)"
+        rawHtml
+        tags={[{ label: "Metal" }, { label: "CUDA" }, { label: "Vulkan" }]}
+      />
+
       <!-- Data Privacy card -->
       <LandingCard
         icon={Shield}
+        className="col-span-2"
         title="Complete Data Privacy"
-        description="Your commands, context, and data never leave your device. Perfect for handling sensitive information."
+        description="Your commands, context, and data never leave your device. Perfect for handling sensitive information or working in regulated environments."
+      />
+
+      <!-- No account required card -->
+      <LandingCard
+        icon={User}
+        title="No Account Required"
+        description="No need to create an account or sign in. Just install and start typing."
       />
     </div>
 
     <!-- Local CTA -->
     <div class="mt-16 text-center">
-      <Button variant="outline" class="gap-2 px-8 py-6 text-lg" href="/local">
+      <Button
+        class="gap-2 px-8 py-6 text-lg"
+        href={`${SITE_URLS.DOCS_URL}/install`}
+      >
         <Cpu class="h-5 w-5" />
-        Learn More About Local Installation
+        Install BashBuddy Locally
         <ChevronRight class="h-5 w-5" />
       </Button>
     </div>

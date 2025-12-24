@@ -67,15 +67,16 @@
   onMount(() => {
     isBrowserEnv = true;
 
-    // Check if banner was previously closed
-    if (typeof localStorage !== "undefined") {
-      const isClosed = localStorage.getItem(BANNER_STORAGE_KEY) === "true";
-      if (!isClosed) {
-        isBannerVisible = true;
-      }
-    } else {
-      isBannerVisible = true;
-    }
+    // Banner is disabled
+    // To re-enable, uncomment the code below:
+    // if (typeof localStorage !== "undefined") {
+    //   const isClosed = localStorage.getItem(BANNER_STORAGE_KEY) === "true";
+    //   if (!isClosed) {
+    //     isBannerVisible = true;
+    //   }
+    // } else {
+    //   isBannerVisible = true;
+    // }
   });
 
   function toggleMenu() {
@@ -160,9 +161,6 @@
         <div class="flex items-center justify-center flex-1 gap-4">
           <div class="flex gap-2 items-center">
             <Button href="/#how-it-works" variant="ghost">How it works?</Button>
-            <Button href="/local" variant="ghost" class="text-primary">
-              Local
-            </Button>
             <Button href="/blog" variant="ghost">Blog</Button>
 
             <div class="h-4 w-px bg-border" role="separator"></div>
@@ -220,13 +218,6 @@
                 onclick={closeMenu}
               >
                 How it works?
-              </a>
-              <a
-                href="/local"
-                class="text-sm font-medium transition-colors hover:text-primary py-3 text-primary"
-                onclick={closeMenu}
-              >
-                Local
               </a>
               <a
                 href="/blog"
