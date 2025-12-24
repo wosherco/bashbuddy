@@ -2,15 +2,14 @@
 
 <h2>1. Acceptance of Terms</h2>
 <p>
-  By accessing or using BashBuddy Cloud, you agree to be bound by these Terms of
+  By accessing or using BashBuddy, you agree to be bound by these Terms of
   Service. If you do not agree to these terms, do not use our service.
 </p>
 
 <h2>2. Service Description</h2>
 <p>
-  BashBuddy Cloud is a cloud-based service that provides enhanced command-line
-  interface (CLI) functionality through server-side inference for the BashBuddy
-  CLI tool.
+  BashBuddy is a command-line interface (CLI) tool that provides AI-powered
+  shell command generation and assistance. It runs locally on your device.
 </p>
 
 <h2>3. User Account</h2>
@@ -25,7 +24,7 @@
 </p>
 
 <h2>4. User Conduct</h2>
-<p>You agree not to use BashBuddy Cloud to:</p>
+<p>You agree not to use BashBuddy to:</p>
 <ul>
   <li>Violate any local, state, national, or international law</li>
   <li>Generate harmful, malicious, or illegal bash commands</li>
@@ -35,7 +34,7 @@
 
 <h2>5. Intellectual Property</h2>
 <p>
-  5.1 BashBuddy Cloud and its original content, features, and functionality are
+  5.1 BashBuddy and its original content, features, and functionality are
   owned by BashBuddy and are protected by international copyright, trademark,
   patent, trade secret, and other intellectual property laws.
 </p>
@@ -47,7 +46,7 @@
 
 <h2>6. Limitation of Liability</h2>
 <p>
-  6.1 BashBuddy Cloud is provided "as is" and "as available" without any
+  6.1 BashBuddy is provided "as is" and "as available" without any
   warranties of any kind.
 </p>
 <p>

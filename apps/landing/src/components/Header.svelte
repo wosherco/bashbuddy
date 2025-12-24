@@ -160,9 +160,6 @@
         <div class="flex items-center justify-center flex-1 gap-4">
           <div class="flex gap-2 items-center">
             <Button href="/#how-it-works" variant="ghost">How it works?</Button>
-            <Button href="/cloud" variant="ghost" class="text-orange-600">
-              Cloud
-            </Button>
             <Button href="/local" variant="ghost" class="text-primary">
               Local
             </Button>
@@ -179,10 +176,6 @@
         <div class="flex items-center gap-2">
           <Button href={`${SITE_URLS.DOCS_URL}/install`}
             >Install BashBuddy</Button
-          >
-          <Button
-            href={SITE_URLS.ACCOUNT_URL}
-            class="bg-orange-600 hover:bg-orange-700">Go to account</Button
           >
         </div>
       </div>
@@ -229,13 +222,6 @@
                 How it works?
               </a>
               <a
-                href="/cloud"
-                class="text-sm font-medium transition-colors hover:text-orange-600 py-3 text-orange-600"
-                onclick={closeMenu}
-              >
-                Cloud
-              </a>
-              <a
                 href="/local"
                 class="text-sm font-medium transition-colors hover:text-primary py-3 text-primary"
                 onclick={closeMenu}
@@ -266,13 +252,6 @@
                 onclick={closeMenu}
               >
                 Install BashBuddy
-              </a>
-              <a
-                href={SITE_URLS.ACCOUNT_URL}
-                class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-orange-600 hover:bg-orange-700 text-white h-10 px-4 py-2"
-                onclick={closeMenu}
-              >
-                Go to account
               </a>
             </div>
           </div>
