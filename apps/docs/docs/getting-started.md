@@ -13,7 +13,7 @@ BashBuddy is an AI-powered terminal assistant that helps you write commands with
 ## 🚀 Quick Start
 
 1. Head over to the [install page](/install) and follow the instructions to install the CLI.
-2. If your system is not fast enough to run the AI model locally, try using [BashBuddy Cloud](/cloud)! (it's just $2, and completely private)
+2. Set up a local model by running `bashbuddy local`.
 3. Start being more productive with BashBuddy!
 
 ## 📚 Community
