@@ -86,10 +86,6 @@ const config: Config = {
               label: "Install",
               to: "/install",
             },
-            {
-              label: "BashBuddy Cloud",
-              to: "/cloud",
-            },
           ],
         },
         {

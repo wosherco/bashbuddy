@@ -9,23 +9,18 @@
     ChevronRight,
     Circle,
     CircleDot,
-    Cloud,
     Copy,
     Cpu,
-    DollarSign,
-    EyeOff,
     Github,
     Globe,
     Info,
     Lock,
     Rocket,
-    Settings,
     Shield,
     Sparkles,
     Terminal,
     User,
     WifiOff,
-    Zap,
   } from "lucide-svelte";
 
   import { SITE_URLS } from "@bashbuddy/consts";
@@ -409,95 +404,6 @@
   </div>
 </section>
 
-<!-- BashBuddy Cloud Section -->
-<section class="py-24 bg-gradient-to-b from-zinc-950 to-zinc-900" id="cloud">
-  <div class="container mx-auto px-4">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold mb-4">
-        <span
-          class="bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-red-500"
-          >BashBuddy Cloud</span
-        >
-      </h2>
-      <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
-        Lightning-fast command generation with our cloud service, <br />just for
-        <b>$2/month</b>.
-      </p>
-    </div>
-
-    <!-- Performance Comparison -->
-    <div class="max-w-4xl mx-auto mb-10">
-      <h3 class="text-2xl font-semibold text-center mb-8">
-        Performance Comparison
-      </h3>
-
-      <div class="space-y-6">
-        <!-- Cloud Performance Bar -->
-        <div
-          class="relative h-16 bg-zinc-800/50 rounded-xl overflow-hidden backdrop-blur-md border border-zinc-700/50"
-        >
-          <div
-            class="absolute top-0 left-0 h-full w-[10%] bg-gradient-to-r from-orange-600/70 to-red-600/70 flex items-center pl-4"
-          >
-            <div class="flex items-center w-full">
-              <Cloud class="h-5 w-5 mr-2 text-white" />
-              <span class="font-medium text-white">Cloud</span>
-              <span class="ml-8 font-mono text-white">200ms</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Local Performance Bar -->
-        <div
-          class="relative h-16 bg-zinc-800/50 rounded-xl overflow-hidden backdrop-blur-md border border-zinc-700/50"
-        >
-          <div
-            class="absolute top-0 left-0 h-full w-3/4 bg-gradient-to-r from-zinc-700/50 to-zinc-600/50 flex items-center pl-4"
-          >
-            <div class="flex items-center w-full">
-              <Cpu class="h-5 w-5 mr-2 text-zinc-300" />
-              <span class="font-medium">Local (MacBook M4 Pro)</span>
-              <span class="ml-auto mr-4 font-mono text-zinc-300">6 seconds</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Cloud Highlight Cards -->
-    <div class="flex flex-col lg:grid grid-cols-2 justify-center gap-6 mb-10">
-      <!-- Affordable card -->
-      <LandingCard
-        icon={DollarSign}
-        title="Really Affordable"
-        description="Just $2 per month for instant command generations. No hidden fees."
-        variant="cloud"
-      />
-
-      <!-- Instant Generation card -->
-      <LandingCard
-        icon={Zap}
-        title="Instant Generation"
-        description="Get command suggestions in milliseconds. BashBuddy Cloud's optimized infrastructure ensures you never wait."
-        variant="cloud"
-      />
-    </div>
-
-    <!-- Cloud CTA -->
-    <div class="mt-16 text-center">
-      <Button
-        class="gap-2 px-8 py-6 text-lg bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 border-none"
-        href="/cloud"
-      >
-        <Zap class="h-5 w-5" />
-        Learn More About BashBuddy Cloud
-        <ChevronRight class="h-5 w-5" />
-      </Button>
-    </div>
-  </div>
-</section>
-
 <!-- BashBuddy Local Section -->
 <section class="py-24 bg-zinc-900" id="local">
   <div class="container mx-auto px-4">
@@ -509,7 +415,7 @@
     </div>
 
     <!-- Local Highlight Cards -->
-    <div class="flex flex-col lg:grid grid-cols-2 justify-center gap-6 mb-10">
+    <div class="flex flex-col lg:grid grid-cols-3 justify-center gap-6 mb-10">
       <!-- Offline card -->
       <LandingCard
         icon={WifiOff}
@@ -517,19 +423,40 @@
         description="Work completely offline. All data stays on your device, making BashBuddy perfect for secure environments or when you're off the grid."
       />
 
+      <!-- Hardware Accelerated card -->
+      <LandingCard
+        icon={Cpu}
+        className="col-span-2"
+        title="Hardware Accelerated"
+        description="BashBuddy leverages your GPU with Metal (macOS), CUDA (NVIDIA), and Vulkan support to deliver the fastest possible local inference performance. (powered by <a href='https://github.com/withcatai/node-llama-cpp' class='text-primary hover:underline'>node-llama-cpp</a>)"
+        rawHtml
+        tags={[{ label: "Metal" }, { label: "CUDA" }, { label: "Vulkan" }]}
+      />
+
       <!-- Data Privacy card -->
       <LandingCard
         icon={Shield}
+        className="col-span-2"
         title="Complete Data Privacy"
-        description="Your commands, context, and data never leave your device. Perfect for handling sensitive information."
+        description="Your commands, context, and data never leave your device. Perfect for handling sensitive information or working in regulated environments."
+      />
+
+      <!-- No account required card -->
+      <LandingCard
+        icon={User}
+        title="No Account Required"
+        description="No need to create an account or sign in. Just install and start typing."
       />
     </div>
 
     <!-- Local CTA -->
     <div class="mt-16 text-center">
-      <Button variant="outline" class="gap-2 px-8 py-6 text-lg" href="/local">
+      <Button
+        class="gap-2 px-8 py-6 text-lg"
+        href={`${SITE_URLS.DOCS_URL}/install`}
+      >
         <Cpu class="h-5 w-5" />
-        Learn More About Local Installation
+        Install BashBuddy Locally
         <ChevronRight class="h-5 w-5" />
       </Button>
     </div>
@@ -599,20 +526,6 @@
           <Terminal class="h-6 w-6" />
           Install BashBuddy
           <ChevronRight class="h-6 w-6" />
-        </Button>
-
-        <Button
-          variant="outline"
-          class="gap-2 px-10 py-8 text-xl bg-gradient-to-r from-orange-500/10 to-red-500/10 hover:from-orange-500/20 hover:to-red-500/20 border-orange-500/30"
-          href={SITE_URLS.ACCOUNT_URL}
-        >
-          <Zap class="h-6 w-6 text-orange-500" />
-          <span
-            class="bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-red-500"
-          >
-            Try BashBuddy Cloud
-          </span>
-          <ChevronRight class="h-6 w-6 text-orange-500" />
         </Button>
       </div>
 

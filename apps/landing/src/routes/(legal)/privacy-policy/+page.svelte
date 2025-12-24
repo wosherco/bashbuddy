@@ -18,7 +18,7 @@
 </p>
 <p>
   2.2 Service Improvement: We may use anonymized, aggregated data to improve
-  BashBuddy Cloud's functionality.
+  BashBuddy's functionality.
 </p>
 <p>
   2.3 Temporary Chat Storage: Chat information is used to provide context-aware
@@ -72,7 +72,7 @@
 <h2>10. International Users</h2>
 <p>10.1 Our service is primarily hosted in the United States.</p>
 <p>
-  10.2 By using BashBuddy Cloud, you consent to the data transfer and processing
+  10.2 By using BashBuddy, you consent to the data transfer and processing
   in the United States.
 </p>
 
